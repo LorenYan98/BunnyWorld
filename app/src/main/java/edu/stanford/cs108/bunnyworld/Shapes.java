@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 
 public class Shapes {
     private String ShapeName;
@@ -35,7 +36,31 @@ public class Shapes {
         this.bottom = bottom;
     }
 
+    // constructor taking care of text only
+    public Shapes(String shapeName, String text, int fontSize, boolean movable,
+                  boolean visible, float left, float right, float top, float bottom) {
+        ShapeName = shapeName;
+        this.text = text;
+        this.fontSize = fontSize;
+        this.movable = movable;
+        this.visible = visible;
+        this.left = left;
+        this.right = right;
+        this.top = top;
+        this.bottom = bottom;
+    }
 
+    // constructor taking care of image only
+    public Shapes(String shapeName, String imageName, Bitmap image, boolean movable,
+                  boolean visible, float left, float right, float top, float bottom) {
+        ShapeName = shapeName;
+        this.movable = movable;
+        this.visible = visible;
+        this.left = left;
+        this.right = right;
+        this.top = top;
+        this.bottom = bottom;
+    }
 
     public float getLeft() {
         return left;
@@ -93,24 +118,26 @@ public class Shapes {
         this.visible = visible;
     }
 
+
     /**
      * draws the object. exams the internal types of shape(rect vs. image vs. text) and
      * draws accordingly
      * @param canvas: need to pass in the canvas
      */
-    public void draw(Canvas canvas) {
+/*    public void draw(Canvas canvas) {
         // first check visible, if visible do not draw and returns
         if (visible) { return; }
 
-        boolean drawRetangle = false;
+
 
         // If a shape has both an image and text, the text takes precedence --
         // the text draws and the image does not
         if (!text.isEmpty()) {
+
             // draws the text
+            canvas.drawText(text, left, top, textPaint);
 
         } else if (!imageName.isEmpty()) {
-
             // if mageName is not empty, try to draw the corresponding image, however if image cannot
             // be loaded, do not draw image, need to draw grey rectangle instead, will change
             // drawRectangle boolean to true
@@ -121,5 +148,6 @@ public class Shapes {
             canvas.drawRect(left, top, right, bottom, new Paint(Color.GRAY));
         }
 
-    }
+    }*/
+
 }
