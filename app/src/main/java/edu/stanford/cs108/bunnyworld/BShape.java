@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 
-public class Shapes {
+public class BShape {
     private String ShapeName;
     private String text;
     private int fontSize;
@@ -21,7 +21,7 @@ public class Shapes {
     private float top;
     private float bottom;
 
-    public Shapes(String shapeName, String text, int fontSize, String imageName, Bitmap image, boolean movable,
+    public BShape(String shapeName, String text, int fontSize, String imageName, Bitmap image, boolean movable,
                   boolean visible, float left, float right, float top, float bottom) {
         ShapeName = shapeName;
         this.text = text;
@@ -37,7 +37,7 @@ public class Shapes {
     }
 
     // constructor taking care of text only
-    public Shapes(String shapeName, String text, int fontSize, boolean movable,
+    public BShape(String shapeName, String text, int fontSize, boolean movable,
                   boolean visible, float left, float right, float top, float bottom) {
         ShapeName = shapeName;
         this.text = text;
@@ -51,7 +51,7 @@ public class Shapes {
     }
 
     // constructor taking care of image only
-    public Shapes(String shapeName, String imageName, Bitmap image, boolean movable,
+    public BShape(String shapeName, String imageName, Bitmap image, boolean movable,
                   boolean visible, float left, float right, float top, float bottom) {
         ShapeName = shapeName;
         this.movable = movable;

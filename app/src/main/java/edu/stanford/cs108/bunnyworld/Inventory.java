@@ -2,9 +2,7 @@ package edu.stanford.cs108.bunnyworld;
 
 import android.graphics.Canvas;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Inventory {
@@ -12,7 +10,7 @@ public class Inventory {
     private float leftTopY;
     private float rightBottomX;
     private float rightBottomY;
-    public static Map<String, Shapes> shapeMap;
+    public static Map<String, BShape> shapeMap;
 
 
 
@@ -31,12 +29,12 @@ public class Inventory {
         return y <= leftTopY;
     }
 
-    public void addShape(Shapes shape) {
+    public void addShape(BShape shape) {
         shapeMap.put(shape.getShapeName(), shape);
     }
 
-    public Shapes selectShape(float curX, float curY) {
-        for (Shapes curShape : shapeMap.values()) {
+    public BShape selectShape(float curX, float curY) {
+        for (BShape curShape : shapeMap.values()) {
             if (curShape.getBottom() <= curY && curShape.getTop() >= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
                 return curShape;
             }
@@ -45,7 +43,7 @@ public class Inventory {
     }
 
     public static void drawInventory(Canvas canvas) {
-        for (Shapes curShape : shapeMap.values()) {
+        for (BShape curShape : shapeMap.values()) {
             curShape.draw(canvas);
         }
     }

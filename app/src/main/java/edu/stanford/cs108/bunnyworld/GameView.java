@@ -27,12 +27,12 @@ public class GameView extends View {
     int viewWidth, viewHeight;
     boolean shapeIsSelected;
     boolean shapeIsDragging;
-    Shapes selectedShape;
-    Pages currentPage;
+    BShape selectedShape;
+    BPage currentPage;
     Inventory inventory;
     Map<String, MediaPlayer> soundMap;
     Map<String, Bitmap> bitmapMap;
-    Map<String, Pages> pageMap;
+    Map<String, BPage> pageMap;
 
 
 
@@ -55,14 +55,14 @@ public class GameView extends View {
     }
 
     private void loadPages() {
-        Pages firstPage = new Pages(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        firstPage.addShape(new Shapes("String shapeName", "", "carrot", bitmapMap.get("carrot"), true, true, 0.0f, 30.0f, 0.0f, 30.0f));
-        firstPage.addShape(new Shapes("HAHAHA", "", "duck", bitmapMap.get("duck"), true, true, 0.0f, 40.0f, 50.0f, 80.0f));
+        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        firstPage.addShape(new BShape("String shapeName", "", "carrot", bitmapMap.get("carrot"), true, true, 0.0f, 30.0f, 0.0f, 30.0f));
+        firstPage.addShape(new BShape("HAHAHA", "", "duck", bitmapMap.get("duck"), true, true, 0.0f, 40.0f, 50.0f, 80.0f));
         currentPage = firstPage;
         pageMap.put("page1", firstPage);
     }
 
-    private void loadPages(List<Pages> pages) {}
+    private void loadPages(List<BPage> pages) {}
 
     private void loadBitmap() {
         bitmapMap.put("carrot", ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot)).getBitmap());

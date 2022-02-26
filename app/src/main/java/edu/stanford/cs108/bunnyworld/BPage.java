@@ -2,12 +2,10 @@ package edu.stanford.cs108.bunnyworld;
 
 import android.graphics.Canvas;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Pages {
+public class BPage {
     public static int pageCount = 1;
     private final String pageName;
 //    private final int boundary;
@@ -15,9 +13,9 @@ public class Pages {
     private float leftTopY;
     private float rightBottomX;
     private float rightBottomY;
-    private Map<String, Shapes> shapeMap;
+    private Map<String, BShape> shapeMap;
 
-    public Pages(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
+    public BPage(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
 //        this.boundary = boundary;
         this.leftTopX = leftTopX;
         this.leftTopY = leftTopY;
@@ -37,12 +35,12 @@ public class Pages {
         return y <= rightBottomY;
     }
 
-    public void addShape(Shapes shape) {
+    public void addShape(BShape shape) {
         shapeMap.put(shape.getShapeName(), shape);
     }
 
-    public Shapes selectShape(float curX, float curY) {
-        for (Shapes curShape : shapeMap.values()) {
+    public BShape selectShape(float curX, float curY) {
+        for (BShape curShape : shapeMap.values()) {
             if (curShape.getBottom() <= curY && curShape.getTop() >= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
                 return curShape;
             }
@@ -51,12 +49,12 @@ public class Pages {
     }
 
     public void drawPage(Canvas canvas) {
-        for (Shapes curShape : shapeMap.values()) {
+        for (BShape curShape : shapeMap.values()) {
             curShape.draw(canvas);
         }
     }
 
-    public Map<String, Shapes> getShapeMap() {
+    public Map<String, BShape> getShapeMap() {
         return shapeMap;
     }
 
