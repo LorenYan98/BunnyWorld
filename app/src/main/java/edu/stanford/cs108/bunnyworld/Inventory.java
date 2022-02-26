@@ -3,24 +3,27 @@ package edu.stanford.cs108.bunnyworld;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Inventory {
     private float leftTopX;
     private float leftTopY;
     private float rightBottomX;
     private float rightBottomY;
-    public static List<Shapes> shapeList;
+    public static Map<String, Shapes> shapeMap;
 
 
 
     public Inventory(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
-        this.shapeList = new ArrayList<>();
 //        this.boundary = boundary;
         this.leftTopX = leftTopX;
         this.leftTopY = leftTopY;
         this.rightBottomX = rightBottomX;
         this.rightBottomY = rightBottomY;
+        this.shapeMap = new HashMap<>();
+
     }
 
 
@@ -29,21 +32,21 @@ public class Inventory {
     }
 
     public void addShape(Shapes shape) {
-        shapeList.add(shape);
+        shapeMap.put(shape.getShapeName(), shape);
     }
 
     public Shapes selectShape(float curX, float curY) {
-        for (int i = 0; i < shapeList.size(); i++) {
-            if (shapeList.get(i).getBottom() <= curY && shapeList.get(i).getTop() >= curY && shapeList.get(i).getLeft() <= curX && shapeList.get(i).getRight() >= curX) {
-                return shapeList.get(i);
+        for (Shapes curShape : shapeMap.values()) {
+            if (curShape.getBottom() <= curY && curShape.getTop() >= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
+                return curShape;
             }
         }
         return null;
     }
 
     public static void drawInventory(Canvas canvas) {
-        for (int i = 0; i < shapeList.size(); i++) {
-            shapeList.get(i).draw(canvas);
+        for (Shapes curShape : shapeMap.values()) {
+            curShape.draw(canvas);
         }
     }
 
