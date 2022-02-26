@@ -8,24 +8,23 @@ import android.graphics.Paint;
 public class BShape {
 
 
-    private int fontSize;
     private String ShapeName = null;
     private String text = null;
     private String imageName = null;
 
     private boolean movable = false;
     private boolean visible = false;
+    private boolean selected = false;
 
     private float left;
     private float right;
     private float top;
     private float bottom;
 
-    public BShape(String shapeName, String text, int fontSize, String imageName, boolean movable,
-                  boolean visible, float left, float right, float top, float bottom) {
+    public BShape(String shapeName, String text, String imageName, boolean movable,
+                  boolean visible, float left, float top, float right, float bottom) {
         this.ShapeName = shapeName;
         this.text = text;
-        this.fontSize = fontSize;
         this.imageName = imageName;
         this.movable = movable;
         this.visible = visible;
@@ -36,11 +35,10 @@ public class BShape {
     }
 
     // constructor taking care of text only
-    public BShape(String shapeName, String text, int fontSize, boolean movable,
-                  boolean visible, float left, float right, float top, float bottom) {
+    public BShape(String shapeName, String text, boolean movable,
+                  boolean visible, float left, float top, float right, float bottom) {
         this.ShapeName = shapeName;
         this.text = text;
-        this.fontSize = fontSize;
         this.movable = movable;
         this.visible = visible;
         this.left = left;
@@ -49,16 +47,39 @@ public class BShape {
         this.bottom = bottom;
     }
 
-    // constructor taking care of image only
-    public BShape(String shapeName, String imageName, Bitmap image, boolean movable,
-                  boolean visible, float left, float right, float top, float bottom) {
-        ShapeName = shapeName;
-        this.movable = movable;
-        this.visible = visible;
-        this.left = left;
-        this.right = right;
-        this.top = top;
-        this.bottom = bottom;
+
+    public void move(float xDistance, float yDistance){
+        this.left = left + xDistance;
+        this.right = right + xDistance;
+        this.top = top + yDistance;
+        this.bottom = bottom + yDistance;
+    }
+
+
+    /**
+     * draws the object. exams the internal types of shape(rect vs. image vs. text) and
+     * draws accordingly
+     * @param canvas: need to pass in the canvas
+     */
+    public void draw(Canvas canvas) {
+        // first check visible, if visible do not draw and returns
+        if (!getVisible()) { return; }
+
+        // If a shape has both an image and text, the text takes precedence --
+        // the text draws and the image does not
+        if (text.length() != 0) {
+
+            // draws the text
+            canvas.drawText(text, left, top, null);
+
+        } else if (!imageName.isEmpty()) {
+            Bitmap curImg = GameView.bitmapMap.get(imageName);
+            Bitmap scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+            canvas.drawBitmap(scaledImg, left, top, null);
+        }else{
+            canvas.drawRect(left, top, right, bottom, new Paint(Color.GRAY));
+        }
+
     }
 
     public float getLeft() {
@@ -77,10 +98,10 @@ public class BShape {
         return bottom;
     }
     public float getWidth(){
-        return right - left;
+        return Math.abs(right - left);
     }
     public float getHeight(){
-        return top - bottom;
+        return Math.abs(top - bottom);
     }
 
     public String getShapeName() {
@@ -91,19 +112,21 @@ public class BShape {
         return text;
     }
 
-    // maybe unnecessary as handout didn't mention the needs of accessing the font size
-    public int getFontSize() { return fontSize; }
-
     public String getImageName() {
         return imageName;
+    }
+
+    public boolean getMovable() {
+        return movable;
+    }
+
+    public boolean getVisible() {
+        return visible;
     }
 
     public void setText(String text) {
         this.text = text;
     }
-
-    // maybe unnecessary as handout didn't mention the needs of changing the font size
-    public void setFontSize(int fontSize) { this.fontSize = fontSize; }
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
@@ -115,38 +138,6 @@ public class BShape {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-
-    /**
-     * draws the object. exams the internal types of shape(rect vs. image vs. text) and
-     * draws accordingly
-     * @param canvas: need to pass in the canvas
-     */
-    public void draw(Canvas canvas) {
-        // first check visible, if visible do not draw and returns
-        if (visible) { return; }
-
-
-
-        // If a shape has both an image and text, the text takes precedence --
-        // the text draws and the image does not
-        if (!text.isEmpty()) {
-
-            // draws the text
-            canvas.drawText(text, left, top, textPaint);
-
-        } else if (!imageName.isEmpty()) {
-            // if mageName is not empty, try to draw the corresponding image, however if image cannot
-            // be loaded, do not draw image, need to draw grey rectangle instead, will change
-            // drawRectangle boolean to true
-
-        }
-
-        if (drawRetangle) {
-            canvas.drawRect(left, top, right, bottom, new Paint(Color.GRAY));
-        }
-
     }
 
 }
