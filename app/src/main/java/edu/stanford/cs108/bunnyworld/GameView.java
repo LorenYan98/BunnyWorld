@@ -88,7 +88,7 @@ public class GameView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         currentPage.drawPage(canvas);
-        Inventory.draw(canvas);
+        Inventory.drawInventory(canvas);
         if (selectedShape != null) selectedShape.draw(canvas);
     }
 
