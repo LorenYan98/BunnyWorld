@@ -8,24 +8,24 @@ import java.util.List;
 public class Inventory {
     private float leftTopX;
     private float leftTopY;
-    private float pageWidth;
-    private float pageHeight;
+    private float rightBottomX;
+    private float rightBottomY;
     public static List<Shapes> shapeList;
 
 
 
-    public Inventory(float leftTopX, float leftTopY, float viewWidth, float viewHeight) {
+    public Inventory(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
         this.shapeList = new ArrayList<>();
 //        this.boundary = boundary;
         this.leftTopX = leftTopX;
         this.leftTopY = leftTopY;
-        this.pageWidth = viewWidth;
-        this.pageHeight = viewHeight;
+        this.rightBottomX = rightBottomX;
+        this.rightBottomY = rightBottomY;
     }
 
 
     public boolean isWithinInventory(float x, float y) {
-        return y <= leftTopY + pageHeight;
+        return y <= leftTopY;
     }
 
     public void addShape(Shapes shape) {

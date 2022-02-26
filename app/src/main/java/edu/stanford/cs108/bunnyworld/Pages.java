@@ -11,8 +11,8 @@ public class Pages {
 //    private final int boundary;
     private float leftTopX;
     private float leftTopY;
-    private float pageWidth;
-    private float pageHeight;
+    private float rightBottomX;
+    private float rightBottomY;
     private List<Shapes> shapeList;
 
 
@@ -22,13 +22,13 @@ public class Pages {
 //        this.pageName = generateNextPageName();
 //    }
 
-    public Pages(float leftTopX, float leftTopY, float viewWidth, float viewHeight) {
+    public Pages(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
         this.shapeList = new ArrayList<>();
 //        this.boundary = boundary;
         this.leftTopX = leftTopX;
         this.leftTopY = leftTopY;
-        this.pageWidth = viewWidth;
-        this.pageHeight = viewHeight;
+        this.rightBottomX = rightBottomX;
+        this.rightBottomY = rightBottomY;
         this.pageName = generateNextPageName();
     }
 
@@ -39,7 +39,7 @@ public class Pages {
     }
 
     public boolean isWithinPage(float x, float y) {
-        return y <= leftTopY + pageHeight;
+        return y <= rightBottomY;
     }
 
     public void addShape(Shapes shape) {
