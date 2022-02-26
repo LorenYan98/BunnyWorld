@@ -4,14 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 
 public class BShape {
-    private String ShapeName;
-    private String text;
+
+
     private int fontSize;
-    private String imageName;
-    private Bitmap image;
+    private String ShapeName = null;
+    private String text = null;
+    private String imageName = null;
 
     private boolean movable = false;
     private boolean visible = false;
@@ -21,13 +21,12 @@ public class BShape {
     private float top;
     private float bottom;
 
-    public BShape(String shapeName, String text, int fontSize, String imageName, Bitmap image, boolean movable,
+    public BShape(String shapeName, String text, int fontSize, String imageName, boolean movable,
                   boolean visible, float left, float right, float top, float bottom) {
-        ShapeName = shapeName;
+        this.ShapeName = shapeName;
         this.text = text;
         this.fontSize = fontSize;
         this.imageName = imageName;
-        this.image = image;
         this.movable = movable;
         this.visible = visible;
         this.left = left;
@@ -39,7 +38,7 @@ public class BShape {
     // constructor taking care of text only
     public BShape(String shapeName, String text, int fontSize, boolean movable,
                   boolean visible, float left, float right, float top, float bottom) {
-        ShapeName = shapeName;
+        this.ShapeName = shapeName;
         this.text = text;
         this.fontSize = fontSize;
         this.movable = movable;
@@ -124,7 +123,7 @@ public class BShape {
      * draws accordingly
      * @param canvas: need to pass in the canvas
      */
-/*    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas) {
         // first check visible, if visible do not draw and returns
         if (visible) { return; }
 
@@ -148,6 +147,6 @@ public class BShape {
             canvas.drawRect(left, top, right, bottom, new Paint(Color.GRAY));
         }
 
-    }*/
+    }
 
 }
