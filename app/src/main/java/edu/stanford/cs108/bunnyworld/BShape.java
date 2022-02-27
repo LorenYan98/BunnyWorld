@@ -16,6 +16,8 @@ public class BShape {
     private boolean visible = false;
     private boolean selected = false;
 
+    private int textSize = 0;
+
     private float left;
     private float right;
     private float top;
@@ -33,6 +35,11 @@ public class BShape {
         this.top = top;
         this.bottom = bottom;
     }
+
+    /*
+    need to ask the client, whether they need a constructor with fontSize or not, currently
+    didn't implement that
+     */
 
     // constructor taking care of text only
     public BShape(String shapeName, String text, boolean movable,
@@ -70,13 +77,23 @@ public class BShape {
         if (text.length() != 0) {
 
             // draws the text
-            canvas.drawText(text, left, top, null);
+            if (textSize == 0) {
+                // if textSize wasn't explicitly set, draw with defaul size
+                canvas.drawText(text, left, top, null);
+            } else {
+                // textSize was explicitly set, draw using textSize
+                Paint textPaint = new Paint();
+                textPaint.setStyle(Paint.Style.STROKE);
+                textPaint.setTextSize(textSize);
+                canvas.drawText(text, left, top, textPaint);
+            }
 
-        } else if (!imageName.isEmpty()) {
+        } else if (!imageName.isEmpty() &&
+                GameView.bitmapMap.containsKey(imageName)) {
             Bitmap curImg = GameView.bitmapMap.get(imageName);
             Bitmap scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
             canvas.drawBitmap(scaledImg, left, top, null);
-        }else{
+        } else {
             canvas.drawRect(left, top, right, bottom, new Paint(Color.GRAY));
         }
 
@@ -126,6 +143,10 @@ public class BShape {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 
     public void setImageName(String imageName) {
