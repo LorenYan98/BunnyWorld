@@ -1,6 +1,8 @@
 package edu.stanford.cs108.bunnyworld;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.shapes.Shape;
 import android.widget.Toast;
 
@@ -99,7 +101,17 @@ public class BPage {
         return null;
     }
 
+    private void drawBoundary(Canvas canvas){
+        Paint greyOutlinePaint;
+        greyOutlinePaint = new Paint();
+        greyOutlinePaint.setColor(Color.GRAY);
+        greyOutlinePaint.setStyle(Paint.Style.STROKE);
+        greyOutlinePaint.setStrokeWidth(5.0f);
+        canvas.drawLine(0.0f,0.0f,right - left,bottom - top, greyOutlinePaint);
+    }
+
     public void drawPage(Canvas canvas) {
+        drawBoundary(canvas);
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
             curShape.draw(canvas);
