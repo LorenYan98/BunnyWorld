@@ -10,18 +10,18 @@ public class BPage {
     public static int pageCount = 1;
     private final String pageName;
 //    private final int boundary;
-    private float leftTopX;
-    private float leftTopY;
-    private float rightBottomX;
-    private float rightBottomY;
+    private float left;
+    private float top;
+    private float right;
+    private float bottom;
     private Map<String, BShape> shapeMap;
 
-    public BPage(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
+    public BPage(float left, float top, float right, float bottom) {
 //        this.boundary = boundary;
-        this.leftTopX = leftTopX;
-        this.leftTopY = leftTopY;
-        this.rightBottomX = rightBottomX;
-        this.rightBottomY = rightBottomY;
+        this.left = left;
+        this.top = top;
+        this.right = right;
+        this.bottom = bottom;
         this.pageName = generateNextPageName();
         this.shapeMap = new HashMap<>();
     }
@@ -33,7 +33,7 @@ public class BPage {
     }
 
     public boolean isWithinPage(float x, float y) {
-        return y <= rightBottomY;
+        return y <= bottom;
     }
 
     public void addShape(BShape shape) {
@@ -42,7 +42,7 @@ public class BPage {
 
     public BShape selectShape(float curX, float curY) {
         for (BShape curShape : shapeMap.values()) {
-            if (curShape.getBottom() <= curY && curShape.getTop() >= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
+            if (curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
                 return curShape;
             }
         }
