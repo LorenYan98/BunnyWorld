@@ -81,6 +81,23 @@ public class BPage {
     public boolean isWithinPage(float x, float y) {
         return y <= bottom && y >= top && x <= right && x >= left;
     }
+
+    public float getLeft() {
+        return left;
+    }
+
+    public float getTop() {
+        return top;
+    }
+
+    public float getRight() {
+        return right;
+    }
+
+    public float getBottom() {
+        return bottom;
+    }
+
     private boolean shapeIsSelectedWithinPage(BShape curShape, float curX, float curY) {
         return curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX;
     }
