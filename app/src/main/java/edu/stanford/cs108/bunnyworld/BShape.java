@@ -88,7 +88,12 @@ public class BShape {
         }
 
     }
-
+    //Resize the image contained in the BShape
+    public void scale(float width, float height){
+        if(scaledImg != null){
+            scaledImg = Bitmap.createScaledBitmap(scaledImg, (int) width,(int) height, true);
+        }
+    }
     /**
      * will set ShapeName to default shape1, shape2, ... if the name is empty, and increment shapeCount
      */
