@@ -8,7 +8,7 @@ import android.graphics.Paint;
 public class BShape {
 
 
-    private String ShapeName = null;
+    private String shapeName = null;
     private String text = null;
     private String imageName = null;
 
@@ -17,15 +17,22 @@ public class BShape {
     private boolean selected = false;
 
     private int textSize = 0;
+    private static int shapeCount = 1;
 
     private float left;
     private float right;
     private float top;
     private float bottom;
 
+    // paint for text with explicitly set textSize
+    private Paint textPaint;
+    private Paint rectPaint = new Paint(Color.GRAY);
+
+    private Bitmap scaledImg;
+
     public BShape(String shapeName, String text, String imageName, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
-        this.ShapeName = shapeName;
+        this.shapeName = shapeName;
         this.text = text;
         this.imageName = imageName;
         this.movable = movable;
@@ -34,7 +41,11 @@ public class BShape {
         this.right = right;
         this.top = top;
         this.bottom = bottom;
+        init();
+        setShapeNameToDefault();
     }
+
+
 
     /*
     need to ask the client, whether they need a constructor with fontSize or not, currently
@@ -44,7 +55,7 @@ public class BShape {
     // constructor taking care of text only
     public BShape(String shapeName, String text, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
-        this.ShapeName = shapeName;
+        this.shapeName = shapeName;
         this.text = text;
         this.movable = movable;
         this.visible = visible;
@@ -52,6 +63,40 @@ public class BShape {
         this.right = right;
         this.top = top;
         this.bottom = bottom;
+        init();
+        setShapeNameToDefault();
+    }
+
+    /**
+     * init function to initiate the paint, and BitMap
+     */
+    private void init() {
+
+        // it text exists and textSize is not 0, initiate paint for text using asssigned size
+        if (text.length() != 0 &&
+                textSize != 0
+        ) {
+            // textSize was explicitly set, draw using textSize
+            textPaint = new Paint();
+            textPaint.setStyle(Paint.Style.STROKE);
+            textPaint.setTextSize(textSize);
+        } else if (!imageName.isEmpty() &&
+                GameView.bitmapMap.containsKey(imageName)) {
+            // need to draw image, initiate scaled image
+            Bitmap curImg = GameView.bitmapMap.get(imageName);
+            scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+        }
+
+    }
+
+    /**
+     * will set ShapeName to default shape1, shape2, ... if the name is empty, and increment shapeCount
+     */
+    private void setShapeNameToDefault() {
+        if (shapeName.length() == 0) {
+            shapeName = "shape" + shapeCount;
+            shapeCount++;
+        }
     }
 
 
@@ -82,19 +127,14 @@ public class BShape {
                 canvas.drawText(text, left, top, null);
             } else {
                 // textSize was explicitly set, draw using textSize
-                Paint textPaint = new Paint();
-                textPaint.setStyle(Paint.Style.STROKE);
-                textPaint.setTextSize(textSize);
                 canvas.drawText(text, left, top, textPaint);
             }
 
         } else if (!imageName.isEmpty() &&
                 GameView.bitmapMap.containsKey(imageName)) {
-            Bitmap curImg = GameView.bitmapMap.get(imageName);
-            Bitmap scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
             canvas.drawBitmap(scaledImg, left, top, null);
         } else {
-            canvas.drawRect(left, top, right, bottom, new Paint(Color.GRAY));
+            canvas.drawRect(left, top, right, bottom, rectPaint);
         }
 
     }
@@ -122,7 +162,7 @@ public class BShape {
     }
 
     public String getShapeName() {
-        return ShapeName;
+        return shapeName;
     }
 
     public String getText() {

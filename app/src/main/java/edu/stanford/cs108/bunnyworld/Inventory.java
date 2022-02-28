@@ -6,26 +6,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory {
-    private float leftTopX;
-    private float leftTopY;
-    private float rightBottomX;
-    private float rightBottomY;
+    private float left;
+    private float top;
+    private float right;
+    private float bottom;
     public static Map<String, BShape> shapeMap;
     
 
-    public Inventory(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
+    public Inventory(float left, float top, float right, float bottom) {
 //        this.boundary = boundary;
-        this.leftTopX = leftTopX;
-        this.leftTopY = leftTopY;
-        this.rightBottomX = rightBottomX;
-        this.rightBottomY = rightBottomY;
+        this.left = left;
+        this.top = top;
+        this.right = right;
+        this.bottom = bottom;
         this.shapeMap = new HashMap<>();
 
     }
 
 
     public boolean isWithinInventory(float x, float y) {
-        return y <= leftTopY;
+        return y >= top;
     }
 
     public void addShape(BShape shape) {
@@ -34,7 +34,7 @@ public class Inventory {
 
     public BShape selectShape(float curX, float curY) {
         for (BShape curShape : shapeMap.values()) {
-            if (curShape.getBottom() <= curY && curShape.getTop() >= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
+            if (curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
                 return curShape;
             }
         }
