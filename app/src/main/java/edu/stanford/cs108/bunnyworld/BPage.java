@@ -1,6 +1,7 @@
 package edu.stanford.cs108.bunnyworld;
 
 import android.graphics.Canvas;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -30,9 +31,9 @@ public class GameView extends View {
     BShape selectedShape;
     BPage currentPage;
     Inventory inventory;
-    Map<String, MediaPlayer> soundMap;
-    Map<String, Bitmap> bitmapMap;
-    Map<String, BPage> pageMap;
+    static Map<String, MediaPlayer> soundMap;
+    static Map<String, Bitmap> bitmapMap;
+    static Map<String, BPage> pageMap;
 
 
 
@@ -56,8 +57,8 @@ public class GameView extends View {
 
     private void loadPages() {
         BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        firstPage.addShape(new BShape("String shapeName", "", "carrot", bitmapMap.get("carrot"), true, true, 0.0f, 30.0f, 0.0f, 30.0f));
-        firstPage.addShape(new BShape("HAHAHA", "", "duck", bitmapMap.get("duck"), true, true, 0.0f, 40.0f, 50.0f, 80.0f));
+        firstPage.addShape(new BShape("String shapeName", "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f));
+        firstPage.addShape(new BShape("HAHAHA", "", "duck", true, true, 300.0f, 100.0f, 500.0f, 500.0f));
         currentPage = firstPage;
         pageMap.put("page1", firstPage);
     }
