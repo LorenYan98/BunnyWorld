@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class BPage {
     public static int pageCount = 1;
-    private final String pageName;
+    private String pageName;
 //    private final int boundary;
     private float left;
     private float top;
@@ -31,6 +31,24 @@ public class BPage {
         pageCount++;
         return curPageName;
     }
+
+    public void setLeft(float left) {
+        this.left = left;
+    }
+
+    public void setTop(float top) {
+        this.top = top;
+    }
+
+    public void setRight(float right) {
+        this.right = right;
+    }
+
+    public void setBottom(float bottom) {
+        this.bottom = bottom;
+    }
+
+
 
     public boolean isWithinPage(float x, float y) {
         return y <= bottom;
@@ -61,5 +79,9 @@ public class BPage {
 
     public String getPageName() {
         return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
     }
 }

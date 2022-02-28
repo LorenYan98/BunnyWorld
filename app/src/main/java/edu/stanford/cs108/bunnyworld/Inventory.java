@@ -13,6 +13,21 @@ public class Inventory {
     public static Map<String, BShape> shapeMap;
 
 
+    public void setLeft(float left) {
+        this.left = left;
+    }
+
+    public void setTop(float top) {
+        this.top = top;
+    }
+
+    public void setRight(float right) {
+        this.right = right;
+    }
+
+    public void setBottom(float bottom) {
+        this.bottom = bottom;
+    }
 
     public Inventory(float left, float top, float right, float bottom) {
 //        this.boundary = boundary;
