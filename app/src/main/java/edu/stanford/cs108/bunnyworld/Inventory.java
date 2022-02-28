@@ -69,31 +69,35 @@ public class Inventory {
         return y <= bottom && y >= top && x <= right && x >= left;
     }
 
-    public boolean shapeIsWithinInventory(BShape curShape, float curX, float curY) {
+    private boolean shapeIsSelectedWithinInventory(BShape curShape, float curX, float curY) {
         return curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX;
     }
 
     public void addShape(BShape shape) {
+        if (needsRelocate(shape)) {
+            relocate(shape);
+        }
         shapeMap.put(shape.getShapeName(), shape);
     }
 
     public BShape selectShape(float curX, float curY) {
         for (BShape curShape : shapeMap.values()) {
-            if (shapeIsWithinInventory(curShape,curX,curY)) {
+            if (shapeIsSelectedWithinInventory(curShape,curX,curY)) {
                 return curShape;
             }
         }
         return null;
     }
 
+    public static Map<String, BShape> getShapeMap() {
+        return shapeMap;
+    }
+
     public static void drawInventory(Canvas canvas) {
         for (BShape curShape : shapeMap.values()) {
+            // Instead of relocate when drawing, already relocated when adding the shapes
             curShape.draw(canvas);
         }
     }
-
-//    public List<Shapes> getShapeList() {
-//        return shapeList;
-//    }
 
 }

@@ -79,17 +79,20 @@ public class BPage {
     public boolean isWithinPage(float x, float y) {
         return y <= bottom && y >= top && x <= right && x >= left;
     }
-    public boolean shapeIsWithinPage(BShape curShape, float curX, float curY) {
+    private boolean shapeIsSelectedWithinPage(BShape curShape, float curX, float curY) {
         return curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX;
     }
 
     public void addShape(BShape shape) {
+        if (needsRelocate(shape)) {
+            relocate(shape);
+        }
         shapeMap.put(shape.getShapeName(), shape);
     }
 
     public BShape selectShape(float curX, float curY) {
         for (BShape curShape : shapeMap.values()) {
-            if (shapeIsWithinPage(curShape,curX,curY)) {
+            if (shapeIsSelectedWithinPage(curShape,curX,curY)) {
                 return curShape;
             }
         }
@@ -98,6 +101,7 @@ public class BPage {
 
     public void drawPage(Canvas canvas) {
         for (BShape curShape : shapeMap.values()) {
+            // Instead of relocate when drawing, already relocated when adding the shapes
             curShape.draw(canvas);
         }
     }
