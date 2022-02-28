@@ -51,7 +51,7 @@ public class BPage {
 
 
     public boolean isWithinPage(float x, float y) {
-        return y <= bottom;
+        return y <= bottom && y >= top && x <= right && x >= left;
     }
 
     public void addShape(BShape shape) {

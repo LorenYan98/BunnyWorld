@@ -41,7 +41,7 @@ public class Inventory {
 
 
     public boolean isWithinInventory(float x, float y) {
-        return y >= top;
+        return y <= bottom && y >= top && x <= right && x >= left;
     }
 
     public void addShape(BShape shape) {
