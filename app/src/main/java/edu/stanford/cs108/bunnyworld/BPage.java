@@ -107,7 +107,7 @@ public class BPage {
         greyOutlinePaint.setColor(Color.GRAY);
         greyOutlinePaint.setStyle(Paint.Style.STROKE);
         greyOutlinePaint.setStrokeWidth(5.0f);
-        canvas.drawLine(0.0f,0.0f,right - left,bottom - top, greyOutlinePaint);
+        canvas.drawLine(0.0f,bottom,right - left,bottom - top, greyOutlinePaint);
     }
 
     public void drawPage(Canvas canvas) {
