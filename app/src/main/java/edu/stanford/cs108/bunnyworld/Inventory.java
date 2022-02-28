@@ -11,8 +11,7 @@ public class Inventory {
     private float rightBottomX;
     private float rightBottomY;
     public static Map<String, BShape> shapeMap;
-
-
+    
 
     public Inventory(float leftTopX, float leftTopY, float rightBottomX, float rightBottomY) {
 //        this.boundary = boundary;
