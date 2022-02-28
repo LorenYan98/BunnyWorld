@@ -79,6 +79,9 @@ public class BPage {
     public boolean isWithinPage(float x, float y) {
         return y <= bottom && y >= top && x <= right && x >= left;
     }
+    public boolean shapeIsWithinPage(BShape curShape, float curX, float curY) {
+        return curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX;
+    }
 
     public void addShape(BShape shape) {
         shapeMap.put(shape.getShapeName(), shape);
@@ -86,7 +89,7 @@ public class BPage {
 
     public BShape selectShape(float curX, float curY) {
         for (BShape curShape : shapeMap.values()) {
-            if (curShape.getBottom() >= curY && curShape.getTop() <= curY && curShape.getLeft() <= curX && curShape.getRight() >= curX) {
+            if (shapeIsWithinPage(curShape,curX,curY)) {
                 return curShape;
             }
         }
