@@ -30,9 +30,9 @@ public class BShape {
 
     private Bitmap scaledImg;
 
-    public BShape(String shapeName, String text, String imageName, boolean movable,
+    public BShape(String text, String imageName, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
-        this.shapeName = shapeName;
+        setShapeNameToDefault();
         this.text = text;
         this.imageName = imageName;
         this.movable = movable;
@@ -42,20 +42,13 @@ public class BShape {
         this.top = top;
         this.bottom = bottom;
         init();
-        setShapeNameToDefault();
+
     }
 
-
-
-    /*
-    need to ask the client, whether they need a constructor with fontSize or not, currently
-    didn't implement that
-     */
-
     // constructor taking care of text only
-    public BShape(String shapeName, String text, boolean movable,
+    public BShape(String text, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
-        this.shapeName = shapeName;
+        setShapeNameToDefault();
         this.text = text;
         this.movable = movable;
         this.visible = visible;
@@ -64,7 +57,7 @@ public class BShape {
         this.top = top;
         this.bottom = bottom;
         init();
-        setShapeNameToDefault();
+
     }
 
     /**
@@ -88,7 +81,12 @@ public class BShape {
         }
 
     }
-
+    //Resize the image contained in the BShape
+    public void scale(float width, float height){
+        if(scaledImg != null){
+            scaledImg = Bitmap.createScaledBitmap(scaledImg, (int) width,(int) height, true);
+        }
+    }
     /**
      * will set ShapeName to default shape1, shape2, ... if the name is empty, and increment shapeCount
      */
