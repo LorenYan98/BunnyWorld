@@ -8,9 +8,9 @@ import android.graphics.Paint;
 public class BShape {
 
 
-    private String shapeName = null;
-    private String text = null;
-    private String imageName = null;
+    private String shapeName = "";
+    private String text = "";
+    private String imageName = "";
 
     private boolean movable = false;
     private boolean visible = false;
@@ -73,7 +73,7 @@ public class BShape {
             textPaint = new Paint();
             textPaint.setStyle(Paint.Style.STROKE);
             textPaint.setTextSize(textSize);
-        } else if (!imageName.isEmpty() &&
+        } else if (imageName.length() != 0 &&
                 GameView.bitmapMap.containsKey(imageName)) {
             // need to draw image, initiate scaled image
             Bitmap curImg = GameView.bitmapMap.get(imageName);
@@ -128,7 +128,7 @@ public class BShape {
                 canvas.drawText(text, left, top, textPaint);
             }
 
-        } else if (!imageName.isEmpty() &&
+        } else if (imageName.length() != 0 &&
                 GameView.bitmapMap.containsKey(imageName)) {
             canvas.drawBitmap(scaledImg, left, top, null);
         } else {
