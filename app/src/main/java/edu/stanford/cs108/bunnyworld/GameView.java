@@ -57,8 +57,8 @@ public class GameView extends View {
 
     private void loadPages() {
         BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        firstPage.addShape(new BShape("String shapeName", "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f));
-        firstPage.addShape(new BShape("HAHAHA", "", "duck", true, true, 300.0f, 100.0f, 500.0f, 500.0f));
+        firstPage.addShape(new BShape( "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f));
+        firstPage.addShape(new BShape( "", "duck", true, true, 300.0f, 100.0f, 500.0f, 500.0f));
         currentPage = firstPage;
         pageMap.put("page1", firstPage);
     }
