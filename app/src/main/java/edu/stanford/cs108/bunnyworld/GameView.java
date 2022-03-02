@@ -98,6 +98,7 @@ public class GameView extends View {
         inventory.setBottom(viewHeight);
         currentPage.drawPage(canvas);
         Inventory.drawInventory(canvas);
+
         if (selectedShape != null) selectedShape.draw(canvas);
     }
 

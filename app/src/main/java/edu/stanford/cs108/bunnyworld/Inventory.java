@@ -43,9 +43,9 @@ public class Inventory {
             // the movement should be positive in this case
             shape.move(left - shape.getLeft(), 0);
         }
-        if (shape.getTop() > right) {
+        if (shape.getRight() > right) {
             // the movement should be negative in this case
-            shape.move(right = shape.getRight(), 0);
+            shape.move(right - shape.getRight(), 0);
         }
     }
     public void setLeft(float left) {
@@ -112,6 +112,7 @@ public class Inventory {
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
             curShape.draw(canvas);
+            System.out.println("Invent " + curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
         }
     }
 
