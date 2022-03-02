@@ -16,16 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/* TODO
-*  1. Load Drawable & Sound
-*  2. Draw Inventory and Page
-*  3. Handle Basic Drag Event
-* */
-
 public class GameView extends View {
 
     float preX, preY, curX, curY;
-    int viewWidth, viewHeight;
+    // screen size, hardcoded for the time being
+    int viewWidth = 2208;
+    int viewHeight = 860;
     boolean shapeIsSelected;
     boolean shapeIsDragging;
     BShape selectedShape;
@@ -88,14 +84,6 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        currentPage.setLeft(0.0f);
-        currentPage.setTop(0.0f);
-        currentPage.setRight(viewWidth);
-        currentPage.setBottom(0.7f * viewHeight);
-        inventory.setLeft(0.0f);
-        inventory.setTop(0.7f * viewHeight);
-        inventory.setRight(viewWidth);
-        inventory.setBottom(viewHeight);
         currentPage.drawPage(canvas);
         Inventory.drawInventory(canvas);
 
@@ -118,12 +106,14 @@ public class GameView extends View {
         return true;
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        viewWidth = w;
-        viewHeight = h;
-    }
+
+    // get screen size. Don't need, for now
+//    @Override
+//    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+//        super.onSizeChanged(w, h, oldw, oldh);
+//        viewWidth = w;
+//        viewHeight = h;
+//    }
 
     private void handleActionDown(MotionEvent event) {
         switch (event.getAction()) {
