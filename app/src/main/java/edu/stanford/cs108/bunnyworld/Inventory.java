@@ -88,7 +88,7 @@ public class Inventory {
         return null;
     }
 
-    public static Map<String, BShape> getShapeMap() {
+    public Map<String, BShape> getShapeMap() {
         return shapeMap;
     }
 
@@ -107,6 +107,8 @@ public class Inventory {
     public float getBottom() {
         return bottom;
     }
+
+
 
     public static void drawInventory(Canvas canvas) {
         for (BShape curShape : shapeMap.values()) {

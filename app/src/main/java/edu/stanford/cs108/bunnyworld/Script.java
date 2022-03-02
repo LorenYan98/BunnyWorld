@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Script {
-    public static final String ON_CLICK = "onClick";
-    public static final String ON_DROP = "onDrop";
-    public static final String ON_ENTER = "onEnter";
+    public static final String ON_CLICK = "onclick";
+    public static final String ON_DROP = "ondrop";
+    public static final String ON_ENTER = "onenter";
 
     boolean isOnClick = false;
     boolean isOnDrop = false;
@@ -26,6 +27,7 @@ public class Script {
 
     private void parseScriptString(String scriptString) {
         if (scriptString == "") return;
+        scriptString = scriptString.toLowerCase();
         for (String clause : scriptString.split(";")) {
             if (clause.length() == 0) return;
             String[] temp = clause.split(" ");
@@ -50,7 +52,7 @@ public class Script {
 
     }
 
-    public boolean isOnClick() {
+    public boolean getIsOnClick() {
         return isOnClick;
     }
 
@@ -58,7 +60,7 @@ public class Script {
         isOnClick = onClick;
     }
 
-    public boolean isOnDrop() {
+    public boolean getIsOnDrop() {
         return isOnDrop;
     }
 
@@ -66,7 +68,7 @@ public class Script {
         isOnDrop = onDrop;
     }
 
-    public boolean isOnEnter() {
+    public boolean getIsOnEnter() {
         return isOnEnter;
     }
 
@@ -96,5 +98,12 @@ public class Script {
 
     public void setOnDropActions(Map<String, List<String>> onDropActions) {
         this.onDropActions = onDropActions;
+    }
+
+    @Override
+    public String toString() {
+        return "Script{" +
+                "onClickActions=" + onClickActions +
+                '}';
     }
 }

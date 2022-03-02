@@ -53,8 +53,14 @@ public class GameView extends View {
 
     private void loadPages() {
         BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        firstPage.addShape(new BShape( "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f));
-        firstPage.addShape(new BShape( "", "duck", true, true, 300.0f, 100.0f, 500.0f, 500.0f));
+        Script carrotScript = new Script("oNClick play hooray hide bunny;");
+        BShape carrot = new BShape( "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);
+        carrot.setScript(carrotScript);
+        carrot.setShapeName("carrot");
+        BShape bunny = new BShape( "", "duck", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
+        bunny.setShapeName("bunny");
+        firstPage.addShape(carrot);
+        firstPage.addShape(bunny);
         currentPage = firstPage;
         pageMap.put("page1", firstPage);
     }
@@ -86,7 +92,6 @@ public class GameView extends View {
         super.onDraw(canvas);
         currentPage.drawPage(canvas);
         Inventory.drawInventory(canvas);
-
         if (selectedShape != null) selectedShape.draw(canvas);
     }
 
@@ -124,12 +129,14 @@ public class GameView extends View {
                 if (inventory.isWithinInventory(curX, curY)) {
                     if (inventory.selectShape(curX, curY) != null && inventory.selectShape(curX,curY).getVisible()) {
                         selectedShape = inventory.selectShape(curX, curY);
+                        inventory.getShapeMap().remove(selectedShape.getShapeName());
                         shapeIsSelected = true;
                     }
                 } else {
                 // user clicked on currentPage
                     if (currentPage.selectShape(curX, curY) != null && currentPage.selectShape(curX,curY).getVisible()) {
                         selectedShape = currentPage.selectShape(curX, curY);
+                        currentPage.getShapeMap().remove(selectedShape.getShapeName());
                         shapeIsSelected = true;
                     }
                 }
@@ -168,7 +175,16 @@ public class GameView extends View {
                         }
                     } else {
                         // onClick
-                        System.out.println("To be implemented");
+                        if(inventory.isWithinInventory(curX,curY)){
+                            inventory.addShape(selectedShape);
+                        }else{
+                            currentPage.addShape(selectedShape);
+                            Script script = selectedShape.getScript();
+                            if (script.getIsOnClick()) {
+                                doAction(script.getOnClickActions());
+                            }
+                        }
+
                     }
                     selectedShape = null;
                     shapeIsDragging = false;
@@ -176,5 +192,30 @@ public class GameView extends View {
                     invalidate();
                 }
         }
+    }
+
+    private void doAction(List<String> onClickActions) {
+        String verb, target;
+        for (int i = 0; i < onClickActions.size(); i += 2) {
+            verb = onClickActions.get(i);
+            target = onClickActions.get(i + 1);
+            switch (verb) {
+                case "goto":
+                    currentPage = pageMap.get(target);
+                    break;
+                case "play":
+                    soundMap.get(target).start();
+                    break;
+                case "hide":
+                    // for testing, 需要改
+                    currentPage.getShapeMap().get(target).setVisible(false);
+                    break;
+                case "show":
+                    currentPage.getShapeMap().get(target).setVisible(true);
+                    break;
+            }
+
+        }
+
     }
 }

@@ -30,6 +30,9 @@ public class BShape {
 
     private Bitmap scaledImg;
 
+    // add script ivar by Shuangshan LI / Mabel Jiang
+    private Script script;
+
     public BShape(String text, String imageName, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
@@ -163,6 +166,8 @@ public class BShape {
         return shapeName;
     }
 
+    public void setShapeName(String shapeName) { this.shapeName = shapeName; }
+
     public String getText() {
         return text;
     }
@@ -198,5 +203,9 @@ public class BShape {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
+    public Script getScript() { return script; }
+
+    public void setScript(Script script) { this.script = script; }
 
 }
