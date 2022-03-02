@@ -44,6 +44,7 @@ public class BPage {
     }
 
     public void setRight(float right) {
+
         this.right = right;
     }
 
@@ -72,9 +73,12 @@ public class BPage {
             // the movement should be positive in this case
             shape.move(left - shape.getLeft(), 0);
         }
-        if (shape.getTop() > right) {
+        if (shape.getRight() > right) {
+            System.out.println(shape.getTop()+ " and  right " + shape.getRight());
+            System.out.println("page Right " + right);
+
             // the movement should be negative in this case
-            shape.move(right = shape.getRight(), 0);
+            shape.move(right - shape.getRight(), 0);
         }
     }
 

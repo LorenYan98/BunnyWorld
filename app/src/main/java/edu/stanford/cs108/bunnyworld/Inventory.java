@@ -43,9 +43,9 @@ public class Inventory {
             // the movement should be positive in this case
             shape.move(left - shape.getLeft(), 0);
         }
-        if (shape.getTop() > right) {
+        if (shape.getRight() > right) {
             // the movement should be negative in this case
-            shape.move(right = shape.getRight(), 0);
+            shape.move(right - shape.getRight(), 0);
         }
     }
     public void setLeft(float left) {
@@ -65,7 +65,7 @@ public class Inventory {
     }
 
     public boolean isWithinInventory(float x, float y) {
-        return y <= bottom && y >= top && x <= right && x >= left;
+        return  y >= top;
     }
 
     private boolean shapeIsSelectedWithinInventory(BShape curShape, float curX, float curY) {
