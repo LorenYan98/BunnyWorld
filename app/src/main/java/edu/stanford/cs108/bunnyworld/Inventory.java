@@ -65,7 +65,7 @@ public class Inventory {
     }
 
     public boolean isWithinInventory(float x, float y) {
-        return y <= bottom && y >= top && x <= right && x >= left;
+        return  y >= top;
     }
 
     private boolean shapeIsSelectedWithinInventory(BShape curShape, float curX, float curY) {
