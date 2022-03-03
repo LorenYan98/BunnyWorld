@@ -54,12 +54,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delete Page" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Go To Page:"
+                android:textSize="16dp"/>
                 <Spinner
                     android:id="@+id/pageSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
-                </Spinner>
+                    android:layout_gravity="center_vertical"></Spinner>
             </LinearLayout>
 
         <LinearLayout
@@ -90,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
+                android:layout_gravity="center_vertical"
                 android:hint="Rename Shape" />
 
             <Button
@@ -98,19 +104,25 @@
                 android:layout_height="wrap_content"
                 android:text="rename Shape" />
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Shape Image:"
-            android:textSize="16dp"/>
-
-        <Spinner
-            android:id="@+id/shapeImageSpinner"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbarSize="16dp"
-            android:textSize = "16dp">
-        </Spinner>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shape Image:"
+                android:textSize="16dp"/>
+
+            <Spinner
+                android:id="@+id/shapeImageSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="16dp"
+                android:textSize = "16dp">
+            </Spinner>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -141,14 +153,160 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
         </LinearLayout>
-            <Button
-                android:id="@+id/addShape"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="add Shape"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:textSize="15dp"/>
+                android:layout_gravity="center_vertical"
+                android:text="TOP: "
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/shapeTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="BOTTOM: "
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/shapeBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/shapeTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Shape Text Input"
+            android:textSize="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Enable OnDrop"
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+            <CheckBox
+                android:id="@+id/enableOnDrop"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Enable Move"
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+            <CheckBox
+                android:id="@+id/enableMove"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Enable Visible"
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+            <CheckBox
+                android:id="@+id/enableVisiable"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Enable Click"
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+            <CheckBox
+                android:id="@+id/enableClick"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/addShapeEffect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Shape Effect"
+            android:textSize="16dp"/>
+        <Button
+            android:id="@+id/addShape"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Shape To View"
+            android:textSize="16dp"/>
+        <Button
+            android:id="@+id/deleteShape"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Shape"
+            android:textSize="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="GAME NAME: "
+                android:textSize="16dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"/>
+            <EditText
+                android:id="@+id/userGameName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/saveGame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SAVE GAME"
+            android:textSize="16dp"
+            android:layout_gravity="fill"
+            />
 
     </LinearLayout>
 </LinearLayout>
