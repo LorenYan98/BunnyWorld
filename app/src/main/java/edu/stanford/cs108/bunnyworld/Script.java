@@ -103,7 +103,12 @@ public class Script {
     @Override
     public String toString() {
         return "Script{" +
-                "onClickActions=" + onClickActions +
+                "isOnClick=" + isOnClick +
+                ", isOnDrop=" + isOnDrop +
+                ", isOnEnter=" + isOnEnter +
+                ", onClickActions=" + onClickActions +
+                ", onEnterActions=" + onEnterActions +
+                ", onDropActions=" + onDropActions +
                 '}';
     }
 }
