@@ -54,22 +54,6 @@ public class GameView extends View {
     }
 
     private void loadPages() {
-//        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-//        Script carrotScript = new Script("oNClick play hooray goto page2 ;onENTER play hooray play hooray play hooray");
-//        BShape carrot = new BShape( "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);
-//        carrot.setScript(carrotScript);
-//        carrot.setShapeName("carrot");
-//        BShape fire = new BShape( "", "fire", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
-//        Script fireScript = new Script("ondrop carrot hide carrot play munching;onenter play munching play munching;onCLICK goto page1");
-//        fire.setScript(fireScript);
-//        fire.setShapeName("fire");
-//        firstPage.addShape(carrot);
-//        currentPage = firstPage;
-//        BPage secondPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-//        secondPage.addShape(fire);
-//        pageMap.put("page2", secondPage);
-//        pageMap.put("page1", firstPage);
-
         BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
         BPage secondPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
         BPage thirdPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
@@ -317,7 +301,6 @@ public class GameView extends View {
                     soundMap.get(target).start();
                     break;
                 case "hide":
-                    // for testing, 需要改成也可以hide其他page里的shape
                     shapeNameRef.get(target).setVisible(false);
                     invalidate();
                     break;
