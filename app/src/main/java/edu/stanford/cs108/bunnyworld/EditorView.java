@@ -162,6 +162,8 @@ public class EditorView extends View {
     }
 
 
+
+
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        switch (event.getAction()) {

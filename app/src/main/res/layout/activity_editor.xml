@@ -293,6 +293,7 @@
                 android:id="@+id/visiable"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="onVisibleCheckBoxClicked"
                 />
         </LinearLayout>
 
@@ -304,7 +305,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Clickable"
+                android:text=" Clickable"
                 android:textSize="16dp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"/>
