@@ -38,6 +38,8 @@ public class EditorView extends View {
     static Map<String, Bitmap> bitmapMap;
     static Map<String, BPage> pageMap;
 
+    private BPage firstPage;
+
     Paint boundaryLine;
 
     // Initialization
@@ -59,7 +61,7 @@ public class EditorView extends View {
     }
 
     private void loadPages() {
-        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
         pageMap.put(firstPage.getPageName(),firstPage);
         currentPage = firstPage;
     }
@@ -94,8 +96,15 @@ public class EditorView extends View {
     }
 
     public void deletePage() {
-
+        if (pageMap.get(firstPage.getPageName()) == currentPage) {
+            // add a toast later
+            return;
+        }
+        pageMap.remove(currentPage);
+        update();
     }
+
+
 
     private void update() {
         invalidate();
