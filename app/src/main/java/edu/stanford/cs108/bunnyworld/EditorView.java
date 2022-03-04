@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -25,6 +27,8 @@ public class EditorView extends View {
     public EditorView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
+        // by default, set Clickable checkbox to disable, only enable it after visible is checked
+        ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
     }
 
     private static Map<String, BShape> shapeNameRef = new HashMap<>();
@@ -120,6 +124,8 @@ public class EditorView extends View {
         update();
     }
 
+
+
     public void update() {
         invalidate();
     }
@@ -139,6 +145,21 @@ public class EditorView extends View {
         canvas.drawLine(0,0,viewWidth,0,boundaryLine);
         canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
         if (selectedShape != null) selectedShape.draw(canvas);
+    }
+
+    /**
+     * react to user click on ADD SHAPE TO VIEW BUTTON
+     * get and set the ivar of newly created shape, add the shape to page's shape map, and call
+     * update to redraw
+     */
+    public void addShapeToview() {
+        // get the needed BShape ivar for the constructor
+        String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
+        String imageName = ((Spinner) findViewById(R.id.shapeImageSpinner)).getSelectedItem().toString();
+        boolean movable = ((CheckBox) findViewById(R.id.moveable)).isChecked();
+//        boolean visible, float left, float top, float right, float bottom
+        // create a new BShape instance
+//        BShape bshape = new BShape()
     }
 
 
