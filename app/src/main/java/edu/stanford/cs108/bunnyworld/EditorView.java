@@ -7,12 +7,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.renderscript.Sampler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,11 @@ public class EditorView extends View {
     Inventory inventory;
     static Map<String, MediaPlayer> soundMap;
     static Map<String, Bitmap> bitmapMap;
+
+    public static Map<String, BPage> getPageMap() {
+        return pageMap;
+    }
+
     static Map<String, BPage> pageMap;
 
     private BPage firstPage;

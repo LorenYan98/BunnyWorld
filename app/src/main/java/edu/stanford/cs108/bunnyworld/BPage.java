@@ -148,4 +148,9 @@ public class BPage {
     public void setPageName(String pageName) {
         this.pageName = pageName;
     }
+
+    @Override
+    public String toString(){
+        return this.pageName;
+    }
 }
