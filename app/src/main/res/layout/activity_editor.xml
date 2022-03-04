@@ -34,7 +34,8 @@
                     android:id="@+id/confirmRenamePageName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="rename Page" />
+                    android:text="rename Page"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -47,7 +48,9 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Page" />
+                    android:text="Add Page"
+                    android:onClick="addPage"
+                    />
 
                 <Button
                     android:id="@+id/deleteNewPage"
@@ -67,10 +70,11 @@
                     android:layout_gravity="center_vertical"></Spinner>
             </LinearLayout>
 
-        <LinearLayout
+
+        <edu.stanford.cs108.bunnyworld.EditorView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"></LinearLayout>
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
 
     <LinearLayout
