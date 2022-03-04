@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -18,8 +19,9 @@ public class EditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
-
         updateSpinner();
+        // by default, set Clickable checkbox to disable, only enable it after visible is checked
+        ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
     }
 
     public void addPage(View view) {
