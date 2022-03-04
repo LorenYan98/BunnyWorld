@@ -144,7 +144,7 @@ public class GameView extends View {
 //        fifthPage.addShape(win);
     }
 
-    private void loadPages(List<BPage> pages) {}
+    void loadPages(List<BPage> pages) {}
 
     private void loadBitmap() {
         bitmapMap.put("carrot", ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot)).getBitmap());

@@ -2,13 +2,91 @@ package edu.stanford.cs108.bunnyworld;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameActivity extends AppCompatActivity {
+    GameView gameView;
+    List<String> gameNames;
+    SingletonDB db;
+    String gameToLoad;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        gameView = findViewById(R.id.game_view);
+        db = SingletonDB.getInstance(this);
+        loadGameNames();
+    }
+
+    private void loadGameNames() {
+        gameNames = new ArrayList<>();
+        String queryStr = "SELECT game_name FROM games";
+        Cursor cursor = db.rawQuery(queryStr, null);
+        while (cursor.moveToNext()) {
+            gameNames.add(cursor.getString(0));
+        }
+    }
+
+    private void loadGame() throws JSONException {
+        String query = "SELECT pages FROM games WHERE name = '" + gameToLoad + "'";
+        Cursor cursor = db.rawQuery(query,null);
+        while (cursor.moveToNext()) {
+            List<BPage> pages = parseToPageList(cursor.getString(0));
+            gameView.loadPages(pages);
+        }
+    }
+
+    private List<BPage> parseToPageList(String content) throws JSONException {
+        List<BPage> result = new ArrayList<>();
+        JSONObject contentObj = new JSONObject(content);
+        JSONArray array = contentObj.getJSONArray("pages");
+        for(int i=0;i<array.length();i++){
+            result.add(parseToBPage(array.getJSONObject(i)));
+        }
+        return result;
+    }
+
+    private BPage parseToBPage(JSONObject pageObj) throws JSONException {
+        String pageName = pageObj.getString("pageName");
+        String shapes = pageObj.getString("shapes");
+        String[] size = pageObj.getString("size").split(" ");
+        BPage page = new BPage(Float.parseFloat(size[0]), Float.parseFloat(size[1]), Float.parseFloat(size[2]), Float.parseFloat(size[3]));
+        page.setPageName(pageName);
+        JSONObject shapesObj = new JSONObject(shapes);
+        JSONArray array = shapesObj.getJSONArray("shapes");
+        for (int i = 0; i < array.length(); i++) {
+            page.addShape(parseToBShape(array.getJSONObject(i)));
+        }
+        return page;
+    }
+
+    private BShape parseToBShape(JSONObject shapeObj) throws JSONException {
+        String shapeName = shapeObj.getString("shapeName");
+        String text = shapeObj.getString("text");
+        String imageName = shapeObj.getString("imageName");
+        String movable = shapeObj.getString("movable");
+        String visible = shapeObj.getString("visible");
+        String left = shapeObj.getString("left");
+        String top = shapeObj.getString("top");
+        String right = shapeObj.getString("right");
+        String bottom = shapeObj.getString("bottom");
+        Script script = new Script(shapeObj.getString("script"));
+        BShape shape = new BShape(text, imageName, Boolean.parseBoolean(movable), Boolean.parseBoolean(visible),
+                                    Float.parseFloat(left), Float.parseFloat(top), Float.parseFloat(right),
+                                    Float.parseFloat(bottom));
+        shape.setScript(script);
+        shape.setShapeName(shapeName);
+        return shape;
     }
 }
