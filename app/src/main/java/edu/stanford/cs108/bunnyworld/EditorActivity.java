@@ -22,9 +22,9 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
         updateSpinner();
 
-        // by default, set Clickable checkbox to disable, only enable it after visible is checked
+        // by default, set Moveable, and Clickable checkbox to disable, only enable them after visible is checked
         ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
-
+        ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
     }
 
     public void addPage(View view) {
@@ -72,14 +72,24 @@ public class EditorActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * onclick method for Visible checkbox,
+     * if visible is checked, enable moveable and clickable checkbox
+     * if visible is unchecked, unchck moveable and clickable checkbox, and disable them
+     * @param view
+     */
     public void onVisibleCheckBoxClicked(View view) {
         // if visible checked
         if (((CheckBox) view).isChecked()) {
+            // enable moveable and clickable checkbox
             ((CheckBox) findViewById(R.id.clickable)).setEnabled(true);
+            ((CheckBox) findViewById(R.id.moveable)).setEnabled(true);
         } else {
-            // visible is unchecked, uncheck clickable also and disable clickable
+            // visible is unchecked, uncheck clickable and moveable and disable them
             ((CheckBox) findViewById(R.id.clickable)).setChecked(false);
             ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
+            ((CheckBox) findViewById(R.id.moveable)).setChecked(false);
+            ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
         }
     }
 
