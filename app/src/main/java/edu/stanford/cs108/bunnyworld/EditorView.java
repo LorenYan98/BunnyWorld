@@ -101,6 +101,7 @@ public class EditorView extends View {
         BPage newPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
         currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
+        setCurrentPage(newPage);
         update();
     }
 
@@ -109,13 +110,17 @@ public class EditorView extends View {
             // add a toast later
             return;
         }
-        pageMap.remove(currentPage);
+        pageMap.remove(currentPage.getPageName());
+        setCurrentPage(firstPage);
         update();
     }
 
+    public void setCurrentPage(BPage currentPage) {
+        this.currentPage = pageMap.get(currentPage.getPageName());
+        update();
+    }
 
-
-    private void update() {
+    public void update() {
         invalidate();
     }
 

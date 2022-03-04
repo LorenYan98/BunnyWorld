@@ -26,12 +26,14 @@ public class EditorActivity extends AppCompatActivity {
         EditorView editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.addPage();
         updateSpinner();
+        editorView.update();
     }
 
     public void deletePage(View view) {
         EditorView editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.deletePage();
         updateSpinner();
+        editorView.update();
     }
 
     public void updateSpinner() {
@@ -54,7 +56,8 @@ public class EditorActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 BPage curPage = (BPage) adapterView.getSelectedItem();
-
+                EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+                editorView.setCurrentPage(curPage);
             }
 
             @Override
