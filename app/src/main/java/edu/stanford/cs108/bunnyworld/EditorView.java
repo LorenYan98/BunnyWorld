@@ -1,5 +1,6 @@
 package edu.stanford.cs108.bunnyworld;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,9 +12,11 @@ import android.renderscript.Sampler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -130,6 +133,18 @@ public class EditorView extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        System.out.println(widthSize + " Screen height" + heightSize);
+
+        int width = widthSize*70/100;
+        int height = 1120;
+
+        setMeasuredDimension(width, height);
+    }
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         viewWidth = w;
@@ -140,9 +155,10 @@ public class EditorView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         currentPage.drawPage(canvas);
-        canvas.drawLine(0, viewHeight*7/10,viewWidth,viewHeight*7/10,boundaryLine);
+        canvas.drawLine(0, viewHeight,viewWidth,viewHeight,boundaryLine);
         canvas.drawLine(0,0,viewWidth,0,boundaryLine);
         canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
+        canvas.drawLine(0,0,0,viewHeight,boundaryLine);
         if (selectedShape != null) selectedShape.draw(canvas);
     }
 
@@ -163,7 +179,7 @@ public class EditorView extends View {
         // check if there are value in left, right, top and bottom, if not ask use to draw
         
 
-        , float left, float top, float right, float bottom
+//        , float left, float top, float right, float bottom
         // create a new BShape instance
 //        BShape bshape = new BShape()
     }
