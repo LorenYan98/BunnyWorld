@@ -28,7 +28,7 @@ public class EditorView extends View {
         super(context, attrs);
         init();
         // by default, set Clickable checkbox to disable, only enable it after visible is checked
-        ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
+        // ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
     }
 
     private static Map<String, BShape> shapeNameRef = new HashMap<>();
