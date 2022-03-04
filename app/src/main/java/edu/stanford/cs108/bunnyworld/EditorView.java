@@ -85,6 +85,22 @@ public class EditorView extends View {
         soundMap.put("munching", MediaPlayer.create(getContext(), R.raw.munching));
         soundMap.put("woof", MediaPlayer.create(getContext(), R.raw.woof));
     }
+
+    public void addPage() {
+        BPage newPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        currentPage = newPage;
+        pageMap.put(newPage.getPageName(), newPage);
+        update();
+    }
+
+    public void deletePage() {
+
+    }
+
+    private void update() {
+        invalidate();
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -101,6 +117,7 @@ public class EditorView extends View {
         canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
         if (selectedShape != null) selectedShape.draw(canvas);
     }
+
 
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {

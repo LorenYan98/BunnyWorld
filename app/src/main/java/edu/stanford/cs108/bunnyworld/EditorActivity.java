@@ -14,6 +14,12 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void addPage(View view) {
+        EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+        editorView.addPage();
+    }
 
+    public void deletePage(View view) {
+        EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+        editorView.deletePage();
     }
 }

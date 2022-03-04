@@ -56,7 +56,9 @@
                     android:id="@+id/deleteNewPage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete Page" />
+                    android:text="Delete Page"
+                    android:onClick="deletePage"
+                    />
                 <TextView
                     android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
@@ -72,6 +74,7 @@
 
 
         <edu.stanford.cs108.bunnyworld.EditorView
+            android:id="@+id/editor_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
