@@ -3,6 +3,8 @@ package edu.stanford.cs108.bunnyworld;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.util.AttributeSet;
@@ -25,8 +27,8 @@ public class EditorView extends View {
 
     float preX, preY, curX, curY;
     // screen size, hardcoded for the time being
-    int viewWidth = 2208;
-    int viewHeight = 860;
+    int viewWidth;
+    int viewHeight;
     boolean shapeIsSelected;
     boolean shapeIsDragging;
     BShape selectedShape;
@@ -36,6 +38,7 @@ public class EditorView extends View {
     static Map<String, Bitmap> bitmapMap;
     static Map<String, BPage> pageMap;
 
+    Paint boundaryLine;
 
     // Initialization
     private void init() {
@@ -48,6 +51,11 @@ public class EditorView extends View {
         loadSound();
         loadBitmap();
         loadPages();
+        boundaryLine = new Paint(Paint.ANTI_ALIAS_FLAG);
+        boundaryLine.setColor(Color.BLACK);
+        boundaryLine.setStyle(Paint.Style.STROKE);
+        boundaryLine.setStrokeWidth(5.0f);
+
     }
 
     private void loadPages() {
@@ -77,12 +85,20 @@ public class EditorView extends View {
         soundMap.put("munching", MediaPlayer.create(getContext(), R.raw.munching));
         soundMap.put("woof", MediaPlayer.create(getContext(), R.raw.woof));
     }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        viewWidth = w;
+        viewHeight = h;
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         currentPage.drawPage(canvas);
-
+        canvas.drawLine(0, viewHeight*7/10,viewWidth,viewHeight*7/10,boundaryLine);
+        canvas.drawLine(0,0,viewWidth,0,boundaryLine);
+        canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
         if (selectedShape != null) selectedShape.draw(canvas);
     }
 
