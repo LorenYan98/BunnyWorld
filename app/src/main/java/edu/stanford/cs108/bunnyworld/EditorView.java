@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.renderscript.Sampler;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -30,11 +32,11 @@ public class EditorView extends View {
     public EditorView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
-
     }
 
     private static Map<String, BShape> shapeNameRef = new HashMap<>();
-
+    float actionx1, actionx2, actiony1, actiony2;
+    float shapeLeft, shapeRight, shapeTop, shapeBottom;
     float preX, preY, curX, curY;
     // screen size, hardcoded for the time being
     int viewWidth;
@@ -69,7 +71,7 @@ public class EditorView extends View {
         loadSound();
         loadBitmap();
         loadPages();
-        boundaryLine = new Paint(Paint.ANTI_ALIAS_FLAG);
+        boundaryLine = new Paint();
         boundaryLine.setColor(Color.BLACK);
         boundaryLine.setStyle(Paint.Style.STROKE);
         boundaryLine.setStrokeWidth(5.0f);
@@ -154,15 +156,74 @@ public class EditorView extends View {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
+        int radioId = radioGroup.getCheckedRadioButtonId();
+//        if(radioId == R.id.addShapeRadioButton || radioId == R.id.editShapeRadioButton){
+        if(radioId == R.id.addShapeRadioButton){
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    actionx1 = event.getX();
+                    actiony1 = event.getY();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    actionx2 = event.getX();
+                    actiony2 = event.getY();
+
+                    if (actionx1 > actionx2) {
+                        shapeLeft = actionx2;
+                        shapeRight = actionx1;
+                    } else {
+                        shapeLeft = actionx1;
+                        shapeRight = actionx2;
+                    }
+
+                    if (actiony1>actiony2) {
+                        shapeTop = actiony2;
+                        shapeBottom = actiony1;
+                    } else {
+                        shapeTop = actiony1;
+                        shapeBottom = actiony2;
+                    }
+                    invalidate();
+            }
+        }
+//        if(radioId == R.id.selectRadio || radioId == R.id.eraseRadio){
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    x = event.getX();
+//                    y = event.getY();
+//                    selectIndexUpdate();
+//                    invalidate();
+//            }
+//        }
+        return true;
+    }
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        currentPage.drawPage(canvas);
+        RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
+
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        if(radioId == R.id.editShapeRadioButton) {
+//            drawShape(canvas);
+        }else if(radioId == R.id.addShapeRadioButton) {
+            RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
+            canvas.drawRect(newShape,boundaryLine);
+//            String shapeType = radioId == R.id.rectRadio ? "Rect" : "Oval";
+//            shapeList.add(new Shape(newShape, shapeType));
+//            selectIndex = shapeList.size() - 1;
+//            drawShape(canvas);
+        }
+
         canvas.drawLine(0, viewHeight,viewWidth,viewHeight,boundaryLine);
         canvas.drawLine(0,0,viewWidth,0,boundaryLine);
         canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
         canvas.drawLine(0,0,0,viewHeight,boundaryLine);
+        currentPage.drawPage(canvas);
         if (selectedShape != null) selectedShape.draw(canvas);
     }
+
 
     /**
      * react to user click on ADD SHAPE TO VIEW BUTTON
