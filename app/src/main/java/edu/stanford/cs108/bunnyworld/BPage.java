@@ -30,7 +30,7 @@ public class BPage {
     }
 
     private String generateNextPageName() {
-        String curPageName = "page " + pageCount;
+        String curPageName = "page" + pageCount;
         pageCount++;
         return curPageName;
     }

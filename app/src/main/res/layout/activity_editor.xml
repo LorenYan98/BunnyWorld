@@ -26,6 +26,13 @@
                     android:layout_gravity="center_vertical"
                     android:text="Current Page Name: "
                     android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/currentPageTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textSize="16dp" />
 
                 <EditText
                     android:id="@+id/renamePageName"

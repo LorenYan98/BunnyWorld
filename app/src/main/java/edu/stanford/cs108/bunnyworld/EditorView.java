@@ -42,6 +42,7 @@ public class EditorView extends View {
     boolean shapeIsSelected;
     boolean shapeIsDragging;
     BShape selectedShape;
+
     BPage currentPage;
     Inventory inventory;
     static Map<String, MediaPlayer> soundMap;
@@ -73,6 +74,10 @@ public class EditorView extends View {
         boundaryLine.setStyle(Paint.Style.STROKE);
         boundaryLine.setStrokeWidth(5.0f);
 
+    }
+
+    public BPage getCurrentPage() {
+        return currentPage;
     }
 
     private void loadPages() {
@@ -108,7 +113,6 @@ public class EditorView extends View {
         currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
         setCurrentPage(newPage);
-        update();
     }
 
     public void deletePage() {
@@ -118,12 +122,10 @@ public class EditorView extends View {
         }
         pageMap.remove(currentPage.getPageName());
         setCurrentPage(firstPage);
-        update();
     }
 
     public void setCurrentPage(BPage currentPage) {
         this.currentPage = pageMap.get(currentPage.getPageName());
-        update();
     }
 
 

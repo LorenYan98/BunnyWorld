@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +26,24 @@ public class EditorActivity extends AppCompatActivity {
         // by default, set Moveable, and Clickable checkbox to disable, only enable them after visible is checked
         ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
+
+        updateCurrentPageText();
     }
 
     public void addPage(View view) {
         EditorView editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.addPage();
-        updateSpinner();
         editorView.update();
+        updateSpinner();
+        updateCurrentPageText();
     }
 
     public void deletePage(View view) {
         EditorView editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.deletePage();
-        updateSpinner();
         editorView.update();
+        updateSpinner();
+        updateCurrentPageText();
     }
 
     public void updateSpinner() {
@@ -70,6 +75,12 @@ public class EditorActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void updateCurrentPageText() {
+        TextView currentPageTextView = findViewById(R.id.currentPageTextView);
+        EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+        currentPageTextView.setText(editorView.getCurrentPage().getPageName());
     }
 
     /**
