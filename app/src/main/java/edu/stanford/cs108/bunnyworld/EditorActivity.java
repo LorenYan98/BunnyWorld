@@ -24,7 +24,6 @@ public class EditorActivity extends AppCompatActivity {
         updateSpinner();
 
         // by default, set Moveable, and Clickable checkbox to disable, only enable them after visible is checked
-        ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
 
         updateCurrentPageText();
@@ -96,12 +95,10 @@ public class EditorActivity extends AppCompatActivity {
         // if visible checked
         if (((CheckBox) view).isChecked()) {
             // enable moveable and clickable checkbox
-            ((CheckBox) findViewById(R.id.clickable)).setEnabled(true);
             ((CheckBox) findViewById(R.id.moveable)).setEnabled(true);
         } else {
             // visible is unchecked, uncheck clickable and moveable and disable them
-            ((CheckBox) findViewById(R.id.clickable)).setChecked(false);
-            ((CheckBox) findViewById(R.id.clickable)).setEnabled(false);
+
             ((CheckBox) findViewById(R.id.moveable)).setChecked(false);
             ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
         }
