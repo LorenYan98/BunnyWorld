@@ -129,13 +129,24 @@
             </RadioButton>
 
         </RadioGroup>
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Current Shape Name: "
             android:textSize="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="carrot1"
+            android:textColor="#F00"
+            android:textSize="16dp" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -191,6 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="left value "
+                android:background="#FFFF00"
                 android:textSize="16dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -204,6 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="right value"
+                android:background="#FFFF00"
                 android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
@@ -223,6 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="top value "
+                android:background="#FFFF00"
                 android:textSize="16dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -236,6 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="bottom value "
+                android:background="#FFFF00"
                 android:textSize="16dp" />
         </LinearLayout>
 
