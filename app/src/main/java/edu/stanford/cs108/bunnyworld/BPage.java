@@ -6,7 +6,10 @@ import android.graphics.Paint;
 import android.graphics.drawable.shapes.Shape;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BPage {
@@ -26,7 +29,7 @@ public class BPage {
         this.right = right;
         this.bottom = bottom;
         this.pageName = generateNextPageName();
-        this.shapeMap = new HashMap<>();
+        this.shapeMap = new LinkedHashMap<>();
     }
 
     private String generateNextPageName() {
@@ -111,7 +114,10 @@ public class BPage {
     }
 
     public BShape selectShape(float curX, float curY) {
-        for (BShape curShape : shapeMap.values()) {
+        List<BShape> shapeList = new ArrayList<>(shapeMap.values());
+
+        for (int i = shapeList.size() - 1; i > -1; i--) {
+            BShape curShape = shapeList.get(i);
             if (shapeIsSelectedWithinPage(curShape,curX,curY)) {
                 return curShape;
             }
