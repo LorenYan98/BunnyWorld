@@ -69,8 +69,8 @@ public class GameView extends View {
         BShape door1 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
         BShape door2 = new BShape("","mystic",false,false,viewWidth*0.4f,30.0f,viewWidth*0.6f,500.0f);
         BShape door3 = new BShape("","mystic",false,true,viewWidth*0.7f,30.0f,viewWidth*0.9f,500.0f);
-//        BShape hello  = new BShape("Bunny World!",true,true,0.0f,30.0f,300.0f,500.0f);
-//        BShape intro = new BShape("You are in a maze of twisty little passages, all alike.",true,true,0.0f,30.0f,300.0f,500.0f);
+         BShape hello  = new BShape("Bunny World!",true,true,0.0f,30.0f,300.0f,500.0f);
+         BShape intro = new BShape("You are in a maze of twisty little passages, all alike.",true,true,0.0f,30.0f,300.0f,500.0f);
         door1.setScript(new Script("onclick goto page2"));
         door2.setScript(new Script("onclick goto page3"));
         door3.setScript(new Script("onclick goto page4"));
@@ -83,8 +83,8 @@ public class GameView extends View {
         shapeNameRef.put("door1", door1);
         shapeNameRef.put("door2", door2);
         shapeNameRef.put("door3", door3);
-//        firstPage.addShape(hello);
-//        firstPage.addShape(intro);
+        firstPage.addShape(hello);
+        firstPage.addShape(intro);
 //        //second page
         BShape door4 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
         BShape mystic = new BShape( "", "mystic",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);

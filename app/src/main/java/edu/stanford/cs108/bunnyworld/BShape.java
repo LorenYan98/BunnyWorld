@@ -67,17 +67,18 @@ public class BShape {
      * init function to initiate the paint, and BitMap
      */
     private void init() {
+        // set up the paint for text
+        textPaint = new Paint();
+        textPaint.setStyle(Paint.Style.STROKE);
+        // set a default textSize at 20.0f
+        textPaint.setTextSize(20.0f);
 
-        // it text exists and textSize is not 0, initiate paint for text using asssigned size
-        if (text.length() != 0 &&
-                textSize != 0
-        ) {
-            // textSize was explicitly set, draw using textSize
-            textPaint = new Paint();
-            textPaint.setStyle(Paint.Style.STROKE);
+        if (textSize != 0) {
+            // textSize was explicitly set, set textPaint with the size
             textPaint.setTextSize(textSize);
         } else if (imageName.length() != 0 &&
                 GameView.bitmapMap.containsKey(imageName)) {
+            // if the imageName exists in the bitmapMap, set up the bitmap
             // need to draw image, initiate scaled image
             Bitmap curImg = GameView.bitmapMap.get(imageName);
             scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
@@ -121,16 +122,8 @@ public class BShape {
         // If a shape has both an image and text, the text takes precedence --
         // the text draws and the image does not
         if (text.length() != 0) {
-
             // draws the text
-            if (textSize == 0) {
-                // if textSize wasn't explicitly set, draw with defaul size
-                canvas.drawText(text, left, top, null);
-            } else {
-                // textSize was explicitly set, draw using textSize
                 canvas.drawText(text, left, top, textPaint);
-            }
-
         } else if (imageName.length() != 0 &&
                 GameView.bitmapMap.containsKey(imageName)) {
             canvas.drawBitmap(scaledImg, left, top, null);
