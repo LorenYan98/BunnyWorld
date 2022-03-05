@@ -32,6 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text=""
+                    android:textColor="#F00"
                     android:textSize="16dp" />
 
                 <EditText
@@ -185,11 +186,12 @@
                 android:text="LEFT: "
                 android:textSize="16dp" />
 
-            <EditText
-                android:id="@+id/shapeLeft"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_gravity="center_vertical"
+                android:text="left value "
+                android:textSize="16dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -197,11 +199,12 @@
                 android:text="RIGHT: "
                 android:textSize="16dp" />
 
-            <EditText
-                android:id="@+id/shapeRight"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_gravity="center_vertical"
+                android:text="right value"
+                android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,11 +218,12 @@
                 android:text="TOP: "
                 android:textSize="16dp" />
 
-            <EditText
-                android:id="@+id/shapeTop"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_gravity="center_vertical"
+                android:text="top value "
+                android:textSize="16dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -227,11 +231,12 @@
                 android:text="BOTTOM: "
                 android:textSize="16dp" />
 
-            <EditText
-                android:id="@+id/shapeBottom"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_gravity="center_vertical"
+                android:text="bottom value "
+                android:textSize="16dp" />
         </LinearLayout>
 
         <EditText

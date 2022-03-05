@@ -42,8 +42,10 @@ public class EditorActivity extends AppCompatActivity {
         EditorView editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.deletePage();
         editorView.update();
+        System.out.println("before: " + editorView.getCurrentPage());
         updateSpinner();
         updateCurrentPageText();
+        System.out.println("after: " + editorView.getCurrentPage());
     }
 
     public void updateSpinner() {
@@ -68,6 +70,7 @@ public class EditorActivity extends AppCompatActivity {
                 BPage curPage = (BPage) adapterView.getSelectedItem();
                 EditorView editorView = (EditorView) findViewById(R.id.editor_view);
                 editorView.setCurrentPage(curPage);
+                updateCurrentPageText();
             }
 
             @Override

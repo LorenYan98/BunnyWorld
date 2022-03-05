@@ -116,7 +116,7 @@ public class EditorView extends View {
     }
 
     public void deletePage() {
-        if (pageMap.get(firstPage.getPageName()) == currentPage) {
+        if (firstPage.getPageName() == currentPage.getPageName()) {
             // add a toast later
             return;
         }
@@ -124,8 +124,8 @@ public class EditorView extends View {
         setCurrentPage(firstPage);
     }
 
-    public void setCurrentPage(BPage currentPage) {
-        this.currentPage = pageMap.get(currentPage.getPageName());
+    public void setCurrentPage(BPage curPage) {
+        this.currentPage = pageMap.get(curPage.getPageName());
     }
 
 
