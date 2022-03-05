@@ -2,6 +2,7 @@ package edu.stanford.cs108.bunnyworld;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -49,21 +50,29 @@ public class EditorActivity extends AppCompatActivity {
 
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
+        Map imgMap = EditorView.getbitmapMap();
 //        List<String> pageList = new ArrayList<String>(pageMap.keySet());
         List<BPage> pageList = new ArrayList<>(pageMap.values());
-
+        List<Bitmap> imgList = new ArrayList<>(imgMap.values());
+        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
 //        List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
-        Spinner spinner = (Spinner) findViewById(R.id.pageSpinner);
+        Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
+        Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<BPage> adapter = new ArrayAdapter<BPage>(this,
+        ArrayAdapter<BPage> pageAdapter = new ArrayAdapter<BPage>(this,
                 android.R.layout.simple_spinner_item,
                 pageList);
+        ArrayAdapter<String> imgAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                imgNameList);
 // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        imgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        pageSpinner.setAdapter(pageAdapter);
+        imgSpinner.setAdapter(imgAdapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        pageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 BPage curPage = (BPage) adapterView.getSelectedItem();

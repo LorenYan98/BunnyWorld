@@ -53,7 +53,7 @@ public class EditorView extends View {
     public static Map<String, BPage> getPageMap() {
         return pageMap;
     }
-
+    public static Map<String, Bitmap> getbitmapMap() { return bitmapMap; }
     static Map<String, BPage> pageMap;
 
     private BPage firstPage;
