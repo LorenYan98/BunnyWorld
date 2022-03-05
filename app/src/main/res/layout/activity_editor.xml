@@ -306,18 +306,40 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Resize:(slide from 0.5-2)"
+                />
+            <SeekBar
+                android:id="@+id/blue_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="200"
+                android:progress="100" />
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resize!"
+            android:textSize="16dp"/>
 
         <Button
             android:id="@+id/addShapeEffect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Shape Effect"
+            android:text="Add/Edit Script"
             android:textSize="16dp"/>
         <Button
             android:id="@+id/addShape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Shape To View"
+            android:text="Add/Edit Shape"
             android:textSize="16dp"/>
         <Button
             android:id="@+id/deleteShape"
