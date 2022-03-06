@@ -10,10 +10,14 @@ import java.util.List;
 
 public class ScriptActivity extends AppCompatActivity {
 
-    public static final String ON_CLICK = "onclick";
-    public static final String ON_DROP = "ondrop";
-    public static final String ON_ENTER = "onenter";
-
+    private static final String ON_CLICK = "onclick";
+    private static final String ON_ENTER = "onenter";
+    public static final ArrayList<String> ACTIONLIST = new ArrayList<String>(Arrays.asList(new String[]{ON_CLICK, ON_ENTER}));
+    private static final String GOTO = "goto";
+    private static final String PLAY = "play";
+    private static final String HIDE = "hide";
+    private static final String SHOW = "show";
+    public static final ArrayList<String> TRIGGERLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +27,6 @@ public class ScriptActivity extends AppCompatActivity {
 
     public void updateSpinner() {
         // initiate ArrayList including all the actions
-        ArrayList<String> actionsList =
-                new ArrayList<String>(Arrays.asList(new String[]{ON_CLICK, ON_ENTER, ON_DROP}));
-
 
     }
-
 }
