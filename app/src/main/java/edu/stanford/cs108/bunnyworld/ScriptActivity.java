@@ -27,6 +27,8 @@ public class ScriptActivity extends AppCompatActivity {
     private static final String SHOW = "show";
     public static final ArrayList<String> ACTIONLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
 
+    
+
     private String currentTrigger;
     private String currentAction;
     private String currentPageSound;
@@ -195,7 +197,11 @@ public class ScriptActivity extends AppCompatActivity {
     public void ADD(View view) {
         TextView combinedTextView = findViewById(R.id.combinedTextView);
         combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
+        concatenate();
     }
 
+    public void concatenate() {
+
+    }
 
 }
