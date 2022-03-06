@@ -33,6 +33,7 @@ public class EditorView extends View {
         super(context, attrs);
         init();
     }
+
     private int selectIndex = 0;
     private static Map<String, BShape> shapeNameRef = new HashMap<>();
     private float actionX1, actionX2, actionY1, actionY2;
@@ -52,8 +53,14 @@ public class EditorView extends View {
     public static Map<String, BPage> getPageMap() {
         return pageMap;
     }
-    public static Map<String, Bitmap> getbitmapMap() { return bitmapMap; }
-    public static Map<String, MediaPlayer> getSoundMap() { return soundMap; }
+
+    public static Map<String, Bitmap> getbitmapMap() {
+        return bitmapMap;
+    }
+
+    public static Map<String, MediaPlayer> getSoundMap() {
+        return soundMap;
+    }
 
     static Map<String, BPage> pageMap;
 
@@ -83,11 +90,12 @@ public class EditorView extends View {
 
     private void loadPages() {
         firstPage = new BPage(0.0f, 0.0f, 1785.0f, 784.0f);
-        pageMap.put(firstPage.getPageName(),firstPage);
+        pageMap.put(firstPage.getPageName(), firstPage);
         currentPage = firstPage;
     }
 
-    private void loadPages(List<BPage> pages) {}
+    private void loadPages(List<BPage> pages) {
+    }
 
     private void loadBitmap() {
         bitmapMap.put("carrot", ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot)).getBitmap());
@@ -129,6 +137,7 @@ public class EditorView extends View {
     public void setCurrentPage(BPage curPage) {
         this.currentPage = pageMap.get(curPage.getPageName());
     }
+
     /**
      * react to user click on ADD SHAPE TO VIEW BUTTON
      * get and set the ivar of newly created shape, add the shape to page's shape map, and call
@@ -140,14 +149,14 @@ public class EditorView extends View {
         pageMap.put(currentPage.getPageName(), tempPage);
     }
 
-    public void selectIndexUpdate(){
+    public void selectIndexUpdate() {
         Map<String, BShape> curMap = currentPage.getShapeMap();
         List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
-//        System.out.println(shapeKeys.toString());
-        for(int i = shapeKeys.size() - 1; i >= 0; i--){
-            if(curMap.get(shapeKeys.get(i)).shapeSize.contains(curX,curY)){
-
+        for (int i = shapeKeys.size() - 1; i >= 0; i--) {
+            curMap.get(shapeKeys.get(i)).setSelected(false);
+            if (curMap.get(shapeKeys.get(i)).shapeSize.contains(curX, curY)) {
                 selectedShape = curMap.get(shapeKeys.get(i));
+                selectedShape.setSelected(true);
                 System.out.println(curMap.get(shapeKeys.get(i)).shapeSize.toString());
                 System.out.println(selectedShape.getImageName());
                 selectIndex = i;
@@ -156,40 +165,36 @@ public class EditorView extends View {
         }
         selectIndex = -1;
     }
-    public void highlightSelectShape(Canvas canvas){
+    private void closeHighlights(){
         Map<String, BShape> curMap = currentPage.getShapeMap();
         List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
-        for(int i = 0; i < shapeKeys.size(); i++){
-            String curName = shapeKeys.get(i);
-            System.out.println(curName);
-            if(curName.equals(selectedShape.getShapeName())) {
-                Bitmap curImg = EditorView.bitmapMap.get(curMap.get(curName).getImageName());
-                canvas.drawBitmap(curImg, 5.0f, 5.0f, boundaryLine);
-            }
+        for (int i = shapeKeys.size() - 1; i >= 0; i--) {
+            curMap.get(shapeKeys.get(i)).setSelected(false);
         }
-
     }
 
-    public void updatePageMap(){
+    public void updatePageMap() {
         Map<String, BShape> curMap = currentPage.getShapeMap();
-        curMap.put(selectedShape.getShapeName(),selectedShape);
+        curMap.put(selectedShape.getShapeName(), selectedShape);
     }
+
     public void update() {
         invalidate();
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         System.out.println(widthSize + " Screen height" + heightSize);
 
-        int width = widthSize*70/100;
-        int height = 1120*70/100;
+        int width = widthSize * 70 / 100;
+        int height = 1120 * 70 / 100;
 
         setMeasuredDimension(width, height);
     }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -199,49 +204,49 @@ public class EditorView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
         int radioId = radioGroup.getCheckedRadioButtonId();
-        if(radioId == R.id.addShapeRadioButton){
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    actionX1 = event.getX();
-                    actionY1 = event.getY();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    actionX2 = event.getX();
-                    actionY2 = event.getY();
-
-                    if (actionX1 > actionX2) {
-                        shapeLeft = actionX2;
-                        shapeRight = actionX1;
-                    } else {
-                        shapeLeft = actionX1;
-                        shapeRight = actionX2;
-                    }
-
-                    if (actionY1>actionY2) {
-                        shapeTop = actionY2;
-                        shapeBottom = actionY1;
-                    } else {
-                        shapeTop = actionY1;
-                        shapeBottom = actionY2;
-                    }
-                    invalidate();
-            }
-        }
-        if(radioId == R.id.editShapeRadioButton || radioId == R.id.addShapeRadioButton){
+//        if (radioId == R.id.addShapeRadioButton) {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    actionX1 = event.getX();
+//                    actionY1 = event.getY();
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                    actionX2 = event.getX();
+//                    actionY2 = event.getY();
+//
+//                    if (actionX1 > actionX2) {
+//                        shapeLeft = actionX2;
+//                        shapeRight = actionX1;
+//                    } else {
+//                        shapeLeft = actionX1;
+//                        shapeRight = actionX2;
+//                    }
+//
+//                    if (actionY1 > actionY2) {
+//                        shapeTop = actionY2;
+//                        shapeBottom = actionY1;
+//                    } else {
+//                        shapeTop = actionY1;
+//                        shapeBottom = actionY2;
+//                    }
+//                    invalidate();
+//            }
+//        }
+        if (radioId == R.id.editShapeRadioButton || radioId == R.id.addShapeRadioButton) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     curX = event.getX();
                     curY = event.getY();
 
-                    System.out.println(selectedShape);
-                    if(selectedShape != null && selectedShape.getMoveable()){
-                        selectedShape.move(curX-preX,curY-preY);
+                    if (selectedShape != null && selectedShape.getMoveable()) {
+                        selectedShape.move(curX - preX, curY - preY);
                         System.out.println("shape move to " + selectedShape.toString());
                         updatePageMap();
                         invalidate();
-                     }
+                    }
                     preX = curX;
                     preY = curY;
 
@@ -252,11 +257,15 @@ public class EditorView extends View {
                     preX = curX;
                     preY = curY;
                     selectIndexUpdate();
-//                    selectedShape = currentPage.selectShape(curX,curY);
                     System.out.println("current select shape is " + selectedShape);
                     System.out.println("cur x :" + curX + " cur Y : " + curY);
                     System.out.println("current index : " + selectIndex);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    closeHighlights();
                     invalidate();
+
+
             }
         }
         return true;
@@ -268,46 +277,21 @@ public class EditorView extends View {
         RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
 
         int radioId = radioGroup.getCheckedRadioButtonId();
-        if(radioId == R.id.editShapeRadioButton && selectedShape != null) {
-//            highlightSelectShape(canvas);
-        }else if(radioId == R.id.addShapeRadioButton) {
-            RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
-            canvas.drawRect(newShape,boundaryLine);
-
-//            String shapeType = radioId == R.id.rectRadio ? "Rect" : "Oval";
-//            shapeList.add(new Shape(newShape, shapeType));
-//            selectIndex = shapeList.size() - 1;
-//            drawShape(canvas);
-        }
-
-        canvas.drawLine(0, viewHeight,viewWidth,viewHeight,boundaryLine);
-        canvas.drawLine(0,0,viewWidth,0,boundaryLine);
-        canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
-        canvas.drawLine(0,0,0,viewHeight,boundaryLine);
-        currentPage.drawPage(canvas);
-
-        if (selectedShape != null) highlightSelectShape(canvas);
-    }
-
-
-
-
-
-
-
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                handleActionDown(event);
-//                break;
-//            case MotionEvent.ACTION_UP:
-//                handleActionUP(event);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                handleActionMove(event);
+//        if(radioId == R.id.editShapeRadioButton && selectedShape != null) {
+////            highlightSelectShape(canvas);
+//        }else if(radioId == R.id.addShapeRadioButton) {
+//            RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
+//            canvas.drawRect(newShape,boundaryLine);
 //        }
-//
-//        return true;
-//    }
+
+        canvas.drawLine(0, viewHeight, viewWidth, viewHeight, boundaryLine);
+        canvas.drawLine(0, 0, viewWidth, 0, boundaryLine);
+        canvas.drawLine(viewWidth, 0, viewWidth, viewHeight, boundaryLine);
+        canvas.drawLine(0, 0, 0, viewHeight, boundaryLine);
+        currentPage.drawPage(canvas);
+    }
 }
+
+
+
+

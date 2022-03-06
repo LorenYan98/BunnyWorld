@@ -39,6 +39,8 @@ public class BShape {
     private boolean isWithinPage;
     private boolean isWithinInventory;
 
+    private Paint highlightShapePaint;
+
 
 
     public BShape(String text, String imageName, boolean moveable,
@@ -80,9 +82,12 @@ public class BShape {
         // set up the paint for text
         textPaint = new Paint();
         textPaint.setStyle(Paint.Style.STROKE);
-        // set a default textSize at 20.0f
-        textPaint.setTextSize(20.0f);
-//        System.out.println(EditorView.bitmapMap.get(imageName));
+        textPaint.setTextSize(40.0f);
+        highlightShapePaint = new Paint();
+        highlightShapePaint.setColor(Color.GREEN);
+        highlightShapePaint.setStyle(Paint.Style.STROKE);
+        highlightShapePaint.setStrokeWidth(5.0f);
+
         if(!EditorView.bitmapMap.isEmpty()){
             if (textSize != 0) {
                 textPaint.setTextSize(textSize);
@@ -137,16 +142,17 @@ public class BShape {
         // first check visible, if visible do not draw and returns
         if (!getVisible()) { return; }
 
-        // If a shape has both an image and text, the text takes precedence --
-        // the text draws and the image does not
         if (text.length() != 0) {
-            // draws the text
                 canvas.drawText(text, left, top, textPaint);
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
                 Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
-//                System.out.println(newshape.toString());
-                canvas.drawBitmap(scaledImg,null ,newshape, null);
+                if(isSelected){
+                    canvas.drawBitmap(scaledImg, null, newshape, null);
+                    canvas.drawRect(newshape,highlightShapePaint);
+                }else {
+                    canvas.drawBitmap(scaledImg, null, newshape, null);
+                }
             }else if(!GameView.bitmapMap.isEmpty()){
                 canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
             }
