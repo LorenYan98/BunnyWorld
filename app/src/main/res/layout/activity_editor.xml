@@ -349,7 +349,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add/Edit Script"
-            android:textSize="16dp"/>
+            android:textSize="16dp"
+            android:onClick="handleEditor"/>
         <Button
             android:id="@+id/addShape"
             android:layout_width="match_parent"

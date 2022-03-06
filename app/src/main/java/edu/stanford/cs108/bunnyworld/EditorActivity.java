@@ -2,6 +2,7 @@ package edu.stanford.cs108.bunnyworld;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,15 @@ public class EditorActivity extends AppCompatActivity {
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
 
         updateCurrentPageText();
+    }
+
+    /**
+     * called by ADD/EDIT SCRIPT button to start script activity
+     * @param view
+     */
+    public void handleEditor(View view) {
+        Intent intent = new Intent(this, ScriptActivity.class);
+        startActivity(intent);
     }
 
     public void addPage(View view) {
