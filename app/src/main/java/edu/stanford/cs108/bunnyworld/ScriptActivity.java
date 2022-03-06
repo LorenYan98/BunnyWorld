@@ -19,12 +19,12 @@ public class ScriptActivity extends AppCompatActivity {
 
     private static final String ON_CLICK = "onclick";
     private static final String ON_ENTER = "onenter";
-    public static final ArrayList<String> ACTIONLIST = new ArrayList<String>(Arrays.asList(new String[]{ON_CLICK, ON_ENTER}));
+    public static final ArrayList<String> TRIGGERLIST = new ArrayList<String>(Arrays.asList(new String[]{ON_CLICK, ON_ENTER}));
     private static final String GOTO = "goto";
     private static final String PLAY = "play";
     private static final String HIDE = "hide";
     private static final String SHOW = "show";
-    public static final ArrayList<String> TRIGGERLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
+    public static final ArrayList<String> ACTIONLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
 
     private String currentTrigger;
     private String currentAction;
@@ -91,6 +91,15 @@ public class ScriptActivity extends AppCompatActivity {
 //        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
 
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
+
+        ArrayAdapter<String> triggerAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                TRIGGERLIST);
+
+        ArrayAdapter<String> actionAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                ACTIONLIST);
+
         ArrayAdapter<String> pageAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 pageKeyList);
@@ -98,10 +107,40 @@ public class ScriptActivity extends AppCompatActivity {
 
 
         // Specify the layout to use when the list of choices appears
+        triggerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        actionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
+        triggerSpinner.setAdapter(triggerAdapter);
+        actionsSpinner.setAdapter(actionAdapter);
         pageSoundSpinner.setAdapter(pageAdapter);
+
+        triggerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String curItem = (String) adapterView.getSelectedItem();
+                setCurrentTrigger(curItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        actionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String curItem = (String) adapterView.getSelectedItem();
+                setCurrentAction(curItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         pageSoundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -125,7 +164,6 @@ public class ScriptActivity extends AppCompatActivity {
         Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
         Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
         TextView combinedTextView = findViewById(R.id.combinedTextView);
-        combinedTextView.setText(currentPageSound);
-
+        combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
     }
 }
