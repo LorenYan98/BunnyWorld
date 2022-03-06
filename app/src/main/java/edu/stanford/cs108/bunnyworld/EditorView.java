@@ -46,7 +46,6 @@ public class EditorView extends View {
     BShape selectedShape;
 
     BPage currentPage;
-    Inventory inventory;
     static Map<String, MediaPlayer> soundMap;
     static Map<String, Bitmap> bitmapMap;
 
@@ -69,7 +68,6 @@ public class EditorView extends View {
         pageMap = new HashMap<>();
         bitmapMap = new HashMap<>();
         soundMap = new HashMap<>();
-        inventory = new Inventory(0.0f, 0.7f * viewHeight, viewWidth, viewHeight);
         loadSound();
         loadBitmap();
         loadPages();
@@ -84,7 +82,7 @@ public class EditorView extends View {
     }
 
     private void loadPages() {
-        firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        firstPage = new BPage(0.0f, 0.0f, 1785.0f, 784.0f);
         pageMap.put(firstPage.getPageName(),firstPage);
         currentPage = firstPage;
     }
@@ -112,7 +110,9 @@ public class EditorView extends View {
     }
 
     public void addPage() {
-        BPage newPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        BPage newPage = new BPage(0.0f, 0.0f, viewWidth, viewHeight);
+        System.out.println("viewWidth " + viewWidth + " viewHeight : " + viewHeight);
+
         currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
         setCurrentPage(newPage);
@@ -212,15 +212,17 @@ public class EditorView extends View {
         }
         if(radioId == R.id.editShapeRadioButton){
             switch (event.getAction()) {
-//                case MotionEvent.ACTION_MOVE:
-//                    curX = event.getX();
-//                    curY = event.getY();
-//                    System.out.println(selectedShape);
-//                    if(selectedShape.getMovable()){
-//                        selectedShape.move(curX-preX,curY-preY);
-//                        invalidate();
-//                     }
-//                    break;
+                case MotionEvent.ACTION_MOVE:
+                    curX = event.getX();
+                    curY = event.getY();
+                    System.out.println(selectedShape);
+                    if(selectedShape != null && selectedShape.getMoveable()){
+                        selectedShape.move(curX-preX,curY-preY);
+                        invalidate();
+                     }
+                    preX = curX;
+                    preY = curY;
+                    break;
                 case MotionEvent.ACTION_DOWN:
                     curX = event.getX();
                     curY = event.getY();
@@ -228,15 +230,7 @@ public class EditorView extends View {
                     preY = curY;
                     selectedShape = currentPage.selectShape(curX,curY);
                     System.out.println("current select shape is " + selectedShape);
-//                    if(selectedShape != null) System.out.println(selectedShape.toString());
-
-                    System.out.println(curX + " and " + curY);
-//                    selectIndexUpdate();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    curX = event.getX();
-                    curY = event.getY();
-
+                    selectIndexUpdate();
                     invalidate();
             }
         }

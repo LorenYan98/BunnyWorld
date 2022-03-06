@@ -26,6 +26,7 @@ import java.util.Map;
 public class EditorActivity extends AppCompatActivity {
     private EditorView editorView;
     private RadioGroup shapeRadioGroup;
+    private String userGameName;
     SingletonDB db;
 
 
@@ -81,7 +82,7 @@ public class EditorActivity extends AppCompatActivity {
 //        System.out.println(moveable + " and " + visible);
 //        System.out.println(curImgName + " and " +text );
         if(radioId == R.id.addShapeRadioButton){
-            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500,500.0f);
+            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,500.0f);
             editorView.addShapeToview(newShape);
             editorView.update();
         }
@@ -189,7 +190,7 @@ public class EditorActivity extends AppCompatActivity {
             BShape currShape = shapeMap.get(shapeName);
             currShapeObj.put("text",currShape.getText());
             currShapeObj.put("imageName",currShape.getImageName());
-            currShapeObj.put("movable",currShape.getMovable());
+            currShapeObj.put("movable",currShape.getMoveable());
             currShapeObj.put("visible",currShape.getVisible());
             currShapeObj.put("left",currShape.getLeft());
             currShapeObj.put("top",currShape.getTop());

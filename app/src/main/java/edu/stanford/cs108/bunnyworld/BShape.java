@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class BShape {
@@ -82,9 +83,7 @@ public class BShape {
             } else if (imageName.length() != 0 &&
                     EditorView.bitmapMap.containsKey(imageName)) {
                 Bitmap curImg = EditorView.bitmapMap.get(imageName);
-
                 scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
-
             }
         }else if(!GameView.bitmapMap.isEmpty()){
             if (textSize != 0) {
@@ -137,7 +136,9 @@ public class BShape {
                 canvas.drawText(text, left, top, textPaint);
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
-                canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
+                Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
+                System.out.println(newshape.toString());
+                canvas.drawBitmap(scaledImg,null ,newshape, null);
             }else if(!GameView.bitmapMap.isEmpty()){
                 canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
             }

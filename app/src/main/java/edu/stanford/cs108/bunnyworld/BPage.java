@@ -118,9 +118,12 @@ public class BPage {
         System.out.println(shapeList);
         for (int i = shapeList.size() - 1; i > -1; i--) {
             BShape curShape = shapeList.get(i);
+            System.out.println("curshape " + curShape);
+            System.out.println("curX" + curX + "curY" + curY);
 //            System.out.println("curshape " + curShape + " curX " + curX + " curY " + curY);
             if (shapeIsSelectedWithinPage(curShape,curX,curY)|| curShape.shapeSize.contains(curX,curY)) {
-                System.out.println("curshape " + curShape + " curX " + curX + " curY " + curY);
+//                System.out.println("curshape " + curShape);
+//                System.out.println("curX" + curX + "curY" + curY);
                 return curShape;
             }
         }
