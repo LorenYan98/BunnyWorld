@@ -28,7 +28,7 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
         updateSpinner();
 
-        // by default, set Moveable, and Clickable checkbox to disable, only enable them after visible is checked
+        // by default, set Moveable checkbox to disable, only enable it after visible is checked
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
 
         updateCurrentPageText();
@@ -71,24 +71,29 @@ public class EditorActivity extends AppCompatActivity {
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
         Map imgMap = EditorView.getbitmapMap();
-//        List<String> pageList = new ArrayList<String>(pageMap.keySet());
+
+        // List<String> pageList = new ArrayList<String>(pageMap.keySet());
         List<BPage> pageList = new ArrayList<>(pageMap.values());
         List<Bitmap> imgList = new ArrayList<>(imgMap.values());
         List<String> imgNameList = new ArrayList<>(imgMap.keySet());
-//        List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
+
+        // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
         Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
         Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<BPage> pageAdapter = new ArrayAdapter<BPage>(this,
                 android.R.layout.simple_spinner_item,
                 pageList);
         ArrayAdapter<String> imgAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 imgNameList);
-// Specify the layout to use when the list of choices appears
+
+        // Specify the layout to use when the list of choices appears
         pageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         imgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+
+        // Apply the adapter to the spinner
         pageSpinner.setAdapter(pageAdapter);
         imgSpinner.setAdapter(imgAdapter);
 
@@ -118,18 +123,17 @@ public class EditorActivity extends AppCompatActivity {
 
     /**
      * onclick method for Visible checkbox,
-     * if visible is checked, enable moveable and clickable checkbox
-     * if visible is unchecked, unchck moveable and clickable checkbox, and disable them
+     * if visible is checked, enable moveable checkbox
+     * if visible is unchecked, uncheck moveable checkbox, and disable it
      * @param view
      */
     public void onVisibleCheckBoxClicked(View view) {
         // if visible checked
         if (((CheckBox) view).isChecked()) {
-            // enable moveable and clickable checkbox
+            // enable moveable checkbox
             ((CheckBox) findViewById(R.id.moveable)).setEnabled(true);
         } else {
-            // visible is unchecked, uncheck clickable and moveable and disable them
-
+            // visible is unchecked, uncheck moveable and disable them
             ((CheckBox) findViewById(R.id.moveable)).setChecked(false);
             ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
         }
