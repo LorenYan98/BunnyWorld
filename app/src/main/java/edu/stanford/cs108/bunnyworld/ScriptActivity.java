@@ -86,6 +86,7 @@ public class ScriptActivity extends AppCompatActivity {
         Map soundMap = EditorView.getSoundMap();
 
          List<String> pageKeyList = new ArrayList<String>(pageMap.keySet());
+        List<String> soundKeyList = new ArrayList<String>(soundMap.keySet());
 //        List<BPage> pageList = new ArrayList<>(pageMap.values());
 //        List<Bitmap> imgList = new ArrayList<>(imgMap.values());
 //        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
@@ -100,9 +101,12 @@ public class ScriptActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item,
                 ACTIONLIST);
 
+        List<String> newList = new ArrayList<String>(pageKeyList);
+        newList.addAll(soundKeyList);
+
         ArrayAdapter<String> pageAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
-                pageKeyList);
+                newList);
 
 
 
