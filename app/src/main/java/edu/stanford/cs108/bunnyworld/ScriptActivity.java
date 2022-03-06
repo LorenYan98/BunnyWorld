@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void init() {
-
+        updateSpinner();
     }
 
     public void updateSpinner() {
@@ -123,6 +124,8 @@ public class ScriptActivity extends AppCompatActivity {
         Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
         Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
         Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+        TextView combinedTextView = findViewById(R.id.combinedTextView);
+        combinedTextView.setText(currentPageSound);
 
     }
 }

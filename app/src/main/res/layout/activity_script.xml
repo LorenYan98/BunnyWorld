@@ -84,7 +84,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD"></Button>
+            android:text="ADD"
+            android:onClick="ADD"
+            ></Button>
 
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -94,6 +96,7 @@
         android:layout_height="match_parent"
         tools:context=".ScriptActivity">
         <TextView
+            android:id="@+id/combinedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="This text shows the combined script"
