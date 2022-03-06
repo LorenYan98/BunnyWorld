@@ -216,7 +216,7 @@ public class EditorView extends View {
                     curX = event.getX();
                     curY = event.getY();
                     System.out.println(selectedShape);
-                    if(selectedShape != null && selectedShape.getMoveable()){
+                    if(selectedShape != null && selectedShape.getMovable()){
                         selectedShape.move(curX-preX,curY-preY);
                         invalidate();
                      }
