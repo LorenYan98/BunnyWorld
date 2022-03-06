@@ -63,7 +63,7 @@ public class EditorActivity extends AppCompatActivity {
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
         System.out.println(curImgName + " and " +text );
         if(radioId == R.id.addShapeRadioButton){
-            BShape door1 = new BShape(text,curImgName,true,true,400,30.0f,500.0f,500.0f);
+            BShape door1 = new BShape(text,curImgName,true,true,200.0f,30.0f,700.0f,500.0f);
             editorView.addShapeToview(door1);
         }
 

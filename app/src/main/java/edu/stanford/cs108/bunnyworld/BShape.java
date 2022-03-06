@@ -136,10 +136,9 @@ public class BShape {
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
                 System.out.println(left+ " right " + right + " top " + top + " bottom " + bottom);
-                canvas.drawLine(20,33,100,100,rectPaint);
-                canvas.drawBitmap(scaledImg, left, top, null);
+                canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
             }else if(!GameView.bitmapMap.isEmpty()){
-                canvas.drawBitmap(scaledImg, left, top, null);
+                canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
             }
         } else {
             canvas.drawRect(left, top, right, bottom, rectPaint);
