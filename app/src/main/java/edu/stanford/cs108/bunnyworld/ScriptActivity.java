@@ -85,9 +85,9 @@ public class ScriptActivity extends AppCompatActivity {
 
     public void updateSpinner() {
         //the following three code proves
-        setCurrentTrigger("a");
-        setCurrentAction("b");
-        setCurrentPageSound("c");
+//        setCurrentTrigger("a");
+//        setCurrentAction("b");
+//        setCurrentPageSound("c");
 
         Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
         Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
@@ -104,6 +104,18 @@ public class ScriptActivity extends AppCompatActivity {
 //        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
 
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
+
+
+        if (pageKeyList.contains(currentPageSound)) {
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
+            setCurrentShape((String) shapeList.get(0));
+        }
+
+
+        setCurrentTrigger(TRIGGERLIST.get(0));
+        setCurrentAction(ACTIONLIST.get(0));
+        setCurrentPageSound(pageKeyList.get(0));
 
         ArrayAdapter<String> triggerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
@@ -161,6 +173,7 @@ public class ScriptActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String curItem = (String) adapterView.getSelectedItem();
                 setCurrentPageSound(curItem);
+                updateSpinner2(pageKeyList, soundKeyList);
             }
 
             @Override
@@ -168,19 +181,25 @@ public class ScriptActivity extends AppCompatActivity {
 
             }
         });
-        updateSpinner2(pageKeyList, soundKeyList);
+//        updateSpinner2(pageKeyList, soundKeyList);
     }
 
     public void updateSpinner2(List pageKeyList, List soundKeyList) {
+        System.out.println("currpageKeyList: " + pageKeyList);
+        System.out.println("currentPageSound: " + currentPageSound);
         if (pageKeyList.contains(currentPageSound)) {
             Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
             List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
+            setCurrentShape((String) shapeList.get(0));
+            for (int i = 0; i < shapeList.size(); i++) {
+                System.out.println("curShape: " + shapeList.get(i).toString());
+            }
+            System.out.println("doneeeeeeeeeeeee");
             ArrayAdapter<String> shapeAdapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_item,
                     shapeList);
             shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             shapeSpinner.setAdapter(shapeAdapter);
-
 
             shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -195,6 +214,8 @@ public class ScriptActivity extends AppCompatActivity {
                 }
             });
         } else {
+            setCurrentShape(null);
+            System.out.println("im   gere");
             return;
         }
     }
@@ -206,17 +227,26 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void concatenate() {
+        // fi shape exists, ignore currentPageSound
         if (currentTrigger.equals(ON_CLICK)) {
             if (onClickString.equals("")) {
                 onClickString = currentTrigger + " " + currentAction + " " + currentPageSound;
             } else {
-                onClickString += " " + currentAction + " " + currentPageSound;
+                if (currentShape != null) {
+                    onClickString += " " + currentAction + " " + currentShape;
+                } else {
+                    onClickString += " " + currentAction + " " + currentPageSound;
+                }
             }
         } else if (currentTrigger.equals(ON_ENTER)) {
             if (onEnterString.equals("")) {
                 onEnterString = currentTrigger + " " + currentAction + " " + currentPageSound;
             } else {
-                onEnterString += " " + currentAction + " " + currentPageSound;
+                if (currentShape != null) {
+                    onEnterString += " " + currentAction + " " + currentShape;
+                } else {
+                    onEnterString += " " + currentAction + " " + currentPageSound;
+                }
             }
         }
     }
