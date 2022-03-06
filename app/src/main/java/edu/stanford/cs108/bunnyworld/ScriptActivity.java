@@ -25,49 +25,88 @@ public class ScriptActivity extends AppCompatActivity {
     private static final String SHOW = "show";
     public static final ArrayList<String> TRIGGERLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
 
+    private String currentTrigger;
+    private String currentAction;
+    private String currentPageSound;
+    private String currentShape;
+
+    public void setCurrentTrigger(String currentTrigger) {
+        this.currentTrigger = currentTrigger;
+    }
+
+    public void setCurrentAction(String currentAction) {
+        this.currentAction = currentAction;
+    }
+
+    public void setCurrentPageSound(String currentPageSound) {
+        this.currentPageSound = currentPageSound;
+    }
+
+    public void setCurrentShape(String currentShape) {
+        this.currentShape = currentShape;
+    }
+
+    public String getCurrentTrigger() {
+        return currentTrigger;
+    }
+
+    public String getCurrentAction() {
+        return currentAction;
+    }
+
+    public String getCurrentPageSound() {
+        return currentPageSound;
+    }
+
+    public String getCurrentShape() {
+        return currentShape;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_script);
+        init();
+    }
+
+    public void init() {
+
     }
 
     public void updateSpinner() {
+        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
+        Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
+        Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
+        Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+
+
         // initiate ArrayList including all the actions
         Map pageMap = EditorView.getPageMap();
         Map soundMap = EditorView.getSoundMap();
 
-         List<String> pageList = new ArrayList<String>(pageMap.keySet());
+         List<String> pageKeyList = new ArrayList<String>(pageMap.keySet());
 //        List<BPage> pageList = new ArrayList<>(pageMap.values());
 //        List<Bitmap> imgList = new ArrayList<>(imgMap.values());
 //        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
 
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
-        Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
-        Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
+        ArrayAdapter<String> pageAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                pageKeyList);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<BPage> pageAdapter = new ArrayAdapter<BPage>(this,
-                android.R.layout.simple_spinner_item,
-                pageList);
-        ArrayAdapter<String> imgAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,
-                imgNameList);
+
 
         // Specify the layout to use when the list of choices appears
         pageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        imgAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
-        pageSpinner.setAdapter(pageAdapter);
-        imgSpinner.setAdapter(imgAdapter);
+        pageSoundSpinner.setAdapter(pageAdapter);
 
-        pageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        pageSoundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                BPage curPage = (BPage) adapterView.getSelectedItem();
-                editorView = (EditorView) findViewById(R.id.editor_view);
-                editorView.setCurrentPage(curPage);
-                updateCurrentPageText();
+                String curItem = (String) adapterView.getSelectedItem();
+                setCurrentPageSound(curItem);
             }
 
             @Override
