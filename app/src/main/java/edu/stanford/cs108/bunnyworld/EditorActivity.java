@@ -81,7 +81,7 @@ public class EditorActivity extends AppCompatActivity {
 //        System.out.println(moveable + " and " + visible);
 //        System.out.println(curImgName + " and " +text );
         if(radioId == R.id.addShapeRadioButton){
-            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,700.0f,500.0f);
+            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500,500.0f);
             editorView.addShapeToview(newShape);
             editorView.update();
         }

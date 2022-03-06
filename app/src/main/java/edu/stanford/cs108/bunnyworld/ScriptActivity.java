@@ -27,6 +27,10 @@ public class ScriptActivity extends AppCompatActivity {
     private static final String SHOW = "show";
     public static final ArrayList<String> ACTIONLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
 
+    private String onClickString;
+    private String onEnterString;
+    private String onDropString;
+
     private String currentTrigger;
     private String currentAction;
     private String currentPageSound;
@@ -72,7 +76,11 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void init() {
+        onClickString = "";
+        onEnterString = "";
+        onDropString = "";
         updateSpinner();
+//        updateSpinner2();
     }
 
     public void updateSpinner() {
@@ -84,8 +92,6 @@ public class ScriptActivity extends AppCompatActivity {
         Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
         Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
         Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
-        Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
-
 
         // initiate ArrayList including all the actions
         Map pageMap = EditorView.getPageMap();
@@ -113,8 +119,6 @@ public class ScriptActivity extends AppCompatActivity {
         ArrayAdapter<String> pageAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 newList);
-
-
 
         // Specify the layout to use when the list of choices appears
         triggerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -164,31 +168,57 @@ public class ScriptActivity extends AppCompatActivity {
 
             }
         });
+        updateSpinner2(pageKeyList, soundKeyList);
+    }
+
+    public void updateSpinner2(List pageKeyList, List soundKeyList) {
+        if (pageKeyList.contains(currentPageSound)) {
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
+            ArrayAdapter<String> shapeAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item,
+                    shapeList);
+            shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            shapeSpinner.setAdapter(shapeAdapter);
 
 
-//        if (currentPageSound ) {
-//            List<String> shapeList = new ArrayList<String>(pageMap.get(currentPageSound));
-//        }
+            shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    String curItem = (String) adapterView.getSelectedItem();
+                    setCurrentShape(curItem);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        } else {
+            return;
+        }
     }
 
     public void ADD(View view) {
-        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
-        Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
-        Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
-        Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+        concatenate();
         TextView combinedTextView = findViewById(R.id.combinedTextView);
-        combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
+        combinedTextView.setText(onClickString + "\n" + onEnterString + "\n" +onDropString);
     }
 
-    /**
-     * on click method for triggerSpinner on the first line
-     * updates the text of the corresponding button on the same line to match the trigger
-     * @param view
-     */
-    public void changeFirstButtonText(View view) {
-        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
-        String buttonString = "ADD"  + triggerSpinner.getSelectedItem().toString() + "Clause";
-        Button firstLineButton = (Button) findViewById(R.id.firstLineButton);
-        firstLineButton.setText(buttonString);
+    public void concatenate() {
+        if (currentTrigger.equals(ON_CLICK)) {
+            if (onClickString.equals("")) {
+                onClickString = currentTrigger + " " + currentAction + " " + currentPageSound;
+            } else {
+                onClickString += " " + currentAction + " " + currentPageSound;
+            }
+        } else if (currentTrigger.equals(ON_ENTER)) {
+            if (onEnterString.equals("")) {
+                onEnterString = currentTrigger + " " + currentAction + " " + currentPageSound;
+            } else {
+                onEnterString += " " + currentAction + " " + currentPageSound;
+            }
+        }
     }
+
 }
