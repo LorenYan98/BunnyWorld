@@ -163,7 +163,7 @@ public class EditorView extends View {
             String curName = shapeKeys.get(i);
             System.out.println(curName);
             if(curName.equals(selectedShape.getShapeName())) {
-                Bitmap curImg = EditorView.bitmapMap.get(curName);
+                Bitmap curImg = EditorView.bitmapMap.get(curMap.get(curName).getImageName());
                 canvas.drawBitmap(curImg, 5.0f, 5.0f, boundaryLine);
             }
         }
@@ -285,7 +285,8 @@ public class EditorView extends View {
         canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
         canvas.drawLine(0,0,0,viewHeight,boundaryLine);
         currentPage.drawPage(canvas);
-//        if (selectedShape != null) selectedShape.draw(canvas);
+
+        if (selectedShape != null) highlightSelectShape(canvas);
     }
 
 

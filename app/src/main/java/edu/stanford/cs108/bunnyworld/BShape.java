@@ -35,6 +35,12 @@ public class BShape {
     // add script ivar by Shuangshan LI / Mabel Jiang
     private Script script;
 
+    private boolean isSelected;
+    private boolean isWithinPage;
+    private boolean isWithinInventory;
+
+
+
     public BShape(String text, String imageName, boolean moveable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
@@ -212,6 +218,29 @@ public class BShape {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isWithinPage() {
+        return isWithinPage;
+    }
+
+    public void setWithinPage(boolean withinPage) {
+        isWithinPage = withinPage;
+    }
+
+    public boolean isWithinInventory() {
+        return isWithinInventory;
+    }
+
+    public void setWithinInventory(boolean withinInventory) {
+        isWithinInventory = withinInventory;
     }
 
     public Script getScript() { return script; }
