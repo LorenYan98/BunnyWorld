@@ -351,11 +351,12 @@
             android:text="Add/Edit Script"
             android:textSize="16dp"/>
         <Button
-            android:id="@+id/addShape"
+            android:id="@+id/addOrEditShape"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add/Edit Shape"
-            android:textSize="16dp"/>
+            android:textSize="16dp"
+            android:onClick="addOrEditShape"/>
         <Button
             android:id="@+id/deleteShape"
             android:layout_width="match_parent"

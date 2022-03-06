@@ -139,7 +139,7 @@ public class BPage {
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
             curShape.draw(canvas);
-            System.out.println("Page" + curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
+            System.out.println("Page" + curShape.getShapeName() + " location "+ curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
         }
     }
 

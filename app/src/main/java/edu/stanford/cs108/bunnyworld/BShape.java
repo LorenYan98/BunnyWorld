@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 
 public class BShape {
 
@@ -72,18 +73,26 @@ public class BShape {
         textPaint.setStyle(Paint.Style.STROKE);
         // set a default textSize at 20.0f
         textPaint.setTextSize(20.0f);
+//        System.out.println(EditorView.bitmapMap.get(imageName));
+        if(!EditorView.bitmapMap.isEmpty()){
+            if (textSize != 0) {
+                textPaint.setTextSize(textSize);
+            } else if (imageName.length() != 0 &&
+                    EditorView.bitmapMap.containsKey(imageName)) {
+                Bitmap curImg = EditorView.bitmapMap.get(imageName);
 
-        if (textSize != 0) {
-            // textSize was explicitly set, set textPaint with the size
-            textPaint.setTextSize(textSize);
-        } else if (imageName.length() != 0 &&
-                GameView.bitmapMap.containsKey(imageName)) {
-            // if the imageName exists in the bitmapMap, set up the bitmap
-            // need to draw image, initiate scaled image
-            Bitmap curImg = GameView.bitmapMap.get(imageName);
-            scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+                scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+
+            }
+        }else if(!GameView.bitmapMap.isEmpty()){
+            if (textSize != 0) {
+                textPaint.setTextSize(textSize);
+            } else if (imageName.length() != 0 &&
+                    GameView.bitmapMap.containsKey(imageName)) {
+                Bitmap curImg = GameView.bitmapMap.get(imageName);
+                scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+            }
         }
-
     }
     //Resize the image contained in the BShape
     public void scale(float width, float height){
@@ -124,9 +133,14 @@ public class BShape {
         if (text.length() != 0) {
             // draws the text
                 canvas.drawText(text, left, top, textPaint);
-        } else if (imageName.length() != 0 &&
-                GameView.bitmapMap.containsKey(imageName)) {
-            canvas.drawBitmap(scaledImg, left, top, null);
+        } else if (imageName.length() != 0) {
+            if(!EditorView.bitmapMap.isEmpty()){
+                System.out.println(left+ " right " + right + " top " + top + " bottom " + bottom);
+                canvas.drawLine(20,33,100,100,rectPaint);
+                canvas.drawBitmap(scaledImg, left, top, null);
+            }else if(!GameView.bitmapMap.isEmpty()){
+                canvas.drawBitmap(scaledImg, left, top, null);
+            }
         } else {
             canvas.drawRect(left, top, right, bottom, rectPaint);
         }
