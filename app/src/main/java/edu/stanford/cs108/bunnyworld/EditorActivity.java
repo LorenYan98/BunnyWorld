@@ -15,6 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +26,7 @@ import java.util.Map;
 public class EditorActivity extends AppCompatActivity {
     private EditorView editorView;
     private RadioGroup shapeRadioGroup;
+    SingletonDB db;
 
 
     @Override
@@ -154,6 +159,47 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
-    public void saveGame(View view) {
+    public void saveGame(View view) throws JSONException {
+        db = SingletonDB.getInstance(this);
+        String currGame = gameToJson();
+        String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ");";
+        db.execSQL(query);
+    }
+
+    public String gameToJson()throws JSONException {
+        Map<String,BPage> pageMap = EditorView.getPageMap();
+        JSONObject pages = new JSONObject();
+        JSONArray pagesArray = new JSONArray();
+        for(String pageName:pageMap.keySet()){
+            JSONObject currPageObj = new JSONObject();
+            BPage currPage = pageMap.get(pageName);
+            currPageObj.put("size",currPage.getLeft()+" "+currPage.getTop()+" "+currPage.getRight()+" "+currPage.getBottom());
+            currPageObj.put(currPage.getPageName(),shapesToJson(currPage.getShapeMap()));
+            pagesArray.put(currPage);
+        }
+        pages.put("pages",pagesArray);
+        return pages.toString();
+    }
+
+    public String shapesToJson(Map<String,BShape> shapeMap) throws JSONException {
+        JSONObject shapes = new JSONObject();
+        JSONArray shapesArray = new JSONArray();
+        for(String shapeName:shapeMap.keySet()){
+            JSONObject currShapeObj = new JSONObject();
+            BShape currShape = shapeMap.get(shapeName);
+            currShapeObj.put("text",currShape.getText());
+            currShapeObj.put("imageName",currShape.getImageName());
+            currShapeObj.put("movable",currShape.getMovable());
+            currShapeObj.put("visible",currShape.getVisible());
+            currShapeObj.put("left",currShape.getLeft());
+            currShapeObj.put("top",currShape.getTop());
+            currShapeObj.put("right",currShape.getRight());
+            currShapeObj.put("bottom",currShape.getBottom());
+            currShapeObj.put("shapeName",currShape.getShapeName());
+            currShapeObj.put("script",currShape.getScript());
+            shapesArray.put(currShapeObj);
+        }
+        shapes.put("shapes",shapesArray);
+        return shapes.toString();
     }
 }
