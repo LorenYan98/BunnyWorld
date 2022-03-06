@@ -27,7 +27,9 @@ public class ScriptActivity extends AppCompatActivity {
     private static final String SHOW = "show";
     public static final ArrayList<String> ACTIONLIST = new ArrayList<String>(Arrays.asList(new String[]{GOTO, PLAY, HIDE, SHOW}));
 
-    
+    private String onClickString;
+    private String onEnterString;
+    private String onDropString;
 
     private String currentTrigger;
     private String currentAction;
@@ -74,6 +76,9 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void init() {
+        onClickString = "";
+        onEnterString = "";
+        onDropString = "";
         updateSpinner();
 //        updateSpinner2();
     }
@@ -195,13 +200,25 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void ADD(View view) {
-        TextView combinedTextView = findViewById(R.id.combinedTextView);
-        combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
         concatenate();
+        TextView combinedTextView = findViewById(R.id.combinedTextView);
+        combinedTextView.setText(onClickString + "\n" + onEnterString + "\n" +onDropString);
     }
 
     public void concatenate() {
-
+        if (currentTrigger.equals(ON_CLICK)) {
+            if (onClickString.equals("")) {
+                onClickString = currentTrigger + " " + currentAction + " " + currentPageSound;
+            } else {
+                onClickString += " " + currentAction + " " + currentPageSound;
+            }
+        } else if (currentTrigger.equals(ON_ENTER)) {
+            if (onEnterString.equals("")) {
+                onEnterString = currentTrigger + " " + currentAction + " " + currentPageSound;
+            } else {
+                onEnterString += " " + currentAction + " " + currentPageSound;
+            }
+        }
     }
 
 }
