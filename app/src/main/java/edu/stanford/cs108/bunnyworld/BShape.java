@@ -184,7 +184,7 @@ public class BShape {
         return imageName;
     }
 
-    public boolean getMovable() {
+    public boolean getMoveable() {
         return moveable;
     }
 
