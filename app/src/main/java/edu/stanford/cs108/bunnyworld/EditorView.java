@@ -212,27 +212,37 @@ public class EditorView extends View {
         }
         if(radioId == R.id.editShapeRadioButton){
             switch (event.getAction()) {
-                case MotionEvent.ACTION_MOVE:
-                    curX = event.getX();
-                    curY = event.getY();
-
-                    System.out.println(selectedShape);
-                    if(selectedShape.getMovable()){
-                        selectedShape.move(curX-preX,curY-preY);
-                        invalidate();
-                    }
+//                case MotionEvent.ACTION_MOVE:
+//                    curX = event.getX();
+//                    curY = event.getY();
+//                    System.out.println(selectedShape);
+//                    if(selectedShape.getMovable()){
+//                        selectedShape.move(curX-preX,curY-preY);
+//                        invalidate();
+//                     }
+//                    break;
                 case MotionEvent.ACTION_DOWN:
                     curX = event.getX();
                     curY = event.getY();
                     preX = curX;
                     preY = curY;
                     selectedShape = currentPage.selectShape(curX,curY);
-                    selectIndexUpdate();
+                    System.out.println("current select shape is " + selectedShape);
+//                    if(selectedShape != null) System.out.println(selectedShape.toString());
+
+                    System.out.println(curX + " and " + curY);
+//                    selectIndexUpdate();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    curX = event.getX();
+                    curY = event.getY();
+
                     invalidate();
             }
         }
         return true;
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -240,7 +250,7 @@ public class EditorView extends View {
 
         int radioId = radioGroup.getCheckedRadioButtonId();
         if(radioId == R.id.editShapeRadioButton) {
-            currentPage.drawPage(canvas);
+//            currentPage.drawPage(canvas);
         }else if(radioId == R.id.addShapeRadioButton) {
             RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
             canvas.drawRect(newShape,boundaryLine);
