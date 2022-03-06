@@ -76,6 +76,11 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void updateSpinner() {
+        //the following three code proves
+        setCurrentTrigger("a");
+        setCurrentAction("b");
+        setCurrentPageSound("c");
+
         Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
         Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
         Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
@@ -159,6 +164,9 @@ public class ScriptActivity extends AppCompatActivity {
         });
 
 
+//        if (currentPageSound ) {
+//            List<String> shapeList = new ArrayList<String>(pageMap.get(currentPageSound));
+//        }
     }
 
     public void ADD(View view) {

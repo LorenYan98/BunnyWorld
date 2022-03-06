@@ -115,10 +115,12 @@ public class BPage {
 
     public BShape selectShape(float curX, float curY) {
         List<BShape> shapeList = new ArrayList<>(shapeMap.values());
-
+        System.out.println(shapeList);
         for (int i = shapeList.size() - 1; i > -1; i--) {
             BShape curShape = shapeList.get(i);
-            if (shapeIsSelectedWithinPage(curShape,curX,curY)) {
+//            System.out.println("curshape " + curShape + " curX " + curX + " curY " + curY);
+            if (shapeIsSelectedWithinPage(curShape,curX,curY)|| curShape.shapeSize.contains(curX,curY)) {
+                System.out.println("curshape " + curShape + " curX " + curX + " curY " + curY);
                 return curShape;
             }
         }
@@ -139,7 +141,7 @@ public class BPage {
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
             curShape.draw(canvas);
-            System.out.println("Page" + curShape.getShapeName() + " location "+ curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
+//            System.out.println("Page" + curShape.getShapeName() + " location "+ curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
         }
     }
 

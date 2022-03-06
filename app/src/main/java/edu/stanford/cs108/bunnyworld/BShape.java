@@ -13,7 +13,7 @@ public class BShape {
     private String text = "";
     private String imageName = "";
 
-    private boolean movable = false;
+    private boolean moveable = false;
     private boolean visible = false;
     private boolean selected = false;
 
@@ -34,12 +34,12 @@ public class BShape {
     // add script ivar by Shuangshan LI / Mabel Jiang
     private Script script;
 
-    public BShape(String text, String imageName, boolean movable,
+    public BShape(String text, String imageName, boolean moveable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
         this.text = text;
         this.imageName = imageName;
-        this.movable = movable;
+        this.moveable = moveable;
         this.visible = visible;
         this.left = left;
         this.right = right;
@@ -51,11 +51,11 @@ public class BShape {
     }
 
     // constructor taking care of text only
-    public BShape(String text, boolean movable,
+    public BShape(String text, boolean moveable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
         this.text = text;
-        this.movable = movable;
+        this.moveable = moveable;
         this.visible = visible;
         this.left = left;
         this.right = right;
@@ -137,7 +137,6 @@ public class BShape {
                 canvas.drawText(text, left, top, textPaint);
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
-                System.out.println(left+ " right " + right + " top " + top + " bottom " + bottom);
                 canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
             }else if(!GameView.bitmapMap.isEmpty()){
                 canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
@@ -184,8 +183,8 @@ public class BShape {
         return imageName;
     }
 
-    public boolean getMovable() {
-        return movable;
+    public boolean getMoveable() {
+        return moveable;
     }
 
     public boolean getVisible() {
@@ -204,8 +203,8 @@ public class BShape {
         this.imageName = imageName;
     }
 
-    public void setMovable(boolean movable) {
-        this.movable = movable;
+    public void setMoveable(boolean moveable) {
+        this.moveable = moveable;
     }
 
     public void setVisible(boolean visible) {
@@ -216,4 +215,8 @@ public class BShape {
 
     public void setScript(Script script) { this.script = script; }
 
+    @Override
+    public String toString(){
+        return "Text: " + text +" Image Name: "+ imageName + " Moveable: " + moveable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;
+    }
 }
