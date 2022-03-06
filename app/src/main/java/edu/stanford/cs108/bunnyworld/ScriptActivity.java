@@ -73,6 +73,7 @@ public class ScriptActivity extends AppCompatActivity {
 
     public void init() {
         updateSpinner();
+//        updateSpinner2();
     }
 
     public void updateSpinner() {
@@ -84,8 +85,6 @@ public class ScriptActivity extends AppCompatActivity {
         Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
         Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
         Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
-        Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
-
 
         // initiate ArrayList including all the actions
         Map pageMap = EditorView.getPageMap();
@@ -162,18 +161,38 @@ public class ScriptActivity extends AppCompatActivity {
 
             }
         });
+        updateSpinner2(pageKeyList, soundKeyList);
+    }
+
+    public void updateSpinner2(List pageKeyList, List soundKeyList) {
+        if (pageKeyList.contains(currentPageSound)) {
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
+            ArrayAdapter<String> shapeAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item,
+                    shapeList);
+            shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            shapeSpinner.setAdapter(shapeAdapter);
 
 
-//        if (currentPageSound ) {
-//            List<String> shapeList = new ArrayList<String>(pageMap.get(currentPageSound));
-//        }
+            shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    String curItem = (String) adapterView.getSelectedItem();
+                    setCurrentShape(curItem);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        } else {
+            return;
+        }
     }
 
     public void ADD(View view) {
-        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
-        Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
-        Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
-        Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
         TextView combinedTextView = findViewById(R.id.combinedTextView);
         combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
     }
