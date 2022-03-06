@@ -47,7 +47,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD"></Button>
+            android:text="ADD"
+            android:onClick="ADD"></Button>
 
     </LinearLayout>
 

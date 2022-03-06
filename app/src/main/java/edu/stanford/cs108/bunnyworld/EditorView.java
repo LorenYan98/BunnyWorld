@@ -54,6 +54,8 @@ public class EditorView extends View {
         return pageMap;
     }
     public static Map<String, Bitmap> getbitmapMap() { return bitmapMap; }
+    public static Map<String, MediaPlayer> getSoundMap() { return soundMap; }
+
     static Map<String, BPage> pageMap;
 
     private BPage firstPage;

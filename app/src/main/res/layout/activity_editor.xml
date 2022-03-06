@@ -388,7 +388,7 @@
             android:text="SAVE GAME"
             android:textSize="16dp"
             android:layout_gravity="fill"
-            android:onClick="saveGave"
+            android:onClick="saveGame"
             />
 
     </LinearLayout>

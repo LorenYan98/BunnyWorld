@@ -149,6 +149,6 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
-    public void saveGave(View view) {
+    public void saveGame(View view) {
     }
 }
