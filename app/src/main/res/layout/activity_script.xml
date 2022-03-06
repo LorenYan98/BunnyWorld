@@ -25,23 +25,28 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/triggerSpinner"></Spinner>
+            android:id="@+id/triggerSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner">
+        </Spinner>
 
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/actionsSpinner"></Spinner>
+            android:id="@+id/actionsSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pageSoundSpinner"></Spinner>
+            android:id="@+id/pageSoundSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/shapeSpinner"></Spinner>
+            android:id="@+id/shapeSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -59,27 +64,32 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/onDropPageSpinner"></Spinner>
+            android:id="@+id/onDropPageSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/onDropShapeSpinner"></Spinner>
+            android:id="@+id/onDropShapeSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/onDropActionsSpinner"></Spinner>
+            android:id="@+id/onDropActionsSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/OnDropPageSoundSpinner"></Spinner>
+            android:id="@+id/OnDropPageSoundSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/onDropShapeSpinner2"></Spinner>
+            android:id="@+id/onDropShapeSpinner2"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Button
             android:layout_width="wrap_content"
