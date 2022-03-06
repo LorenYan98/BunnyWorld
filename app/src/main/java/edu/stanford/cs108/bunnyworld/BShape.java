@@ -8,7 +8,7 @@ import android.graphics.RectF;
 
 public class BShape {
 
-
+    public RectF shapeSize;
     private String shapeName = "";
     private String text = "";
     private String imageName = "";
@@ -45,6 +45,7 @@ public class BShape {
         this.right = right;
         this.top = top;
         this.bottom = bottom;
+        this.shapeSize = new RectF(left, top, right, bottom);
         init();
 
     }
@@ -60,6 +61,7 @@ public class BShape {
         this.right = right;
         this.top = top;
         this.bottom = bottom;
+        this.shapeSize = new RectF(left, top, right, bottom);
         init();
 
     }

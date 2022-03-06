@@ -23,12 +23,12 @@ public class EditorActivity extends AppCompatActivity {
     private EditorView editorView;
     private RadioGroup shapeRadioGroup;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         updateSpinner();
-
         // by default, set Moveable checkbox to disable, only enable it after visible is checked
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
 
@@ -67,14 +67,18 @@ public class EditorActivity extends AppCompatActivity {
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
         String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
-//        boolean movable = ((CheckBox) findViewById(R.id.moveable)).isChecked();
-//        boolean visible = ((CheckBox) findViewById(R.id.visible)).isChecked();
+        CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
+        CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
         String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
-        System.out.println(curImgName + " and " +text );
+        boolean moveable = shapeMoveable == null? false: shapeMoveable.isChecked();
+        boolean visible = shapeVisible == null? false: shapeVisible.isChecked();
+//        System.out.println(moveable + " and " + visible);
+//        System.out.println(curImgName + " and " +text );
         if(radioId == R.id.addShapeRadioButton){
-            BShape door1 = new BShape(text,curImgName,true,true,200.0f,30.0f,700.0f,500.0f);
-            editorView.addShapeToview(door1);
+            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,700.0f,500.0f);
+            editorView.addShapeToview(newShape);
+            editorView.update();
         }
 
     }
@@ -114,6 +118,7 @@ public class EditorActivity extends AppCompatActivity {
                 editorView = (EditorView) findViewById(R.id.editor_view);
                 editorView.setCurrentPage(curPage);
                 updateCurrentPageText();
+                editorView.update();
             }
 
             @Override

@@ -274,18 +274,21 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Moveable"
-                    android:textSize="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"/>
+                    android:text="Visible"
+                    android:textSize="16dp" />
+
                 <CheckBox
-                    android:id="@+id/moveable"
+                    android:id="@+id/visible"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:onClick="onVisibleCheckBoxClicked"
                     />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -300,22 +303,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
-
             <TextView
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+                android:text="Moveable"
+                android:textSize="16dp"
                 android:gravity="center_vertical"
-                android:text="Visible"
-                android:textSize="16dp" />
-
+                android:layout_gravity="center_vertical"/>
             <CheckBox
-                android:id="@+id/visiable"
+                android:id="@+id/moveable"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:onClick="onVisibleCheckBoxClicked"
                 />
+
         </LinearLayout>
 
 

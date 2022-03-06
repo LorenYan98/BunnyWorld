@@ -33,10 +33,10 @@ public class EditorView extends View {
         super(context, attrs);
         init();
     }
-
+    private int selectIndex = 0;
     private static Map<String, BShape> shapeNameRef = new HashMap<>();
-    float actionx1, actionx2, actiony1, actiony2;
-    float shapeLeft, shapeRight, shapeTop, shapeBottom;
+    private float actionX1, actionX2, actionY1, actionY2;
+    private float shapeLeft, shapeRight, shapeTop, shapeBottom;
     float preX, preY, curX, curY;
     // screen size, hardcoded for the time being
     int viewWidth;
@@ -130,6 +130,28 @@ public class EditorView extends View {
     public void setCurrentPage(BPage curPage) {
         this.currentPage = pageMap.get(curPage.getPageName());
     }
+    /**
+     * react to user click on ADD SHAPE TO VIEW BUTTON
+     * get and set the ivar of newly created shape, add the shape to page's shape map, and call
+     * update to redraw
+     */
+    public void addShapeToview(BShape item) {
+        BPage tempPage = currentPage;
+        tempPage.addShape(item);
+        pageMap.put(currentPage.getPageName(), tempPage);
+    }
+
+    public void selectIndexUpdate(){
+        Map<String, BShape> curMap = currentPage.getShapeMap();
+        List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
+        for(int i = shapeKeys.size() - 1; i >= 0; i--){
+            if(curMap.get(shapeKeys.get(i)).shapeSize.contains(curX,curY)){
+                selectIndex = i;
+                return;
+            }
+        }
+        selectIndex = -1;
+    }
 
 
 
@@ -160,44 +182,55 @@ public class EditorView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
         int radioId = radioGroup.getCheckedRadioButtonId();
-//        if(radioId == R.id.addShapeRadioButton || radioId == R.id.editShapeRadioButton){
         if(radioId == R.id.addShapeRadioButton){
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    actionx1 = event.getX();
-                    actiony1 = event.getY();
+                    actionX1 = event.getX();
+                    actionY1 = event.getY();
                     break;
                 case MotionEvent.ACTION_UP:
-                    actionx2 = event.getX();
-                    actiony2 = event.getY();
+                    actionX2 = event.getX();
+                    actionY2 = event.getY();
 
-                    if (actionx1 > actionx2) {
-                        shapeLeft = actionx2;
-                        shapeRight = actionx1;
+                    if (actionX1 > actionX2) {
+                        shapeLeft = actionX2;
+                        shapeRight = actionX1;
                     } else {
-                        shapeLeft = actionx1;
-                        shapeRight = actionx2;
+                        shapeLeft = actionX1;
+                        shapeRight = actionX2;
                     }
 
-                    if (actiony1>actiony2) {
-                        shapeTop = actiony2;
-                        shapeBottom = actiony1;
+                    if (actionY1>actionY2) {
+                        shapeTop = actionY2;
+                        shapeBottom = actionY1;
                     } else {
-                        shapeTop = actiony1;
-                        shapeBottom = actiony2;
+                        shapeTop = actionY1;
+                        shapeBottom = actionY2;
                     }
                     invalidate();
             }
         }
-//        if(radioId == R.id.selectRadio || radioId == R.id.eraseRadio){
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    x = event.getX();
-//                    y = event.getY();
-//                    selectIndexUpdate();
-//                    invalidate();
-//            }
-//        }
+        if(radioId == R.id.editShapeRadioButton){
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    curX = event.getX();
+                    curY = event.getY();
+
+                    System.out.println(selectedShape);
+                    if(selectedShape.getMovable()){
+                        selectedShape.move(curX-preX,curY-preY);
+                        invalidate();
+                    }
+                case MotionEvent.ACTION_DOWN:
+                    curX = event.getX();
+                    curY = event.getY();
+                    preX = curX;
+                    preY = curY;
+                    selectedShape = currentPage.selectShape(curX,curY);
+                    selectIndexUpdate();
+                    invalidate();
+            }
+        }
         return true;
     }
     @Override
@@ -207,10 +240,11 @@ public class EditorView extends View {
 
         int radioId = radioGroup.getCheckedRadioButtonId();
         if(radioId == R.id.editShapeRadioButton) {
-//            drawShape(canvas);
+            currentPage.drawPage(canvas);
         }else if(radioId == R.id.addShapeRadioButton) {
             RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
             canvas.drawRect(newShape,boundaryLine);
+
 //            String shapeType = radioId == R.id.rectRadio ? "Rect" : "Oval";
 //            shapeList.add(new Shape(newShape, shapeType));
 //            selectIndex = shapeList.size() - 1;
@@ -226,17 +260,7 @@ public class EditorView extends View {
     }
 
 
-    /**
-     * react to user click on ADD SHAPE TO VIEW BUTTON
-     * get and set the ivar of newly created shape, add the shape to page's shape map, and call
-     * update to redraw
-     */
-    public void addShapeToview(BShape item) {
-        BPage tempPage = currentPage;
-        tempPage.addShape(item);
-        System.out.println(pageMap.toString());
-        pageMap.put(tempPage.getPageName(), tempPage);
-    }
+
 
 
 
