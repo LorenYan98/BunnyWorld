@@ -163,6 +163,7 @@ public class EditorActivity extends AppCompatActivity {
     public void saveGame(View view) throws JSONException {
         db = SingletonDB.getInstance(this);
         String currGame = gameToJson();
+        // need to handle inset userGameName already exists
         String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ");";
         db.execSQL(query);
     }
