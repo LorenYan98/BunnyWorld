@@ -117,6 +117,8 @@ public class BShape {
         this.right = right + xDistance;
         this.top = top + yDistance;
         this.bottom = bottom + yDistance;
+        this.shapeSize = new RectF(this.left, this.top,this.right, this.bottom);
+
     }
 
 
@@ -137,7 +139,7 @@ public class BShape {
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
                 Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
-                System.out.println(newshape.toString());
+//                System.out.println(newshape.toString());
                 canvas.drawBitmap(scaledImg,null ,newshape, null);
             }else if(!GameView.bitmapMap.isEmpty()){
                 canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);

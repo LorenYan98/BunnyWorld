@@ -111,7 +111,6 @@ public class EditorView extends View {
 
     public void addPage() {
         BPage newPage = new BPage(0.0f, 0.0f, viewWidth, viewHeight);
-        System.out.println("viewWidth " + viewWidth + " viewHeight : " + viewHeight);
 
         currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
@@ -144,17 +143,37 @@ public class EditorView extends View {
     public void selectIndexUpdate(){
         Map<String, BShape> curMap = currentPage.getShapeMap();
         List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
+//        System.out.println(shapeKeys.toString());
         for(int i = shapeKeys.size() - 1; i >= 0; i--){
             if(curMap.get(shapeKeys.get(i)).shapeSize.contains(curX,curY)){
+
+                selectedShape = curMap.get(shapeKeys.get(i));
+                System.out.println(curMap.get(shapeKeys.get(i)).shapeSize.toString());
+                System.out.println(selectedShape.getImageName());
                 selectIndex = i;
                 return;
             }
         }
         selectIndex = -1;
     }
+    public void highlightSelectShape(Canvas canvas){
+        Map<String, BShape> curMap = currentPage.getShapeMap();
+        List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
+        for(int i = 0; i < shapeKeys.size(); i++){
+            String curName = shapeKeys.get(i);
+            System.out.println(curName);
+            if(curName.equals(selectedShape.getShapeName())) {
+                Bitmap curImg = EditorView.bitmapMap.get(curName);
+                canvas.drawBitmap(curImg, 5.0f, 5.0f, boundaryLine);
+            }
+        }
 
+    }
 
-
+    public void updatePageMap(){
+        Map<String, BShape> curMap = currentPage.getShapeMap();
+        curMap.put(selectedShape.getShapeName(),selectedShape);
+    }
     public void update() {
         invalidate();
     }
@@ -210,27 +229,33 @@ public class EditorView extends View {
                     invalidate();
             }
         }
-        if(radioId == R.id.editShapeRadioButton){
+        if(radioId == R.id.editShapeRadioButton || radioId == R.id.addShapeRadioButton){
             switch (event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     curX = event.getX();
                     curY = event.getY();
+
                     System.out.println(selectedShape);
                     if(selectedShape != null && selectedShape.getMoveable()){
                         selectedShape.move(curX-preX,curY-preY);
+                        System.out.println("shape move to " + selectedShape.toString());
+                        updatePageMap();
                         invalidate();
                      }
                     preX = curX;
                     preY = curY;
+
                     break;
                 case MotionEvent.ACTION_DOWN:
                     curX = event.getX();
                     curY = event.getY();
                     preX = curX;
                     preY = curY;
-                    selectedShape = currentPage.selectShape(curX,curY);
-                    System.out.println("current select shape is " + selectedShape);
                     selectIndexUpdate();
+//                    selectedShape = currentPage.selectShape(curX,curY);
+                    System.out.println("current select shape is " + selectedShape);
+                    System.out.println("cur x :" + curX + " cur Y : " + curY);
+                    System.out.println("current index : " + selectIndex);
                     invalidate();
             }
         }
@@ -243,8 +268,8 @@ public class EditorView extends View {
         RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
 
         int radioId = radioGroup.getCheckedRadioButtonId();
-        if(radioId == R.id.editShapeRadioButton) {
-//            currentPage.drawPage(canvas);
+        if(radioId == R.id.editShapeRadioButton && selectedShape != null) {
+//            highlightSelectShape(canvas);
         }else if(radioId == R.id.addShapeRadioButton) {
             RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
             canvas.drawRect(newShape,boundaryLine);
@@ -260,7 +285,7 @@ public class EditorView extends View {
         canvas.drawLine(viewWidth,0,viewWidth,viewHeight,boundaryLine);
         canvas.drawLine(0,0,0,viewHeight,boundaryLine);
         currentPage.drawPage(canvas);
-        if (selectedShape != null) selectedShape.draw(canvas);
+//        if (selectedShape != null) selectedShape.draw(canvas);
     }
 
 
