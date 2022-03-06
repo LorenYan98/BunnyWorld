@@ -109,8 +109,6 @@ public class ScriptActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item,
                 newList);
 
-
-
         // Specify the layout to use when the list of choices appears
         triggerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         actionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -172,15 +170,5 @@ public class ScriptActivity extends AppCompatActivity {
         combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
     }
 
-    /**
-     * on click method for triggerSpinner on the first line
-     * updates the text of the corresponding button on the same line to match the trigger
-     * @param view
-     */
-    public void changeFirstButtonText(View view) {
-        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
-        String buttonString = "ADD"  + triggerSpinner.getSelectedItem().toString() + "Clause";
-        Button firstLineButton = (Button) findViewById(R.id.firstLineButton);
-        firstLineButton.setText(buttonString);
-    }
+
 }

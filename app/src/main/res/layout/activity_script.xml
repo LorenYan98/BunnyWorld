@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/triggerSpinner"
-            style="@android:style/Widget.Holo.Light.Spinner">
-        </Spinner>
+            style="@android:style/Widget.Holo.Light.Spinner"
+            ></Spinner>
 
 
         <Spinner
@@ -51,7 +51,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD First Clause"
+            android:text="ADD Trigger Clause"
             android:id="@+id/firstLineButton"></Button>
     </LinearLayout>
 
@@ -100,7 +100,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD"
+            android:text="ADD on drop clause"
             android:onClick="ADD"
             ></Button>
 
