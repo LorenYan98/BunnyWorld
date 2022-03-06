@@ -198,7 +198,9 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/shapeLeft"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="left value "
@@ -212,7 +214,9 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/shapeRight"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="right value"
@@ -232,7 +236,9 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/shapeTop"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="top value "
@@ -246,7 +252,9 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/shapeBottom"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="bottom value "
@@ -286,6 +294,7 @@
                     android:id="@+id/visible"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:checked="true"
                     android:onClick="onVisibleCheckBoxClicked"
                     />
 

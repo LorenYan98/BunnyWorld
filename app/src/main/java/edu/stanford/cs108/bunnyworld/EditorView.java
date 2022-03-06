@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -149,6 +150,7 @@ public class EditorView extends View {
         pageMap.put(currentPage.getPageName(), tempPage);
     }
 
+
     public void selectIndexUpdate() {
         Map<String, BShape> curMap = currentPage.getShapeMap();
         List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
@@ -163,6 +165,7 @@ public class EditorView extends View {
                 return;
             }
         }
+        selectedShape = null;
         selectIndex = -1;
     }
     private void closeHighlights(){
@@ -170,6 +173,26 @@ public class EditorView extends View {
         List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
         for (int i = shapeKeys.size() - 1; i >= 0; i--) {
             curMap.get(shapeKeys.get(i)).setSelected(false);
+        }
+    }
+
+    public void updateSelectShapeLocation(BShape selectedShape){
+        TextView shapeLeft =  ((Activity) getContext()).findViewById(R.id.shapeLeft);
+        TextView shapeTop =  ((Activity) getContext()).findViewById(R.id.shapeTop);
+        TextView shapeRight = ((Activity) getContext()).findViewById(R.id.shapeRight);
+        TextView shapeBottom = ((Activity) getContext()).findViewById(R.id.shapeBottom);
+        if(selectedShape != null) {
+            float leftPoint = selectedShape.getLeft();
+            float topPoint = selectedShape.getTop();
+            shapeLeft.setText(Integer.toString((int) (leftPoint >= 0 ? leftPoint : 0)));
+            shapeTop.setText(Integer.toString((int) (topPoint >= 0 ? topPoint : 0)));
+            shapeRight.setText(Integer.toString((int) (leftPoint + selectedShape.getWidth())));
+            shapeBottom.setText(Integer.toString((int) (topPoint + selectedShape.getHeight())));
+        }else{
+            shapeLeft.setText("");
+            shapeTop.setText("");
+            shapeRight.setText("");
+            shapeBottom.setText("");
         }
     }
 
@@ -262,6 +285,7 @@ public class EditorView extends View {
                     System.out.println("current index : " + selectIndex);
                     break;
                 case MotionEvent.ACTION_UP:
+                    updateSelectShapeLocation(selectedShape);
                     closeHighlights();
                     invalidate();
 

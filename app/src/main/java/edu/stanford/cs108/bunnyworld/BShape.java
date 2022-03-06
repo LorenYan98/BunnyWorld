@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 
 public class BShape {
 
@@ -83,6 +84,9 @@ public class BShape {
         textPaint = new Paint();
         textPaint.setStyle(Paint.Style.STROKE);
         textPaint.setTextSize(40.0f);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
         highlightShapePaint = new Paint();
         highlightShapePaint.setColor(Color.GREEN);
         highlightShapePaint.setStyle(Paint.Style.STROKE);
@@ -129,7 +133,6 @@ public class BShape {
         this.top = top + yDistance;
         this.bottom = bottom + yDistance;
         this.shapeSize = new RectF(this.left, this.top,this.right, this.bottom);
-
     }
 
 
@@ -141,12 +144,12 @@ public class BShape {
     public void draw(Canvas canvas) {
         // first check visible, if visible do not draw and returns
         if (!getVisible()) { return; }
-
+        Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
         if (text.length() != 0) {
                 canvas.drawText(text, left, top, textPaint);
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
-                Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
+
                 if(isSelected){
                     canvas.drawBitmap(scaledImg, null, newshape, null);
                     canvas.drawRect(newshape,highlightShapePaint);

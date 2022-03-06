@@ -36,7 +36,7 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
         updateSpinner();
         // by default, set Moveable checkbox to disable, only enable it after visible is checked
-        ((CheckBox) findViewById(R.id.moveable)).setEnabled(false);
+        ((CheckBox) findViewById(R.id.moveable)).setEnabled(true);
 
         updateCurrentPageText();
     }
