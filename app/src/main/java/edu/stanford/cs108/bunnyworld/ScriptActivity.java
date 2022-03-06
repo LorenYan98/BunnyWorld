@@ -73,6 +73,7 @@ public class ScriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_script);
         init();
+        
     }
 
     public void init() {
