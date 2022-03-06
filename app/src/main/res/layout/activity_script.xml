@@ -47,6 +47,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/shapeSpinner"
             style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD First Clause"
+            android:id="@+id/firstLineButton"></Button>
     </LinearLayout>
 
     <LinearLayout

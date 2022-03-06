@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -169,5 +170,17 @@ public class ScriptActivity extends AppCompatActivity {
         Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
         TextView combinedTextView = findViewById(R.id.combinedTextView);
         combinedTextView.setText(currentTrigger + " " + currentAction + " " +currentPageSound);
+    }
+
+    /**
+     * on click method for triggerSpinner on the first line
+     * updates the text of the corresponding button on the same line to match the trigger
+     * @param view
+     */
+    public void changeFirstButtonText(View view) {
+        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
+        String buttonString = "ADD"  + triggerSpinner.getSelectedItem().toString() + "Clause";
+        Button firstLineButton = (Button) findViewById(R.id.firstLineButton);
+        firstLineButton.setText(buttonString);
     }
 }
