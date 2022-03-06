@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 public class EditorActivity extends AppCompatActivity {
+    private EditorView editorView;
+    private RadioGroup shapeRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void addPage(View view) {
-        EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+        editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.addPage();
         editorView.update();
         updateSpinner();
@@ -49,7 +53,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void deletePage(View view) {
-        EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+        editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.deletePage();
         editorView.update();
         System.out.println("before: " + editorView.getCurrentPage());
@@ -58,6 +62,22 @@ public class EditorActivity extends AppCompatActivity {
         System.out.println("after: " + editorView.getCurrentPage());
     }
 
+    public void addOrEditShape(View view){
+        editorView = (EditorView) findViewById(R.id.editor_view);
+        shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
+        Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
+        String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
+//        boolean movable = ((CheckBox) findViewById(R.id.moveable)).isChecked();
+//        boolean visible = ((CheckBox) findViewById(R.id.visible)).isChecked();
+        String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
+        int radioId = shapeRadioGroup.getCheckedRadioButtonId();
+        System.out.println(curImgName + " and " +text );
+        if(radioId == R.id.addShapeRadioButton){
+            BShape door1 = new BShape(text,curImgName,true,true,200.0f,30.0f,700.0f,500.0f);
+            editorView.addShapeToview(door1);
+        }
+
+    }
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
         Map imgMap = EditorView.getbitmapMap();
@@ -91,7 +111,7 @@ public class EditorActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 BPage curPage = (BPage) adapterView.getSelectedItem();
-                EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+                editorView = (EditorView) findViewById(R.id.editor_view);
                 editorView.setCurrentPage(curPage);
                 updateCurrentPageText();
             }
@@ -101,11 +121,13 @@ public class EditorActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     public void updateCurrentPageText() {
         TextView currentPageTextView = findViewById(R.id.currentPageTextView);
-        EditorView editorView = (EditorView) findViewById(R.id.editor_view);
+        editorView = (EditorView) findViewById(R.id.editor_view);
         currentPageTextView.setText(editorView.getCurrentPage().getPageName());
     }
 

@@ -75,7 +75,6 @@ public class EditorView extends View {
         boundaryLine.setColor(Color.BLACK);
         boundaryLine.setStyle(Paint.Style.STROKE);
         boundaryLine.setStrokeWidth(5.0f);
-
     }
 
     public BPage getCurrentPage() {
@@ -230,21 +229,11 @@ public class EditorView extends View {
      * get and set the ivar of newly created shape, add the shape to page's shape map, and call
      * update to redraw
      */
-    public void addShapeToview() {
-        // get the needed BShape ivar for the constructor
-        String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
-        String imageName = ((Spinner) findViewById(R.id.shapeImageSpinner)).getSelectedItem().toString();
-        boolean movable = ((CheckBox) findViewById(R.id.moveable)).isChecked();
-        boolean visible = ((CheckBox) findViewById(R.id.visible)).isChecked();
-
-        // don't have moveable or clickable ivar in BShape yet
-
-        // check if there are value in left, right, top and bottom, if not ask use to draw
-        
-
-//        , float left, float top, float right, float bottom
-        // create a new BShape instance
-//        BShape bshape = new BShape()
+    public void addShapeToview(BShape item) {
+        BPage tempPage = currentPage;
+        tempPage.addShape(item);
+        System.out.println(pageMap.toString());
+        pageMap.put(tempPage.getPageName(), tempPage);
     }
 
 
