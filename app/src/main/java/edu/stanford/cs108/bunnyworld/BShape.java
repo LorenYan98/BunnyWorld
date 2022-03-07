@@ -15,7 +15,7 @@ public class BShape {
     private String text = "";
     private String imageName = "";
 
-    private boolean moveable = false;
+    private boolean movable = false;
     private boolean visible = false;
     private boolean selected = false;
 
@@ -44,12 +44,12 @@ public class BShape {
     private Paint defaultBorderPaint;
 
 
-    public BShape(String text, String imageName, boolean moveable,
+    public BShape(String text, String imageName, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
         this.text = text;
         this.imageName = imageName;
-        this.moveable = moveable;
+        this.movable = movable;
         this.visible = visible;
         this.left = left;
         this.right = right;
@@ -61,11 +61,11 @@ public class BShape {
     }
 
     // constructor taking care of text only
-    public BShape(String text, boolean moveable,
+    public BShape(String text, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
         this.text = text;
-        this.moveable = moveable;
+        this.movable = movable;
         this.visible = visible;
         this.left = left;
         this.right = right;
@@ -155,7 +155,7 @@ public class BShape {
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
 
-                if(isSelected){
+                if(isSelected == true){
                     canvas.drawBitmap(scaledImg, null, newshape, null);
                     canvas.drawRect(newshape,highlightShapePaint);
                 }else {
@@ -206,8 +206,8 @@ public class BShape {
         return imageName;
     }
 
-    public boolean getMoveable() {
-        return moveable;
+    public boolean getMovable() {
+        return movable;
     }
 
     public boolean getVisible() {
@@ -226,8 +226,8 @@ public class BShape {
         this.imageName = imageName;
     }
 
-    public void setMoveable(boolean moveable) {
-        this.moveable = moveable;
+    public void setMovable(boolean movable) {
+        this.movable = movable;
     }
 
     public void setVisible(boolean visible) {
@@ -263,6 +263,6 @@ public class BShape {
 
     @Override
     public String toString(){
-        return "Text: " + text +" Image Name: "+ imageName + " Moveable: " + moveable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;
+        return "Text: " + text +" Image Name: "+ imageName + " Movable: " + movable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;
     }
 }

@@ -171,11 +171,10 @@ public class EditorView extends View {
         Map<String, BShape> curMap = currentPage.getShapeMap();
         List<String> shapeKeys = new ArrayList<String>(curMap.keySet());
         for (int i = shapeKeys.size() - 1; i >= 0; i--) {
-            curMap.get(shapeKeys.get(i)).setSelected(false);
-            if (curMap.get(shapeKeys.get(i)).shapeSize.contains(curX, curY)) {
-                selectedShape = curMap.get(shapeKeys.get(i));
+            if (currentPage.getShapeMap().get(shapeKeys.get(i)).shapeSize.contains(curX, curY)) {
+                selectedShape = currentPage.getShapeMap().get(shapeKeys.get(i));
                 selectedShape.setSelected(true);
-                System.out.println(curMap.get(shapeKeys.get(i)).shapeSize.toString());
+                System.out.println("update!! "+currentPage.getShapeMap().get(shapeKeys.get(i)).shapeSize.toString());
                 System.out.println(selectedShape.getImageName());
                 selectIndex = i;
                 return;
@@ -221,6 +220,11 @@ public class EditorView extends View {
         }
     }
 
+    public void displayShapeInfo(){
+        CheckBox isShapeMovable =  ((Activity) getContext()).findViewById(R.id.shapeLeft);
+        TextView shapeTop =  ((Activity) getContext()).findViewById(R.id.shapeTop);
+    }
+
     public void updatePageMap() {
         Map<String, BShape> curMap = currentPage.getShapeMap();
         curMap.put(selectedShape.getShapeName(), selectedShape);
@@ -255,13 +259,13 @@ public class EditorView extends View {
 
         RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
         int radioId = radioGroup.getCheckedRadioButtonId();
-        if (radioId == R.id.addShapeRadioButton) {
+        if (radioId == R.id.addShapeRadioButton || radioId == R.id.editShapeRadioButton) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     curX = event.getX();
                     curY = event.getY();
 
-                    if (selectedShape != null && selectedShape.getMoveable()) {
+                    if (selectedShape != null && selectedShape.getMovable()) {
                         selectedShape.move(curX - preX, curY - preY);
                         System.out.println("shape move to " + selectedShape.toString());
                         updatePageMap();
@@ -276,52 +280,24 @@ public class EditorView extends View {
                     curY = event.getY();
                     preX = curX;
                     preY = curY;
+                    closeHighlights();
                     selectIndexUpdate();
                     updateSelectShapeName(selectedShape);
+                    updateSelectShapeLocation(selectedShape);
+                    if(radioId == R.id.editShapeRadioButton){
+                        displayShapeInfo();
+                    }
                     invalidate();
                     System.out.println("current select shape is " + selectedShape);
                     System.out.println("cur x :" + curX + " cur Y : " + curY);
                     System.out.println("current index : " + selectIndex);
                     break;
                 case MotionEvent.ACTION_UP:
-                    closeHighlights();
+                    curX = event.getX();
+                    curY = event.getY();
                     updateSelectShapeName(selectedShape);
                     invalidate();
             }
-//        }
-//            if (radioId == R.id.editShapeRadioButton) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_MOVE:
-//                        curX = event.getX();
-//                        curY = event.getY();
-//
-//                        if (selectedShape != null && selectedShape.getMoveable()) {
-//                            selectedShape.move(curX - preX, curY - preY);
-//                            System.out.println("shape move to " + selectedShape.toString());
-//                            updatePageMap();
-//                            invalidate();
-//                        }
-//                        preX = curX;
-//                        preY = curY;
-//                        updateSelectShapeLocation(selectedShape);
-//                        break;
-//                    case MotionEvent.ACTION_DOWN:
-//                        curX = event.getX();
-//                        curY = event.getY();
-//                        preX = curX;
-//                        preY = curY;
-//                        selectIndexUpdate();
-//                        updateSelectShapeName(selectedShape);
-//                        invalidate();
-//                        System.out.println("current select shape is " + selectedShape);
-//                        System.out.println("cur x :" + curX + " cur Y : " + curY);
-//                        System.out.println("current index : " + selectIndex);
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        updateSelectShapeName(selectedShape);
-//                        invalidate();
-//                }
-//
         }
         return true;
     }

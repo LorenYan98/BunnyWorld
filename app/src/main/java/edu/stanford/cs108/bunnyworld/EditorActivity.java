@@ -208,7 +208,7 @@ public class EditorActivity extends AppCompatActivity {
             BShape currShape = shapeMap.get(shapeName);
             currShapeObj.put("text",currShape.getText());
             currShapeObj.put("imageName",currShape.getImageName());
-            currShapeObj.put("movable",currShape.getMoveable());
+            currShapeObj.put("movable",currShape.getMovable());
             currShapeObj.put("visible",currShape.getVisible());
             currShapeObj.put("left",currShape.getLeft());
             currShapeObj.put("top",currShape.getTop());

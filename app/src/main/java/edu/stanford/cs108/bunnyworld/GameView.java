@@ -231,7 +231,7 @@ public class GameView extends View {
                 shapeIsDragging = true;
                 curX = event.getX();
                 curY = event.getY();
-                if(shapeIsSelected && selectedShape.getMoveable()){
+                if(shapeIsSelected && selectedShape.getMovable()){
                     selectedShape.move(curX-preX,curY-preY);
                     invalidate();
                 }
