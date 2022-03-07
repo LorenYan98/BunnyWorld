@@ -9,7 +9,6 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 
 public class BShape {
-
     public RectF shapeSize;
     private String shapeName = "";
     private String text = "";
@@ -56,7 +55,12 @@ public class BShape {
         this.top = top;
         this.bottom = bottom;
         this.shapeSize = new RectF(left, top, right, bottom);
+        this.script = new Script("");
         init();
+    }
+
+    public void setScript(String newScriptString) {
+        this.script = new Script(newScriptString);
     }
 
     // constructor taking care of text only

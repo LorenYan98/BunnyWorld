@@ -588,8 +588,11 @@ public class ScriptActivity extends AppCompatActivity {
         String finalString = returnFinalStringByOrder();
         Intent intent = new Intent(this, EditorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
+        TextView imageName = findViewById(R.id.scriptTextView);
+        imageName.setText("success");
         intent.putExtra("curScript",finalString);
+        // This is the next step to figure out.
+//        shape.setScript(finalString);
         startActivity(intent);
     }
 
