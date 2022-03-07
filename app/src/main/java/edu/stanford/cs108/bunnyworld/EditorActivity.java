@@ -120,6 +120,12 @@ public class EditorActivity extends AppCompatActivity {
         editorView.updateSelectShapeName(tempShape);
     }
 
+    public void deleteCurShape(View view){
+        BShape tempShape = editorView.selectedShape;
+        editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
+        editorView.update();
+    }
+
 
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
