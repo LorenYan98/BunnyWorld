@@ -393,7 +393,7 @@ public class ScriptActivity extends AppCompatActivity {
         updateSpinner2(pageKeyList, soundKeyList);
     }
 
-    public void updateSpinner2(List pageKeyList, List soundKeyList) {
+    public void updateSpinner2_on_drop(List pageKeyList, List soundKeyList) {
         System.out.println("currpageKeyList: " + pageKeyList);
         System.out.println("currentPageSound: " + currentPageSound);
         if (pageKeyList.contains(currentPageSound)) {
