@@ -104,7 +104,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD on drop clause"
-            android:id="@+id/firstLineButton"></Button>
+            android:id="@+id/ADD_on_drop_button"
+            android:onClick="ADD_on_drop"
+            ></Button>
 
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

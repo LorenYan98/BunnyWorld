@@ -287,7 +287,7 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     // VERY IMPORTANT!!!!! THE FOLLOWING CODE IS FOR ONDROP
-    private static final String ON_DROP = "onenter";
+    private static final String ON_DROP = "ondrop";
     private String onDropString;
 
 //    private String currentTrigger_on_drop; no need
@@ -527,7 +527,7 @@ public class ScriptActivity extends AppCompatActivity {
         } else {
             setCurrentShape_on_drop_2(null);
             System.out.println("im   gere");
-            Spinner shapeSpinner = (Spinner) findViewById(R.id.currentShape_on_drop_1);
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.currentShape_on_drop_2);
             shapeSpinner.setAdapter(null);
             TextView imageName = findViewById(R.id.shapeImageTextView);
             imageName.setText("No shape is currently selected");
@@ -535,42 +535,46 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public void ADD_on_drop(View view) {
-        concatenate();
-        TextView combinedTextView = findViewById(R.id.combinedTextView);
-        combinedTextView.setText(onClickString + "\n" + onEnterString + "\n" +onDropString);
+        if (true) {
+            concatenate_on_drop();
+            TextView combinedTextView = findViewById(R.id.combinedTextView);
+            combinedTextView.setText(onClickString + "\n" + onEnterString + "\n" +onDropString);
+        } else {
+            return;
+        }
     }
 
     public void concatenate_on_drop() {
         // fi shape exists, ignore currentPageSound
-        if (currentTrigger.equals(ON_CLICK)) {
-            if (onClickString.equals("")) {
-                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
-                    onClickString = currentTrigger + " " + currentAction + " " + currentShape;
+            if (onDropString.equals("")) {
+                if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
+                    if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onClickString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                    } else {
+                        onClickString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                    }
                 } else {
-                    onClickString += " " + currentAction + " " + currentPageSound;
+                    if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onClickString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                    } else {
+                        onClickString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                    }
                 }
             } else {
-                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
-                    onClickString += " " + currentAction + " " + currentShape;
+                if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
+                    if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onClickString += " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                    } else {
+                        onClickString += " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                    }
                 } else {
-                    onClickString += " " + currentAction + " " + currentPageSound;
+                    if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onClickString += " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                    } else {
+                        onClickString += " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                    }
                 }
             }
-        } else if (currentTrigger.equals(ON_ENTER)) {
-            if (onEnterString.equals("")) {
-                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
-                    onEnterString = currentTrigger + " " + currentAction + " " + currentShape;
-                } else {
-                    onEnterString += currentTrigger + " " + currentAction + " " + currentPageSound;
-                }
-            } else {
-                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
-                    onEnterString += " " + currentAction + " " + currentShape;
-                } else {
-                    onEnterString += " " + currentAction + " " + currentPageSound;
-                }
-            }
-        }
     }
 
     /**
