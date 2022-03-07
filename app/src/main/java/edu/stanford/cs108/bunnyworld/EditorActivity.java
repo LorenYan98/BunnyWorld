@@ -2,6 +2,7 @@ package edu.stanford.cs108.bunnyworld;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -96,14 +97,29 @@ public class EditorActivity extends AppCompatActivity {
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
         boolean moveable = shapeMoveable == null? false: shapeMoveable.isChecked();
         boolean visible = shapeVisible == null? false: shapeVisible.isChecked();
-
+        BShape newShape;
         if(radioId == R.id.addShapeRadioButton){
-            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
+            if(text.length() != 0){
+                newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,100.0f);
+            }else{
+                newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
+            }
+
             editorView.addShapeToview(newShape);
             editorView.update();
         }
 
     }
+    public void renameCurShape(View view){
+        EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
+        String curName = currentNameBox.getText().toString();
+        BShape tempShape = editorView.selectedShape;
+        tempShape.setShapeName(curName);
+        editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
+        editorView.currentPage.addShape(tempShape);
+        editorView.updateSelectShapeName(tempShape);
+    }
+
 
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();

@@ -213,22 +213,40 @@ public class EditorView extends View {
 
     public void updateSelectShapeName(BShape selectedShape){
         TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
+        EditText currentName = ((Activity) getContext()).findViewById(R.id.renameShapeName);
+        EditText currentText = ((Activity) getContext()).findViewById(R.id.shapeTextInput);
         if(selectedShape != null) {
             curShapeName.setText(selectedShape.getShapeName());
         }else{
             curShapeName.setText("");
+            currentName.setText("");
         }
+        currentText.setText("");
     }
 
     public void displayShapeInfo(){
-        CheckBox isShapeMovable =  ((Activity) getContext()).findViewById(R.id.shapeLeft);
-        TextView shapeTop =  ((Activity) getContext()).findViewById(R.id.shapeTop);
+        CheckBox isShapeMovable =  ((Activity) getContext()).findViewById(R.id.moveable);
+        CheckBox isShapeVisible =  ((Activity) getContext()).findViewById(R.id.visible);
+        EditText currentName = ((Activity) getContext()).findViewById(R.id.renameShapeName);
+        EditText currentText = ((Activity) getContext()).findViewById(R.id.shapeTextInput);
+        updateSelectShapeLocation(selectedShape);
+        updateSelectShapeName(selectedShape);
+        if(selectedShape.getMovable()){
+            isShapeMovable.setChecked(true);
+        } else isShapeMovable.setChecked(false);
+        if(selectedShape.getVisible()){
+            isShapeVisible.setChecked(true);
+        }else isShapeVisible.setChecked(false);
+        currentName.setText(selectedShape.getShapeName());
+        currentText.setText(selectedShape.getText());
     }
+
 
     public void updatePageMap() {
         Map<String, BShape> curMap = currentPage.getShapeMap();
         curMap.put(selectedShape.getShapeName(), selectedShape);
     }
+
 
     public void update() {
         invalidate();
@@ -282,10 +300,11 @@ public class EditorView extends View {
                     preY = curY;
                     closeHighlights();
                     selectIndexUpdate();
-                    updateSelectShapeName(selectedShape);
-                    updateSelectShapeLocation(selectedShape);
-                    if(radioId == R.id.editShapeRadioButton){
+                    if(radioId == R.id.editShapeRadioButton && selectedShape != null){
                         displayShapeInfo();
+                    }else{
+                        updateSelectShapeName(selectedShape);
+                        updateSelectShapeLocation(selectedShape);
                     }
                     invalidate();
                     System.out.println("current select shape is " + selectedShape);

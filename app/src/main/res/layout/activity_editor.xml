@@ -166,7 +166,8 @@
                 android:id="@+id/confirmRenameShapeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="rename Shape" />
+                android:text="rename Shape"
+                android:onClick="renameCurShape"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
