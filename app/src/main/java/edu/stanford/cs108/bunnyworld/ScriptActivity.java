@@ -182,7 +182,7 @@ public class ScriptActivity extends AppCompatActivity {
 
             }
         });
-//        updateSpinner2(pageKeyList, soundKeyList);
+        updateSpinner2(pageKeyList, soundKeyList);
     }
 
     /**
@@ -196,35 +196,39 @@ public class ScriptActivity extends AppCompatActivity {
         if (pageKeyList.contains(currentPageSound)) {
             Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
             List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
-            setCurrentShape((String) shapeList.get(0));
-            for (int i = 0; i < shapeList.size(); i++) {
-                System.out.println("curShape: " + shapeList.get(i).toString());
+            if (!shapeList.isEmpty()) {
+                setCurrentShape((String) shapeList.get(0));
+                for (int i = 0; i < shapeList.size(); i++) {
+                    System.out.println("curShape: " + shapeList.get(i).toString());
+                }
+                System.out.println("doneeeeeeeeeeeee");
+                ArrayAdapter<String> shapeAdapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_spinner_item,
+                        shapeList);
+                shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                shapeSpinner.setAdapter(shapeAdapter);
+
+                shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        String curItem = (String) adapterView.getSelectedItem();
+                        setCurrentShape(curItem);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+            } else {
+                setCurrentShape(null);
+                shapeSpinner.setAdapter(null);
             }
-            System.out.println("doneeeeeeeeeeeee");
-            ArrayAdapter<String> shapeAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item,
-                    shapeList);
-            shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            shapeSpinner.setAdapter(shapeAdapter);
-
-            shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    String curItem = (String) adapterView.getSelectedItem();
-                    setCurrentShape(curItem);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
         } else {
             setCurrentShape(null);
             System.out.println("im   gere");
             Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
             shapeSpinner.setAdapter(null);
-            return;
         }
     }
 
