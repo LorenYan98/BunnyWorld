@@ -585,7 +585,10 @@ public class ScriptActivity extends AppCompatActivity {
      * return the final string, and return to editor
      */
     public void confirmScriptReturnToEditor(View view){
+        String finalString = returnFinalStringByOrder();
         Intent intent = new Intent(this, EditorActivity.class);
+        startActivity(intent);
+        intent.putExtra("curScript",finalString);
         startActivity(intent);
     }
 
