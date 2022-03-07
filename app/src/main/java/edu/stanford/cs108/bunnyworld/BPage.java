@@ -30,6 +30,7 @@ public class BPage {
         this.bottom = bottom;
         this.pageName = generateNextPageName();
         this.shapeMap = new LinkedHashMap<>();
+        System.out.println(this.pageName);
     }
 
     private String generateNextPageName() {
