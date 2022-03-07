@@ -49,7 +49,7 @@ public class EditorActivity extends AppCompatActivity {
      */
     public void handleEditor(View view) {
         Intent intent = new Intent(this, ScriptActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
