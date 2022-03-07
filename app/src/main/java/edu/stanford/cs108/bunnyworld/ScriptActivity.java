@@ -323,9 +323,9 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     private void updateSpinner_on_drop() {
-        Spinner currentAction_on_drop = (Spinner) findViewById(R.id.currentAction_on_drop);
-        Spinner currentPageSound_on_drop_1 = (Spinner) findViewById(R.id.currentPageSound_on_drop_1);
-        Spinner currentPageSound_on_drop_2 = (Spinner) findViewById(R.id.currentPageSound_on_drop_2);
+        Spinner action_on_drop_spinner = (Spinner) findViewById(R.id.currentAction_on_drop);
+        Spinner pageSound_on_drop_1_spinner = (Spinner) findViewById(R.id.currentPageSound_on_drop_1);
+        Spinner pageSound_on_drop_2_spinner = (Spinner) findViewById(R.id.currentPageSound_on_drop_2);
 
         // initiate ArrayList including all the actions
         Map pageMap = EditorView.getPageMap();
@@ -341,23 +341,19 @@ public class ScriptActivity extends AppCompatActivity {
 
 
         if (pageKeyList.contains(currentPageSound_on_drop_1)) {
-            Spinner currentShape_on_drop_1 = (Spinner) findViewById(R.id.currentShape_on_drop_1);
             List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound_on_drop_1).getShapeMap().keySet());
             setCurrentShape_on_drop_1((String) shapeList.get(0));
         }
 
         if (pageKeyList.contains(currentPageSound_on_drop_2)) {
-            Spinner currentShape_on_drop_2 = (Spinner) findViewById(R.id.currentShape_on_drop_2);
             List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound_on_drop_2).getShapeMap().keySet());
             setCurrentShape_on_drop_2((String) shapeList.get(0));
         }
 
         setCurrentAction_on_drop(ACTIONLIST.get(0));
-        setCurrentPageSound(pageKeyList.get(0));
+        setCurrentShape_on_drop_1(pageKeyList.get(0));
+        setCurrentShape_on_drop_2(pageKeyList.get(0));
 
-        ArrayAdapter<String> triggerAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,
-                TRIGGERLIST);
 
         ArrayAdapter<String> actionAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
@@ -366,60 +362,68 @@ public class ScriptActivity extends AppCompatActivity {
         List<String> newList = new ArrayList<String>(pageKeyList);
         newList.addAll(soundKeyList);
 
-        ArrayAdapter<String> pageAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> pageAdapter_on_drop_1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                newList);
+
+        ArrayAdapter<String> pageAdapter_on_drop_2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 newList);
 
         // Specify the layout to use when the list of choices appears
-        triggerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         actionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pageAdapter_on_drop_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pageAdapter_on_drop_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
-//        triggerSpinner.setAdapter(triggerAdapter);
-//        actionsSpinner.setAdapter(actionAdapter);
-//        pageSoundSpinner.setAdapter(pageAdapter);
-//
-//        triggerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                String curItem = (String) adapterView.getSelectedItem();
-//                setCurrentTrigger(curItem);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//
-//        actionsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                String curItem = (String) adapterView.getSelectedItem();
-//                setCurrentAction(curItem);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//
-//        pageSoundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                String curItem = (String) adapterView.getSelectedItem();
-//                setCurrentPageSound(curItem);
-//                updateSpinner2(pageKeyList, soundKeyList);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-//        updateSpinner2(pageKeyList, soundKeyList);
+        action_on_drop_spinner.setAdapter(actionAdapter);
+        pageSound_on_drop_1_spinner.setAdapter(pageAdapter_on_drop_1);
+        pageSound_on_drop_2_spinner.setAdapter(pageAdapter_on_drop_2);
+
+
+        action_on_drop_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String curItem = (String) adapterView.getSelectedItem();
+                setCurrentAction_on_drop(curItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        pageSound_on_drop_1_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String curItem = (String) adapterView.getSelectedItem();
+                setCurrentPageSound_on_drop_1(curItem);
+                updateSpinner2_1(pageKeyList, soundKeyList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        pageSound_on_drop_2_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String curItem = (String) adapterView.getSelectedItem();
+                setCurrentPageSound_on_drop_2(curItem);
+                updateSpinner2_2(pageKeyList, soundKeyList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        updateSpinner2_1(pageKeyList, soundKeyList);
+        updateSpinner2_2(pageKeyList, soundKeyList);
     }
 
     public void updateSpinner2_on_drop(List pageKeyList, List soundKeyList) {
