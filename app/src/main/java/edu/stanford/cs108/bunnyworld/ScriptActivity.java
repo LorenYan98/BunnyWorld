@@ -587,6 +587,7 @@ public class ScriptActivity extends AppCompatActivity {
     public void confirmScriptReturnToEditor(View view){
         String finalString = returnFinalStringByOrder();
         Intent intent = new Intent(this, EditorActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         intent.putExtra("curScript",finalString);
         startActivity(intent);
