@@ -52,7 +52,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD Trigger Clause"
-            android:id="@+id/firstLineButton"></Button>
+            android:onClick="ADD"
+            ></Button>
+
     </LinearLayout>
 
     <LinearLayout
@@ -101,8 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD on drop clause"
-            android:onClick="ADD"
-            ></Button>
+            android:id="@+id/firstLineButton"></Button>
 
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

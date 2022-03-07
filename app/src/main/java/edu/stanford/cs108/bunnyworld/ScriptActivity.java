@@ -99,7 +99,7 @@ public class ScriptActivity extends AppCompatActivity {
         Map soundMap = EditorView.getSoundMap();
 
          List<String> pageKeyList = new ArrayList<String>(pageMap.keySet());
-        List<String> soundKeyList = new ArrayList<String>(soundMap.keySet());
+         List<String> soundKeyList = new ArrayList<String>(soundMap.keySet());
 //        List<BPage> pageList = new ArrayList<>(pageMap.values());
 //        List<Bitmap> imgList = new ArrayList<>(imgMap.values());
 //        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
@@ -185,6 +185,11 @@ public class ScriptActivity extends AppCompatActivity {
 //        updateSpinner2(pageKeyList, soundKeyList);
     }
 
+    /**
+     * update the shape spinner according to the items selected in shapeSoundSpinner
+     * @param pageKeyList
+     * @param soundKeyList
+     */
     public void updateSpinner2(List pageKeyList, List soundKeyList) {
         System.out.println("currpageKeyList: " + pageKeyList);
         System.out.println("currentPageSound: " + currentPageSound);
@@ -217,6 +222,8 @@ public class ScriptActivity extends AppCompatActivity {
         } else {
             setCurrentShape(null);
             System.out.println("im   gere");
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+            shapeSpinner.setAdapter(null);
             return;
         }
     }
