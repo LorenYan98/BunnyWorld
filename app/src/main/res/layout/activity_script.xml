@@ -64,11 +64,11 @@
         tools:context=".ScriptActivity"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="on drop"
-            android:id="@+id/onDropCheckBox"></CheckBox>
+<!--        <CheckBox-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="on drop"-->
+<!--            android:id="@+id/onDropCheckBox"></CheckBox>-->
 
         <Spinner
             android:layout_width="wrap_content"

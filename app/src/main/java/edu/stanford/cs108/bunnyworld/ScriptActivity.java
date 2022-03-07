@@ -260,7 +260,7 @@ public class ScriptActivity extends AppCompatActivity {
                 if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
                     onClickString = currentTrigger + " " + currentAction + " " + currentShape;
                 } else {
-                    onClickString += " " + currentAction + " " + currentPageSound;
+                    onClickString = currentTrigger + " " + currentAction + " " + currentPageSound;
                 }
             } else {
                 if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
@@ -549,32 +549,36 @@ public class ScriptActivity extends AppCompatActivity {
             if (onDropString.equals("")) {
                 if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
-                        onClickString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                        onDropString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
-                        onClickString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                        onDropString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 } else {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
-                        onClickString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                        onDropString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
-                        onClickString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                        onDropString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 }
             } else {
                 if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
-                        onClickString += " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                        onDropString += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
-                        onClickString += " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                        onDropString += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 } else {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
-                        onClickString += " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
+                        onDropString += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
-                        onClickString += " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
+                        onDropString += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 }
             }
+    }
+
+    public String returnFinalStringByOrder() {
+        return onEnterString + ";" + onDropString + ";" + onClickString;
     }
 
     /**
