@@ -527,7 +527,7 @@ public class ScriptActivity extends AppCompatActivity {
         } else {
             setCurrentShape_on_drop_2(null);
             System.out.println("im   gere");
-            Spinner shapeSpinner = (Spinner) findViewById(R.id.currentShape_on_drop_1);
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.currentShape_on_drop_2);
             shapeSpinner.setAdapter(null);
             TextView imageName = findViewById(R.id.shapeImageTextView);
             imageName.setText("No shape is currently selected");
