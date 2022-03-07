@@ -124,7 +124,6 @@ public class EditorActivity extends AppCompatActivity {
         editorView.update();
     }
 
-
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
         Map imgMap = EditorView.getbitmapMap();

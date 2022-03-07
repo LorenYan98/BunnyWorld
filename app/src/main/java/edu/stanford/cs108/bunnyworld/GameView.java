@@ -21,8 +21,8 @@ public class GameView extends View {
 
     float preX, preY, curX, curY;
     // screen size, hardcoded for the time being
-    int viewWidth = 2208;
-    int viewHeight = 860;
+    int viewWidth = 2560;
+    int viewHeight = 1512;
     boolean shapeIsSelected;
     boolean shapeIsDragging;
     BShape selectedShape;
@@ -192,12 +192,12 @@ public class GameView extends View {
 
 
     // get screen size. Don't need, for now
-//    @Override
-//    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-//        super.onSizeChanged(w, h, oldw, oldh);
-//        viewWidth = w;
-//        viewHeight = h;
-//    }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        viewWidth = w;
+        viewHeight = h;
+    }
 
     private void handleActionDown(MotionEvent event) {
         switch (event.getAction()) {
@@ -236,6 +236,7 @@ public class GameView extends View {
                     invalidate();
                 }
                 preX = curX;
+                preX = curX;
                 preY = curY;
         }
     }
@@ -256,7 +257,7 @@ public class GameView extends View {
                             if (onDropShape != null) {
                                 Script script = onDropShape.getScript();
                                 if (script != null && script.isOnDrop && script.getOnDropActions().containsKey(selectedShape.getShapeName())) {
-                                    doAction(script.getOnDropActions().get(selectedShape.getShapeName()));
+                                    performActions(script.getOnDropActions().get(selectedShape.getShapeName()));
                                 }
                             }
 
@@ -270,7 +271,7 @@ public class GameView extends View {
                             // handle onClick script
                             Script script = selectedShape.getScript();
                             if (script != null && script.getIsOnClick()) {
-                                doAction(script.getOnClickActions());
+                                performActions(script.getOnClickActions());
                             }
                         }
 
@@ -283,7 +284,7 @@ public class GameView extends View {
         }
     }
 
-    private void doAction(List<String> actions) {
+    private void performActions(List<String> actions) {
         String verb, target;
         for (int i = 0; i < actions.size(); i += 2) {
             verb = actions.get(i);
@@ -319,7 +320,7 @@ public class GameView extends View {
         for (BShape shape : shapes.values()) {
             Script script = shape.getScript();
             if (script != null && script.isOnEnter) {
-                doAction(script.getOnEnterActions());
+                performActions(script.getOnEnterActions());
             }
         }
 
