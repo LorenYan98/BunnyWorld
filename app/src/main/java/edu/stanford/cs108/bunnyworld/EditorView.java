@@ -140,6 +140,22 @@ public class EditorView extends View {
     }
 
     /**
+     * on click function for renamePage button
+     * fatch the text in edittext and set the name for current page if its not
+     * page1
+     */
+    public void renamePage() {
+        if (firstPage.getPageName() == currentPage.getPageName()) {
+            // add a toast later
+            return;
+        }
+        EditText renamePageNameEditText = ((Activity) getContext()).findViewById(R.id.renamePageName);
+
+        String pageNewName = renamePageNameEditText.getText().toString();
+        currentPage.setPageName(pageNewName);
+    }
+
+    /**
      * react to user click on ADD SHAPE TO VIEW BUTTON
      * get and set the ivar of newly created shape, add the shape to page's shape map, and call
      * update to redraw

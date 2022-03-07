@@ -68,6 +68,22 @@ public class EditorActivity extends AppCompatActivity {
         System.out.println("after: " + editorView.getCurrentPage());
     }
 
+    /**
+     * on click function for renamePage button
+     * fatch the text in edittext and set the name for current page if its not
+     * page1
+     * @param view
+     */
+    public void renamePage(View view) {
+        editorView = (EditorView) findViewById(R.id.editor_view);
+        // editorView.renamePage();
+        // editorView.update();
+        // updateSpinner();
+        // updateCurrentPageText();
+    }
+
+
+
     public void addOrEditShape(View view){
         editorView = (EditorView) findViewById(R.id.editor_view);
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
@@ -87,6 +103,7 @@ public class EditorActivity extends AppCompatActivity {
         }
 
     }
+
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
         Map imgMap = EditorView.getbitmapMap();
