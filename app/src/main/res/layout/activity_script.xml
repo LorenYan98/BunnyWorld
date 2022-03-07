@@ -16,6 +16,7 @@
         android:text="Edit/AddScript"></TextView>
 
 
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -128,7 +129,6 @@
             android:text="This text shows image of the selected shape"
             ></TextView>
     </LinearLayout>
-
 
 
 </LinearLayout>
