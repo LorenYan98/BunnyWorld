@@ -255,35 +255,7 @@ public class EditorView extends View {
 
         RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
         int radioId = radioGroup.getCheckedRadioButtonId();
-//        if (radioId == R.id.addShapeRadioButton) {
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    actionX1 = event.getX();
-//                    actionY1 = event.getY();
-//                    break;
-//                case MotionEvent.ACTION_UP:
-//                    actionX2 = event.getX();
-//                    actionY2 = event.getY();
-//
-//                    if (actionX1 > actionX2) {
-//                        shapeLeft = actionX2;
-//                        shapeRight = actionX1;
-//                    } else {
-//                        shapeLeft = actionX1;
-//                        shapeRight = actionX2;
-//                    }
-//
-//                    if (actionY1 > actionY2) {
-//                        shapeTop = actionY2;
-//                        shapeBottom = actionY1;
-//                    } else {
-//                        shapeTop = actionY1;
-//                        shapeBottom = actionY2;
-//                    }
-//                    invalidate();
-//            }
-//        }
-        if (radioId == R.id.editShapeRadioButton || radioId == R.id.addShapeRadioButton) {
+        if (radioId == R.id.addShapeRadioButton) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     curX = event.getX();
@@ -316,6 +288,40 @@ public class EditorView extends View {
                     updateSelectShapeName(selectedShape);
                     invalidate();
             }
+//        }
+//            if (radioId == R.id.editShapeRadioButton) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_MOVE:
+//                        curX = event.getX();
+//                        curY = event.getY();
+//
+//                        if (selectedShape != null && selectedShape.getMoveable()) {
+//                            selectedShape.move(curX - preX, curY - preY);
+//                            System.out.println("shape move to " + selectedShape.toString());
+//                            updatePageMap();
+//                            invalidate();
+//                        }
+//                        preX = curX;
+//                        preY = curY;
+//                        updateSelectShapeLocation(selectedShape);
+//                        break;
+//                    case MotionEvent.ACTION_DOWN:
+//                        curX = event.getX();
+//                        curY = event.getY();
+//                        preX = curX;
+//                        preY = curY;
+//                        selectIndexUpdate();
+//                        updateSelectShapeName(selectedShape);
+//                        invalidate();
+//                        System.out.println("current select shape is " + selectedShape);
+//                        System.out.println("cur x :" + curX + " cur Y : " + curY);
+//                        System.out.println("current index : " + selectIndex);
+//                        break;
+//                    case MotionEvent.ACTION_UP:
+//                        updateSelectShapeName(selectedShape);
+//                        invalidate();
+//                }
+//
         }
         return true;
     }

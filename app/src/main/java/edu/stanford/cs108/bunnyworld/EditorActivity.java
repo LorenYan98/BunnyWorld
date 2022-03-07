@@ -91,13 +91,14 @@ public class EditorActivity extends AppCompatActivity {
         String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
         CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
         CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
+
         String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
         boolean moveable = shapeMoveable == null? false: shapeMoveable.isChecked();
         boolean visible = shapeVisible == null? false: shapeVisible.isChecked();
 
         if(radioId == R.id.addShapeRadioButton){
-            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,500.0f);
+            BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
             editorView.addShapeToview(newShape);
             editorView.update();
         }

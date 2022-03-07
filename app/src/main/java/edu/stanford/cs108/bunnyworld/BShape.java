@@ -152,7 +152,6 @@ public class BShape {
         Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
         if (text.length() != 0) {
                 canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, textPaint);
-                canvas.drawRect(newshape,defaultBorderPaint);
         } else if (imageName.length() != 0) {
             if(!EditorView.bitmapMap.isEmpty()){
 
