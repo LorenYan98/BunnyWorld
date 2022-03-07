@@ -37,7 +37,6 @@ public class EditorView extends View {
 
     private int selectIndex = 0;
     private static Map<String, BShape> shapeNameRef = new HashMap<>();
-    private float actionX1, actionX2, actionY1, actionY2;
     private float shapeLeft, shapeRight, shapeTop, shapeBottom;
     float preX, preY, curX, curY;
     // screen size, hardcoded for the time being

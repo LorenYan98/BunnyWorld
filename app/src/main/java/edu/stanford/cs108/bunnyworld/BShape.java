@@ -96,23 +96,27 @@ public class BShape {
         defaultBorderPaint.setColor(Color.GRAY);
         defaultBorderPaint.setStyle(Paint.Style.STROKE);
         defaultBorderPaint.setStrokeWidth(1.0f);
-
-        if(!EditorView.bitmapMap.isEmpty()){
+        try {
             if (textSize != 0) {
                 textPaint.setTextSize(textSize);
             } else if (imageName.length() != 0 &&
                     EditorView.bitmapMap.containsKey(imageName)) {
                 Bitmap curImg = EditorView.bitmapMap.get(imageName);
-                scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+                scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(), (int) getHeight(), true);
             }
-        }else if(!GameView.bitmapMap.isEmpty()){
+        } catch (Exception err) {
+            System.out.println("Something went wrong.");
+        }
+        try {
             if (textSize != 0) {
                 textPaint.setTextSize(textSize);
             } else if (imageName.length() != 0 &&
                     GameView.bitmapMap.containsKey(imageName)) {
                 Bitmap curImg = GameView.bitmapMap.get(imageName);
-                scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(),(int) getHeight(), true);
+                scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(), (int) getHeight(), true);
             }
+        } catch (Exception err) {
+            System.out.println("Something went wrong.");
         }
     }
     //Resize the image contained in the BShape
@@ -153,17 +157,12 @@ public class BShape {
         if (text.length() != 0) {
                 canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, textPaint);
         } else if (imageName.length() != 0) {
-            if(!EditorView.bitmapMap.isEmpty()){
-
                 if(isSelected == true){
                     canvas.drawBitmap(scaledImg, null, newshape, null);
                     canvas.drawRect(newshape,highlightShapePaint);
                 }else {
                     canvas.drawBitmap(scaledImg, null, newshape, null);
                 }
-            }else if(!GameView.bitmapMap.isEmpty()){
-                canvas.drawBitmap(scaledImg, 5.0f, 5.0f, null);
-            }
         } else {
             canvas.drawRect(left, top, right, bottom, rectPaint);
         }
