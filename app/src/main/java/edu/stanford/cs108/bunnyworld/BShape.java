@@ -57,7 +57,6 @@ public class BShape {
         this.bottom = bottom;
         this.shapeSize = new RectF(left, top, right, bottom);
         init();
-
     }
 
     // constructor taking care of text only

@@ -28,6 +28,7 @@ public class GameView extends View {
     BShape selectedShape;
     BPage currentPage;
     Inventory inventory;
+    Float[] originalMetrics;
     static Map<String, MediaPlayer> soundMap;
     static Map<String, Bitmap> bitmapMap;
     static Map<String, BPage> pageMap;
@@ -117,15 +118,20 @@ public class GameView extends View {
         thirdPage.addShape(door5);
 //        thirdPage.addShape(fireRoom);
         //fourth page
+        BShape duck = new BShape("","duck",true,true,viewWidth*0.8f,0f,viewWidth*0.9f,100f);
         BShape death = new BShape( "", "death", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
         BShape door6 = new BShape("","mystic",false,false,viewWidth*0.9f,300.0f,viewWidth,700.0f);
 //        BShape bunnyDeath = new BShape("You must appease the Bunny of Death!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
         death.setScript(new Script("onenter play evillaugh;ondrop carrot hide carrot play munching hide death show door6;onclick play evillaugh"));
         door6.setScript(new Script("onClick goto page5") );
+        duck.setScript(new Script("onDrop carrot play munching"));
         death.setShapeName("death");
         door6.setShapeName("door6");
+        duck.setShapeName("duck");
         shapeNameRef.put("door6", door6);
         shapeNameRef.put("death", death);
+        shapeNameRef.put("duck",duck);
+        fourthPage.addShape(duck);
         fourthPage.addShape(death);
         fourthPage.addShape(door6);
 //        fourthPage.addShape(bunnyDeath);
@@ -219,6 +225,10 @@ public class GameView extends View {
                         shapeIsSelected = true;
                     }
                 }
+                // save original location of selectedShape
+                if (selectedShape != null) {
+                    originalMetrics = new Float[] {selectedShape.getLeft(), selectedShape.getTop(), selectedShape.getRight(), selectedShape.getBottom()};
+                }
                 preX = curX;
                 preY = curY;
                 invalidate();
@@ -232,6 +242,14 @@ public class GameView extends View {
                 curX = event.getX();
                 curY = event.getY();
                 if(shapeIsSelected && selectedShape.getMovable()){
+                    // highlight all shapes that can react to selectedShape using onDrop script
+                    for (BShape s : currentPage.getShapeMap().values()) {
+                        Script script = s.getScript();
+                        if (script != null && script.getIsOnDrop() &&
+                            script.getOnDropActions().containsKey(selectedShape.getShapeName())) {
+                            s.setSelected(true);
+                        }
+                    }
                     selectedShape.move(curX-preX,curY-preY);
                     invalidate();
                 }
@@ -248,6 +266,15 @@ public class GameView extends View {
                 if(shapeIsSelected){
                     if (shapeIsDragging) {
                         // onDrag
+
+                        // unhighlight all shapes that can react to selectedShape using onDrop script
+                        for (BShape s : currentPage.getShapeMap().values()) {
+                            Script script = s.getScript();
+                            if (script != null && script.getIsOnDrop() &&
+                                    script.getOnDropActions().containsKey(selectedShape.getShapeName())) {
+                                s.setSelected(false);
+                            }
+                        }
                         if(inventory.isWithinInventory(curX,curY)){
                             inventory.addShape(selectedShape);
                         } else {
@@ -258,6 +285,9 @@ public class GameView extends View {
                                 Script script = onDropShape.getScript();
                                 if (script != null && script.isOnDrop && script.getOnDropActions().containsKey(selectedShape.getShapeName())) {
                                     performActions(script.getOnDropActions().get(selectedShape.getShapeName()));
+                                } else {
+                                    // no action to be done, snap selectedShape back to original metrics
+                                    System.out.println("To be implemented!");
                                 }
                             }
 
