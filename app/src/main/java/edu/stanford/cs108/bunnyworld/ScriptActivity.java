@@ -73,7 +73,7 @@ public class ScriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_script);
         init();
-        
+
     }
 
     public void init() {
@@ -98,8 +98,8 @@ public class ScriptActivity extends AppCompatActivity {
         Map pageMap = EditorView.getPageMap();
         Map soundMap = EditorView.getSoundMap();
 
-         List<String> pageKeyList = new ArrayList<String>(pageMap.keySet());
-         List<String> soundKeyList = new ArrayList<String>(soundMap.keySet());
+        List<String> pageKeyList = new ArrayList<String>(pageMap.keySet());
+        List<String> soundKeyList = new ArrayList<String>(soundMap.keySet());
 //        List<BPage> pageList = new ArrayList<>(pageMap.values());
 //        List<Bitmap> imgList = new ArrayList<>(imgMap.values());
 //        List<String> imgNameList = new ArrayList<>(imgMap.keySet());
@@ -198,6 +198,7 @@ public class ScriptActivity extends AppCompatActivity {
             List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
             if (!shapeList.isEmpty()) {
                 setCurrentShape((String) shapeList.get(0));
+                shapeList.add("DESELECT SHAPE");
                 for (int i = 0; i < shapeList.size(); i++) {
                     System.out.println("curShape: " + shapeList.get(i).toString());
                 }
@@ -242,9 +243,13 @@ public class ScriptActivity extends AppCompatActivity {
         // fi shape exists, ignore currentPageSound
         if (currentTrigger.equals(ON_CLICK)) {
             if (onClickString.equals("")) {
-                onClickString = currentTrigger + " " + currentAction + " " + currentPageSound;
+                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                    onClickString = currentTrigger + " " + currentAction + " " + currentShape;
+                } else {
+                    onClickString += " " + currentAction + " " + currentPageSound;
+                }
             } else {
-                if (currentShape != null) {
+                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
                     onClickString += " " + currentAction + " " + currentShape;
                 } else {
                     onClickString += " " + currentAction + " " + currentPageSound;
@@ -252,9 +257,13 @@ public class ScriptActivity extends AppCompatActivity {
             }
         } else if (currentTrigger.equals(ON_ENTER)) {
             if (onEnterString.equals("")) {
-                onEnterString = currentTrigger + " " + currentAction + " " + currentPageSound;
+                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                    onEnterString = currentTrigger + " " + currentAction + " " + currentShape;
+                } else {
+                    onEnterString += currentTrigger + " " + currentAction + " " + currentPageSound;
+                }
             } else {
-                if (currentShape != null) {
+                if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
                     onEnterString += " " + currentAction + " " + currentShape;
                 } else {
                     onEnterString += " " + currentAction + " " + currentPageSound;
