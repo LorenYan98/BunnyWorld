@@ -2,6 +2,7 @@ package edu.stanford.cs108.bunnyworld;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -89,6 +91,7 @@ public class EditorView extends View {
     }
 
     private void loadPages() {
+        BPage.pageCount = 1;
         firstPage = new BPage(0.0f, 0.0f, 1785.0f, 784.0f);
         pageMap.put(firstPage.getPageName(), firstPage);
         currentPage = firstPage;
@@ -119,10 +122,8 @@ public class EditorView extends View {
 
     public void addPage() {
         BPage newPage = new BPage(0.0f, 0.0f, viewWidth, viewHeight);
-
         currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
-        setCurrentPage(newPage);
     }
 
     public void deletePage() {
@@ -190,6 +191,33 @@ public class EditorView extends View {
         }
     }
 
+    public void scaleCurShape(){
+        SeekBar scaleSeekbar = ((Activity) getContext()).findViewById(R.id.scaleSeekbar);
+        float curWidth = selectedShape.getWidth();
+        float curHeight = selectedShape.getHeight() ;
+
+        scaleSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float scaleRatio = (float) (progress+10)/100;
+                System.out.println(scaleRatio);
+                if(selectedShape != null){
+                    System.out.println(curWidth + " and height " + curWidth);
+                    BShape tempShape = selectedShape;
+                    tempShape.scale(curWidth*scaleRatio,curHeight*scaleRatio);
+                    addShapeToview(tempShape);
+                    update();
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
     public void updateSelectShapeLocation(BShape selectedShape){
         TextView shapeLeft =  ((Activity) getContext()).findViewById(R.id.shapeLeft);
         TextView shapeTop =  ((Activity) getContext()).findViewById(R.id.shapeTop);
@@ -299,6 +327,7 @@ public class EditorView extends View {
                     preY = curY;
                     closeHighlights();
                     selectIndexUpdate();
+                    if(selectedShape != null)scaleCurShape();
                     if(radioId == R.id.editShapeRadioButton && selectedShape != null){
                         displayShapeInfo();
                     }else{

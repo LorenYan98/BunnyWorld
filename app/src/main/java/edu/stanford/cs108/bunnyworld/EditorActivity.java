@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,7 +39,6 @@ public class EditorActivity extends AppCompatActivity {
         updateSpinner();
         // by default, set Moveable checkbox to disable, only enable it after visible is checked
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(true);
-
         updateCurrentPageText();
     }
 
@@ -125,6 +125,7 @@ public class EditorActivity extends AppCompatActivity {
         editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
         editorView.update();
     }
+
 
     public void updateSpinner() {
         Map pageMap = EditorView.getPageMap();
