@@ -269,7 +269,7 @@ public class GameView extends View {
                             currentPage.addShape(selectedShape);
                             // handle onClick script
                             Script script = selectedShape.getScript();
-                            if (script.getIsOnClick()) {
+                            if (script != null && script.getIsOnClick()) {
                                 doAction(script.getOnClickActions());
                             }
                         }

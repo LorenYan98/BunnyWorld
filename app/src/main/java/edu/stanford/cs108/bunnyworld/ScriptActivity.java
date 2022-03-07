@@ -430,7 +430,7 @@ public class ScriptActivity extends AppCompatActivity {
         System.out.println("currpageKeyList: " + pageKeyList);
         System.out.println("currentPageSound: " + currentPageSound);
         if (pageKeyList.contains(currentPageSound_on_drop_1)) {
-            Spinner shape_on_drop_1_spinner = (Spinner) findViewById(R.id.currentShape_on_drop_1;
+            Spinner shape_on_drop_1_spinner = (Spinner) findViewById(R.id.currentShape_on_drop_1);
             List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound_on_drop_1).getShapeMap().keySet());
             if (!shapeList.isEmpty()) {
                 setCurrentShape_on_drop_1((String) shapeList.get(0));
