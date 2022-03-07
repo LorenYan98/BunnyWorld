@@ -83,8 +83,6 @@ public class EditorActivity extends AppCompatActivity {
         // updateCurrentPageText();
     }
 
-
-
     public void addOrEditShape(View view){
         editorView = (EditorView) findViewById(R.id.editor_view);
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);

@@ -337,8 +337,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Resize!"
+            android:text="Resize"
             android:textSize="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scriptTextView"
+            android:hint="Script will be shown here. \nClick button below to edit/add script"></TextView>
 
         <Button
             android:id="@+id/addShapeEffect"

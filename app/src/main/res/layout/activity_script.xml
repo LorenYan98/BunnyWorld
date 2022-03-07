@@ -111,7 +111,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".ScriptActivity">
         <TextView
             android:id="@+id/combinedTextView"
@@ -128,8 +128,17 @@
             android:textColor="#F00"
             android:text="This text shows image of the selected shape"
             ></TextView>
+
     </LinearLayout>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm script \nReturn to editor "
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:padding="20sp"
+        android:onClick="confirmScriptReturnToEditor"></Button>
 
 </LinearLayout>
 
