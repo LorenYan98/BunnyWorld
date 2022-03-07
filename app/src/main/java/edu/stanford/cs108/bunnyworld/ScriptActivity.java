@@ -292,15 +292,35 @@ public class ScriptActivity extends AppCompatActivity {
     private String currentShape_on_drop_1;
     private String currentShape_on_drop_2;
 
+    public void setCurrentAction_on_drop(String currentAction_on_drop) {
+        this.currentAction_on_drop = currentAction_on_drop;
+    }
+
+    public void setCurrentPageSound_on_drop_1(String currentPageSound_on_drop_1) {
+        this.currentPageSound_on_drop_1 = currentPageSound_on_drop_1;
+    }
+
+    public void setCurrentPageSound_on_drop_2(String currentPageSound_on_drop_2) {
+        this.currentPageSound_on_drop_2 = currentPageSound_on_drop_2;
+    }
+
+    public void setCurrentShape_on_drop_1(String currentShape_on_drop_1) {
+        this.currentShape_on_drop_1 = currentShape_on_drop_1;
+    }
+
+    public void setCurrentShape_on_drop_2(String currentShape_on_drop_2) {
+        this.currentShape_on_drop_2 = currentShape_on_drop_2;
+    }
+
     private void init_on_drop() {
         onDropString = "";
         updateSpinner_on_drop();
     }
 
     private void updateSpinner_on_drop() {
-        Spinner triggerSpinner = (Spinner) findViewById(R.id.triggerSpinner);
-        Spinner actionsSpinner = (Spinner) findViewById(R.id.actionsSpinner);
-        Spinner pageSoundSpinner = (Spinner) findViewById(R.id.pageSoundSpinner);
+        Spinner currentAction_on_drop = (Spinner) findViewById(R.id.currentAction_on_drop);
+        Spinner currentPageSound_on_drop_1 = (Spinner) findViewById(R.id.currentPageSound_on_drop_1);
+        Spinner currentPageSound_on_drop_2 = (Spinner) findViewById(R.id.currentPageSound_on_drop_2);
 
         // initiate ArrayList including all the actions
         Map pageMap = EditorView.getPageMap();
@@ -315,15 +335,19 @@ public class ScriptActivity extends AppCompatActivity {
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
 
 
-        if (pageKeyList.contains(currentPageSound)) {
-            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
-            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
-            setCurrentShape((String) shapeList.get(0));
+        if (pageKeyList.contains(currentPageSound_on_drop_1)) {
+            Spinner currentShape_on_drop_1 = (Spinner) findViewById(R.id.currentShape_on_drop_1);
+            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound_on_drop_1).getShapeMap().keySet());
+            setCurrentShape_on_drop_1((String) shapeList.get(0));
         }
 
+        if (pageKeyList.contains(currentPageSound_on_drop_2)) {
+            Spinner currentShape_on_drop_2 = (Spinner) findViewById(R.id.currentShape_on_drop_2);
+            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound_on_drop_2).getShapeMap().keySet());
+            setCurrentShape_on_drop_2((String) shapeList.get(0));
+        }
 
-        setCurrentTrigger(TRIGGERLIST.get(0));
-        setCurrentAction(ACTIONLIST.get(0));
+        setCurrentAction_on_drop(ACTIONLIST.get(0));
         setCurrentPageSound(pageKeyList.get(0));
 
         ArrayAdapter<String> triggerAdapter = new ArrayAdapter<String>(this,
