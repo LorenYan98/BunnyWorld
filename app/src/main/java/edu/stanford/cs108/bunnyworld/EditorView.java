@@ -196,6 +196,15 @@ public class EditorView extends View {
         }
     }
 
+    public void updateSelectShapeName(BShape selectedShape){
+        TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
+        if(selectedShape != null) {
+            curShapeName.setText(selectedShape.getShapeName());
+        }else{
+            curShapeName.setText("");
+        }
+    }
+
     public void updatePageMap() {
         Map<String, BShape> curMap = currentPage.getShapeMap();
         curMap.put(selectedShape.getShapeName(), selectedShape);
@@ -272,7 +281,7 @@ public class EditorView extends View {
                     }
                     preX = curX;
                     preY = curY;
-
+                    updateSelectShapeLocation(selectedShape);
                     break;
                 case MotionEvent.ACTION_DOWN:
                     curX = event.getX();
@@ -280,16 +289,16 @@ public class EditorView extends View {
                     preX = curX;
                     preY = curY;
                     selectIndexUpdate();
+                    updateSelectShapeName(selectedShape);
+                    invalidate();
                     System.out.println("current select shape is " + selectedShape);
                     System.out.println("cur x :" + curX + " cur Y : " + curY);
                     System.out.println("current index : " + selectIndex);
                     break;
                 case MotionEvent.ACTION_UP:
-                    updateSelectShapeLocation(selectedShape);
                     closeHighlights();
+                    updateSelectShapeName(selectedShape);
                     invalidate();
-
-
             }
         }
         return true;

@@ -140,10 +140,11 @@
             android:text="Current Shape Name: "
             android:textSize="16dp" />
         <TextView
+            android:id="@+id/currentShapeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="carrot1"
+            android:text="null"
             android:textColor="#F00"
             android:textSize="16dp" />
         </LinearLayout>
@@ -203,8 +204,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="left value "
-                android:background="#FFFF00"
+                android:textColor="#900D09"
                 android:textSize="16dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -219,8 +219,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="right value"
-                android:background="#FFFF00"
+                android:textColor="#900D09"
                 android:textSize="16dp" />
         </LinearLayout>
         <LinearLayout
@@ -241,8 +240,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="top value "
-                android:background="#FFFF00"
+                android:textColor="#900D09"
                 android:textSize="16dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -257,8 +255,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="bottom value "
-                android:background="#FFFF00"
+                android:textColor="#900D09"
                 android:textSize="16dp" />
         </LinearLayout>
 

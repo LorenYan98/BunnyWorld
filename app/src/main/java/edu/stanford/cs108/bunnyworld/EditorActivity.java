@@ -79,8 +79,7 @@ public class EditorActivity extends AppCompatActivity {
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
         boolean moveable = shapeMoveable == null? false: shapeMoveable.isChecked();
         boolean visible = shapeVisible == null? false: shapeVisible.isChecked();
-//        System.out.println(moveable + " and " + visible);
-//        System.out.println(curImgName + " and " +text );
+
         if(radioId == R.id.addShapeRadioButton){
             BShape newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,500.0f);
             editorView.addShapeToview(newShape);
