@@ -214,6 +214,13 @@ public class ScriptActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         String curItem = (String) adapterView.getSelectedItem();
                         setCurrentShape(curItem);
+                        TextView imageName = findViewById(R.id.shapeImageTextView);
+                        if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                            Map pageMap = EditorView.getPageMap();
+                            imageName.setText(EditorView.getPageMap().get(currentPageSound).getShapeMap().get(currentShape).getImageName());
+                        } else {
+                            imageName.setText("No shape is currently selected");
+                        }
                     }
 
                     @Override
@@ -224,12 +231,16 @@ public class ScriptActivity extends AppCompatActivity {
             } else {
                 setCurrentShape(null);
                 shapeSpinner.setAdapter(null);
+                TextView imageName = findViewById(R.id.shapeImageTextView);
+                imageName.setText("No shape is currently selected");
             }
         } else {
             setCurrentShape(null);
             System.out.println("im   gere");
             Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
             shapeSpinner.setAdapter(null);
+            TextView imageName = findViewById(R.id.shapeImageTextView);
+            imageName.setText("No shape is currently selected");
         }
     }
 

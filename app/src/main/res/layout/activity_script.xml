@@ -118,6 +118,15 @@
             android:layout_height="wrap_content"
             android:text="This text shows the combined script"
             ></TextView>
+
+        <TextView
+            android:id="@+id/shapeImageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="500dp"
+            android:textColor="#F00"
+            android:text="This text shows image of the selected shape"
+            ></TextView>
     </LinearLayout>
 
 
