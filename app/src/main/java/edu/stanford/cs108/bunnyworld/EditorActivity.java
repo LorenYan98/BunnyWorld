@@ -42,6 +42,7 @@ public class EditorActivity extends AppCompatActivity {
         updateCurrentPageText();
     }
 
+
     /**
      * called by ADD/EDIT SCRIPT button to start script activity
      * @param view
