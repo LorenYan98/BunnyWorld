@@ -413,7 +413,7 @@ public class ScriptActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String curItem = (String) adapterView.getSelectedItem();
                 setCurrentPageSound_on_drop_2(curItem);
-                updateSpinner2_2(pageKeyList, soundKeyList);
+//                updateSpinner2_2(pageKeyList, soundKeyList);
             }
 
             @Override
@@ -423,17 +423,17 @@ public class ScriptActivity extends AppCompatActivity {
         });
 
         updateSpinner2_1(pageKeyList, soundKeyList);
-        updateSpinner2_2(pageKeyList, soundKeyList);
+//        updateSpinner2_2(pageKeyList, soundKeyList);
     }
 
-    public void updateSpinner2_on_drop(List pageKeyList, List soundKeyList) {
+    public void updateSpinner2_1(List pageKeyList, List soundKeyList) {
         System.out.println("currpageKeyList: " + pageKeyList);
         System.out.println("currentPageSound: " + currentPageSound);
-        if (pageKeyList.contains(currentPageSound)) {
-            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
-            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound).getShapeMap().keySet());
+        if (pageKeyList.contains(currentPageSound_on_drop_1)) {
+            Spinner shape_on_drop_1_spinner = (Spinner) findViewById(R.id.currentShape_on_drop_1;
+            List shapeList = new ArrayList<String>(EditorView.getPageMap().get(currentPageSound_on_drop_1).getShapeMap().keySet());
             if (!shapeList.isEmpty()) {
-                setCurrentShape((String) shapeList.get(0));
+                setCurrentShape_on_drop_1((String) shapeList.get(0));
                 shapeList.add("DESELECT SHAPE");
                 for (int i = 0; i < shapeList.size(); i++) {
                     System.out.println("curShape: " + shapeList.get(i).toString());
@@ -443,17 +443,17 @@ public class ScriptActivity extends AppCompatActivity {
                         android.R.layout.simple_spinner_item,
                         shapeList);
                 shapeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                shapeSpinner.setAdapter(shapeAdapter);
+                shape_on_drop_1_spinner.setAdapter(shapeAdapter);
 
-                shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                shape_on_drop_1_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         String curItem = (String) adapterView.getSelectedItem();
-                        setCurrentShape(curItem);
+                        setCurrentShape_on_drop_1(curItem);
                         TextView imageName = findViewById(R.id.shapeImageTextView);
-                        if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                        if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                             Map pageMap = EditorView.getPageMap();
-                            imageName.setText(EditorView.getPageMap().get(currentPageSound).getShapeMap().get(currentShape).getImageName());
+                            imageName.setText(EditorView.getPageMap().get(currentPageSound_on_drop_1).getShapeMap().get(currentShape_on_drop_1).getImageName());
                         } else {
                             imageName.setText("No shape is currently selected");
                         }
@@ -465,15 +465,15 @@ public class ScriptActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                setCurrentShape(null);
-                shapeSpinner.setAdapter(null);
+                setCurrentShape_on_drop_1(null);
+                shape_on_drop_1_spinner.setAdapter(null);
                 TextView imageName = findViewById(R.id.shapeImageTextView);
                 imageName.setText("No shape is currently selected");
             }
         } else {
-            setCurrentShape(null);
+            setCurrentShape_on_drop_1(null);
             System.out.println("im   gere");
-            Spinner shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+            Spinner shapeSpinner = (Spinner) findViewById(R.id.currentShape_on_drop_1);
             shapeSpinner.setAdapter(null);
             TextView imageName = findViewById(R.id.shapeImageTextView);
             imageName.setText("No shape is currently selected");
