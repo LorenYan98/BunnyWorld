@@ -72,12 +72,27 @@ public class ScriptActivity extends AppCompatActivity {
         return currentShape;
     }
 
+    private String curShapeName;
+    private String currentPageTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_script);
         init();
         init_on_drop();
+
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            curShapeName = getIntent().getStringExtra("curShapeName");
+            currentPageTextView = getIntent().getStringExtra("currentPageTextView");
+//            curShapeName = extras.getString("curShapeName");
+//            currentPageTextView = extras.getString("currentPageTextView");
+        } else {
+            System.out.println("No script passed back");
+        }
     }
 
     public void init() {
@@ -590,7 +605,8 @@ public class ScriptActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        TextView imageName = findViewById(R.id.scriptTextView);
 //        imageName.setText("success");
-        EditorView.getPageMap().get("").getShapeMap().get("").setScript("");
+
+        EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).setScript(finalString);
 //        intent.putExtra("curScript",finalString);
         // This is the next step to figure out.
 //        shape.setScript(finalString);

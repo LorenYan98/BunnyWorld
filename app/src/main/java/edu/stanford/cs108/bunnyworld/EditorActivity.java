@@ -46,13 +46,14 @@ public class EditorActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         TextView imageName = findViewById(R.id.scriptTextView);
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String value = extras.getString("curScript");
-            //The key argument here must match that used in the other activity
-            imageName.setText(value);
+
+        TextView curShapeName =  findViewById(R.id.currentShapeName);
+        System.out.println("page name: " + EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()));
+        System.out.println("shape name: "+ curShapeName.getText());
+        if (EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()) == null) {
+            System.out.println("this is null");
         } else {
-            imageName.setText("No script passed back");
+            imageName.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString());
         }
     }
 
@@ -64,6 +65,12 @@ public class EditorActivity extends AppCompatActivity {
     public void handleEditor(View view) {
         Intent intent = new Intent(this, ScriptActivity.class);
         // intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+        TextView curShapeName =  findViewById(R.id.currentShapeName);
+        intent.putExtra("curShapeName",curShapeName.getText());
+
+        intent.putExtra("currentPageTextView",editorView.getCurrentPage().getPageName());
+
         startActivity(intent);
     }
 
