@@ -593,7 +593,39 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public String returnFinalStringByOrder() {
-        return onEnterString + ";" + onDropString + ";" + onClickString;
+        String finalString = "";
+        if (onEnterString.equals("")) {
+            if (onDropString.equals("")) {
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + onClickString;
+                }
+            } else {
+                finalString += onDropString;
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + ";" + onClickString;
+                }
+            }
+        } else {
+            finalString += onEnterString;
+            if (onDropString.equals("")) {
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + ";" + onClickString;
+                }
+            } else {
+                finalString += ";" + onDropString;
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + ";" + onClickString;
+                }
+            }
+        }
     }
 
     /**
