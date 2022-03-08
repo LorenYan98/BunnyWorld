@@ -174,18 +174,23 @@ public class BShape {
     public float getLeft() {
         return left;
     }
+    public void setLeft(float left) { this.left = left; }
 
     public float getRight() {
         return right;
     }
+    public void setRight(float right) { this.right = right; }
 
     public float getTop() {
         return top;
     }
+    public void setTop(float top) { this.top = top; }
 
     public float getBottom() {
         return bottom;
     }
+    public void setBottom(float bottom) { this.bottom = bottom; }
+
     public float getWidth(){
         return Math.abs(right - left);
     }
