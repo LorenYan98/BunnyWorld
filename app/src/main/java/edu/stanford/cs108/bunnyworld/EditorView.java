@@ -349,10 +349,24 @@ public class EditorView extends View {
                     curX = event.getX();
                     curY = event.getY();
                     updateSelectShapeName(selectedShape);
+                    updateScript();
                     invalidate();
             }
         }
         return true;
+    }
+
+    public void updateScript() {
+        TextView imageName = ((Activity) getContext()).findViewById(R.id.scriptTextView);
+
+        TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
+        System.out.println("page name: " + EditorView.getPageMap().get(getCurrentPage().getPageName()));
+        System.out.println("shape name: "+ curShapeName.getText());
+        if (EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString().equals("")) {
+            imageName.setText("No script now");
+        } else {
+            imageName.setText(EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString());
+        }
     }
 
     @Override
