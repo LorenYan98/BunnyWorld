@@ -46,7 +46,14 @@ public class EditorActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         TextView imageName = findViewById(R.id.scriptTextView);
-        imageName.setText("success");
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String value = extras.getString("curScript");
+            //The key argument here must match that used in the other activity
+            imageName.setText(value);
+        } else {
+            imageName.setText("No script passed back");
+        }
     }
 
 
