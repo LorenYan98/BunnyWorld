@@ -121,8 +121,8 @@ public class EditorActivity extends AppCompatActivity {
         EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
         String curName = currentNameBox.getText().toString();
         BShape tempShape = editorView.selectedShape;
-        tempShape.setShapeName(curName);
         editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
+        tempShape.setShapeName(curName);
         editorView.currentPage.addShape(tempShape);
         editorView.updateSelectShapeName(tempShape);
     }
