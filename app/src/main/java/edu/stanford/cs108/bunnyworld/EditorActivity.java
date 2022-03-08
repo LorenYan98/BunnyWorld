@@ -42,6 +42,13 @@ public class EditorActivity extends AppCompatActivity {
         updateCurrentPageText();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView imageName = findViewById(R.id.scriptTextView);
+        imageName.setText("success");
+    }
+
 
     /**
      * called by ADD/EDIT SCRIPT button to start script activity

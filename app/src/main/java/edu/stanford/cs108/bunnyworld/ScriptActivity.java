@@ -590,6 +590,7 @@ public class ScriptActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         TextView imageName = findViewById(R.id.scriptTextView);
         imageName.setText("success");
+        EditorView.getPageMap().get("").getShapeMap().get("").setScript("");
         intent.putExtra("curScript",finalString);
         // This is the next step to figure out.
 //        shape.setScript(finalString);

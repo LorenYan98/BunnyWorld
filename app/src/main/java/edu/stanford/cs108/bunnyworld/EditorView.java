@@ -279,6 +279,12 @@ public class EditorView extends View {
         invalidate();
     }
 
+//    TextView imageName = findViewById(R.id.scriptTextView);
+//
+//    public static void triggerUpdate(String finalString) {
+//        imageName.setText("success");
+//    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
