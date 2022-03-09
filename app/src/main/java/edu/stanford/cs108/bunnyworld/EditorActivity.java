@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -79,20 +81,18 @@ public class EditorActivity extends AppCompatActivity {
     public void addPage(View view) {
         editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.addPage();
-
+        editorView.update();
         updateSpinner();
         updateCurrentPageText();
-        editorView.update();
+
     }
 
     public void deletePage(View view) {
         editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.deletePage();
         editorView.update();
-        System.out.println("before: " + editorView.getCurrentPage());
         updateSpinner();
         updateCurrentPageText();
-        System.out.println("after: " + editorView.getCurrentPage());
     }
 
     /**
@@ -162,6 +162,7 @@ public class EditorActivity extends AppCompatActivity {
 
         // List<String> pageList = new ArrayList<String>(pageMap.keySet());
         List<BPage> pageList = new ArrayList<>(pageMap.values());
+        Collections.reverse(pageList);
         List<Bitmap> imgList = new ArrayList<>(imgMap.values());
         List<String> imgNameList = new ArrayList<>(imgMap.keySet());
 
@@ -185,12 +186,13 @@ public class EditorActivity extends AppCompatActivity {
         pageSpinner.setAdapter(pageAdapter);
         imgSpinner.setAdapter(imgAdapter);
 
+
         pageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String curPage = pageSpinner.getSelectedItem().toString();
+                BPage curPage = (BPage) adapterView.getSelectedItem();
                 editorView = (EditorView) findViewById(R.id.editor_view);
-                editorView.setCurrentPage((BPage) pageMap.get(curPage));
+                editorView.setCurrentPage(curPage);
                 updateCurrentPageText();
                 editorView.update();
             }

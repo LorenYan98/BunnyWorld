@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class EditorView extends View {
     private void init() {
         shapeIsSelected = false;
         shapeIsDragging = false;
-        pageMap = new HashMap<>();
+        pageMap = new LinkedHashMap<>();
         bitmapMap = new HashMap<>();
         soundMap = new HashMap<>();
         loadSound();
@@ -122,8 +123,8 @@ public class EditorView extends View {
 
     public void addPage() {
         BPage newPage = new BPage(0.0f, 0.0f, viewWidth, viewHeight);
-//        this.currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
+        setCurrentPage(newPage);
     }
 
     public void deletePage() {
@@ -136,7 +137,8 @@ public class EditorView extends View {
     }
 
     public void setCurrentPage(BPage curPage) {
-        this.currentPage = pageMap.get(curPage.getPageName());
+        System.out.println("set new " + curPage.toString());
+        currentPage = pageMap.get(curPage.getPageName());
     }
 
     /**
