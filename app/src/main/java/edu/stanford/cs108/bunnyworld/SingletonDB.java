@@ -14,7 +14,7 @@ public class SingletonDB {
         }
         return instance;
     }
-    private SingletonDB(Context cxt) {
+    private  SingletonDB(Context cxt) {
         db = cxt.openOrCreateDatabase("BunnyWorld", cxt.MODE_PRIVATE, null);
         Cursor tablesCursor = db.rawQuery(
                 "SELECT * FROM sqlite_master WHERE type='table' AND name='games';",

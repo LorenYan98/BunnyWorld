@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +41,10 @@ public class SelectGameToEdit extends AppCompatActivity {
     public void goToNewEditor(View view) {
         Intent intent = new Intent(this, EditorActivity.class);
         startActivity(intent);
+    }
+
+    public void resetDB(View view) {
+        SingletonDB.getInstance(this).resetDB();
+        Toast.makeText(getApplicationContext(), "DB reset", Toast.LENGTH_SHORT).show();
     }
 }
