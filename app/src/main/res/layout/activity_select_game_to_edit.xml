@@ -40,7 +40,6 @@
         android:id="@+id/deleteGameButton"
         android:layout_width="374dp"
         android:layout_height="wrap_content"
-        android:onClick="goToNewEditor"
         android:text="Delete All Games Except Bunny World"></Button>
 
 </LinearLayout>

@@ -100,6 +100,9 @@ public class ScriptActivity extends AppCompatActivity {
         onEnterString = "";
         updateSpinner();
 //        updateSpinner2();
+        onDropRearPart = "";
+        onClickRearPart = "";
+        onEnterRearPart = "";
     }
 
     public void updateSpinner() {
@@ -268,33 +271,45 @@ public class ScriptActivity extends AppCompatActivity {
         combinedTextView.setText(onClickString + "\n" + onEnterString + "\n" +onDropString);
     }
 
+    private String onClickRearPart;
+    private String onEnterRearPart;
+
+
     public void concatenate() {
         // fi shape exists, ignore currentPageSound
         if (currentTrigger.equals(ON_CLICK)) {
             if (onClickString.equals("")) {
                 if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                    onClickRearPart = currentAction + " " + currentShape;
                     onClickString = currentTrigger + " " + currentAction + " " + currentShape;
                 } else {
+                    onClickRearPart = currentAction + " " + currentPageSound;
                     onClickString = currentTrigger + " " + currentAction + " " + currentPageSound;
                 }
             } else {
                 if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                    onClickRearPart += " " + currentAction + " " + currentShape;
                     onClickString += " " + currentAction + " " + currentShape;
                 } else {
+                    onClickRearPart += " " +currentAction + " " + currentPageSound;
                     onClickString += " " + currentAction + " " + currentPageSound;
                 }
             }
         } else if (currentTrigger.equals(ON_ENTER)) {
             if (onEnterString.equals("")) {
                 if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                    onEnterRearPart = currentAction + " " + currentShape;
                     onEnterString = currentTrigger + " " + currentAction + " " + currentShape;
                 } else {
-                    onEnterString += currentTrigger + " " + currentAction + " " + currentPageSound;
+                    onEnterRearPart = currentAction + " " + currentPageSound;
+                    onEnterString = currentTrigger + " " + currentAction + " " + currentPageSound;
                 }
             } else {
                 if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
+                    onEnterRearPart += " " + currentAction + " " + currentShape;
                     onEnterString += " " + currentAction + " " + currentShape;
                 } else {
+                    onEnterRearPart += " " + currentAction + " " + currentPageSound;
                     onEnterString += " " + currentAction + " " + currentPageSound;
                 }
             }
@@ -559,33 +574,43 @@ public class ScriptActivity extends AppCompatActivity {
         }
     }
 
+    private String onDropRearPart;
+
     public void concatenate_on_drop() {
         // fi shape exists, ignore currentPageSound
             if (onDropString.equals("")) {
                 if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart = currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart = currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 } else {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart = currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart = currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 }
             } else {
                 if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 } else {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 }
@@ -633,13 +658,30 @@ public class ScriptActivity extends AppCompatActivity {
      * return the final string, and return to editor
      */
     public void confirmScriptReturnToEditor(View view){
-        String finalString = returnFinalStringByOrder();
+//        String finalString = returnFinalStringByOrder();
         Intent intent = new Intent(this, EditorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        TextView imageName = findViewById(R.id.scriptTextView);
 //        imageName.setText("success");
 
-        EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).setScript(finalString);
+        if (!onClickString.equals("")) {
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnClickActions().add(onClickRearPart);
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnClick(true);
+        }
+        if (!onEnterString.equals("")) {
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnEnterActions().add(onEnterRearPart);
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnEnter(true);
+        }
+        if (!onDropString.equals("")) {
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnDrop(true);
+            if (EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().containsKey(currentShape_on_drop_1)) {
+                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
+            } else {
+                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().put(currentShape_on_drop_1,new ArrayList<String>());
+                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
+            }
+        }
+
 //        intent.putExtra("curScript",finalString);
         // This is the next step to figure out.
 //        shape.setScript(finalString);
