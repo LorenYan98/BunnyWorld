@@ -618,40 +618,40 @@ public class ScriptActivity extends AppCompatActivity {
     }
 
     public String returnFinalStringByOrder() {
-//        String finalString = "";
-//        if (onEnterString.equals("")) {
-//            if (onDropString.equals("")) {
-//                if (onClickString.equals("")) {
-//                    return finalString;
-//                } else {
-//                    return finalString + onClickString;
-//                }
-//            } else {
-//                finalString += onDropString;
-//                if (onClickString.equals("")) {
-//                    return finalString;
-//                } else {
-//                    return finalString + ";" + onClickString;
-//                }
-//            }
-//        } else {
-//            finalString += onEnterString;
-//            if (onDropString.equals("")) {
-//                if (onClickString.equals("")) {
-//                    return finalString;
-//                } else {
-//                    return finalString + ";" + onClickString;
-//                }
-//            } else {
-//                finalString += ";" + onDropString;
-//                if (onClickString.equals("")) {
-//                    return finalString;
-//                } else {
-//                    return finalString + ";" + onClickString;
-//                }
-//            }
-//        }
-        return onEnterString + ";" + onClickString + ";" + onDropString;
+        String finalString = "";
+        if (onEnterString.equals("")) {
+            if (onDropString.equals("")) {
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + onClickString;
+                }
+            } else {
+                finalString += onDropString;
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + ";" + onClickString;
+                }
+            }
+        } else {
+            finalString += onEnterString;
+            if (onDropString.equals("")) {
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + ";" + onClickString;
+                }
+            } else {
+                finalString += ";" + onDropString;
+                if (onClickString.equals("")) {
+                    return finalString;
+                } else {
+                    return finalString + ";" + onClickString;
+                }
+            }
+        }
+//        return onEnterString + ";" + onClickString + ";" + onDropString;
     }
 
     /**
@@ -664,8 +664,11 @@ public class ScriptActivity extends AppCompatActivity {
 
         BShape curShape = EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName);
 
-        curShape.setScriptString(curShape.getScriptString() + finalString);
-
+        if (curShape.getScriptString().equals("")) {
+            curShape.setScriptString(curShape.getScriptString() + finalString);
+        } else {
+            curShape.setScriptString(curShape.getScriptString() + ";" + finalString);
+        }
 
 //        if (!onClickString.equals("")) {
 //            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnClickActions().add(onClickRearPart);
