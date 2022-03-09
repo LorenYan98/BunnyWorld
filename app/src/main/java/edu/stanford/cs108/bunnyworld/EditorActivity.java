@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -224,8 +225,30 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void saveGame(View view) throws JSONException {
+
         EditText gameName = (EditText) findViewById(R.id.userGameName);
         userGameName = gameName.getText().toString();
+
+        // get the games names from db as a list
+        db = SingletonDB.getInstance(this);
+        List<String> gameNames = new ArrayList<>();
+        String queryStr = "SELECT game_name FROM games";
+        Cursor cursor = db.rawQuery(queryStr, null);
+        while (cursor.moveToNext()) {
+            gameNames.add(cursor.getString(0));
+        }
+
+        // if there is no game name, do not allow user to save the game and shows a toast
+        if (userGameName.isEmpty()) {
+            // show a toast and do not allow saving
+            Toast.makeText(getApplicationContext(),"Game Name cannot be empty. \nUnable to save.",Toast.LENGTH_SHORT).show();
+            return;
+        } else if (gameNames.contains(userGameName)) {
+            // the same game name already exists in db
+            Toast.makeText(getApplicationContext(),"Duplicate game name. \nUnable to save.",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
         System.out.println("Executing public void saveGame(View view)");
         db = SingletonDB.getInstance(this);
         String currGame = gameToJson();
