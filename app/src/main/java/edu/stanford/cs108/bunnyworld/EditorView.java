@@ -152,7 +152,10 @@ public class EditorView extends View {
         EditText renamePageNameEditText = ((Activity) getContext()).findViewById(R.id.renamePageName);
 
         String pageNewName = renamePageNameEditText.getText().toString();
+        pageMap.remove(currentPage.getPageName());
         currentPage.setPageName(pageNewName);
+        pageMap.put(currentPage.getPageName(),currentPage);
+
     }
 
     /**

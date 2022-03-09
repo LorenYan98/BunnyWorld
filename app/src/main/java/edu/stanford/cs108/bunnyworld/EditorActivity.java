@@ -101,10 +101,10 @@ public class EditorActivity extends AppCompatActivity {
      */
     public void renamePage(View view) {
         editorView = (EditorView) findViewById(R.id.editor_view);
-        // editorView.renamePage();
-        // editorView.update();
-        // updateSpinner();
-        // updateCurrentPageText();
+         editorView.renamePage();
+         editorView.update();
+         updateSpinner();
+         updateCurrentPageText();
     }
 
     public void addOrEditShape(View view){
