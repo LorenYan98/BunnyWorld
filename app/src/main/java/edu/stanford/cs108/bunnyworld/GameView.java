@@ -124,7 +124,6 @@ public class GameView extends View {
 //        BShape bunnyDeath = new BShape("You must appease the Bunny of Death!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
         death.setScript(new Script("onenter play evillaugh;ondrop carrot hide carrot play munching hide death show door6;onclick play evillaugh"));
         door6.setScript(new Script("onClick goto page5") );
-        duck.setScript(new Script("onDrop carrot play munching"));
         death.setShapeName("death");
         door6.setShapeName("door6");
         duck.setShapeName("duck");
@@ -227,7 +226,10 @@ public class GameView extends View {
                 }
                 // save original location of selectedShape
                 if (selectedShape != null) {
+                    System.out.println("selectedShape: " + selectedShape.getShapeName());
                     originalMetrics = new Float[] {selectedShape.getLeft(), selectedShape.getTop(), selectedShape.getRight(), selectedShape.getBottom()};
+                } else {
+                    System.out.println("Nothing selected");
                 }
                 preX = curX;
                 preY = curY;
@@ -280,15 +282,28 @@ public class GameView extends View {
                         } else {
                             // handle onDrop script
                             BShape onDropShape = currentPage.selectShape(curX, curY);
-                            currentPage.addShape(selectedShape);
                             if (onDropShape != null) {
                                 Script script = onDropShape.getScript();
                                 if (script != null && script.isOnDrop && script.getOnDropActions().containsKey(selectedShape.getShapeName())) {
+                                    currentPage.addShape(selectedShape);
                                     performActions(script.getOnDropActions().get(selectedShape.getShapeName()));
                                 } else {
                                     // no action to be done, snap selectedShape back to original metrics
-                                    System.out.println("To be implemented!");
+                                    selectedShape.setLeft(originalMetrics[0]);
+                                    selectedShape.setTop(originalMetrics[1]);
+                                    selectedShape.setRight(originalMetrics[2]);
+                                    selectedShape.setBottom(originalMetrics[3]);
+                                    // snap shape back to initial position
+                                    if (originalMetrics[1] < inventory.getTop()) {
+                                        currentPage.addShape(selectedShape);
+                                    } else {
+                                        inventory.addShape(selectedShape);
+                                    }
+
                                 }
+                            } else {
+                                // dropped on blank area
+                                currentPage.addShape(selectedShape);
                             }
 
                         }
