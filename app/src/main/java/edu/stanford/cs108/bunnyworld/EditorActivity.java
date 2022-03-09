@@ -224,9 +224,17 @@ public class EditorActivity extends AppCompatActivity {
         System.out.println("Executing public void saveGame(View view)");
         db = SingletonDB.getInstance(this);
         String currGame = gameToJson();
+
+        System.out.println("Print String currGame as JSONObject: ");
+        JSONObject obj = new JSONObject(currGame);
+        JSONArray arr = obj.getJSONArray("pages");
+        for (int i = 0; i < arr.length(); i++) {
+            System.out.println(arr.getJSONObject(i).toString());
+        }
+
         // need to handle inset userGameName already exists
         String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ");";
-        System.out.println(query);
+        System.out.println("SQL query: " + query);
         db.execSQL(query);
     }
 
