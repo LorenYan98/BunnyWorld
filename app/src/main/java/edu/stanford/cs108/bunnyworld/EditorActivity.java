@@ -117,6 +117,7 @@ public class EditorActivity extends AppCompatActivity {
         String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
         CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
         CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
+        EditText currentText = (EditText) findViewById(R.id.shapeTextInput);
 
         String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
@@ -129,6 +130,8 @@ public class EditorActivity extends AppCompatActivity {
             }else{
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
             }
+            currentText.setText("");
+            newShape.setEditorSelected(true);
             editorView.addShapeToview(newShape);
             editorView.update();
         }else{

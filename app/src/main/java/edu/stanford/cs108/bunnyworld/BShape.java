@@ -34,14 +34,14 @@ public class BShape {
 
     // add script ivar by Shuangshan LI / Mabel Jiang
     private Script script;
-
+    private boolean isEditorSelected;
     private boolean isSelected;
     private boolean isWithinPage;
     private boolean isWithinInventory;
 
     private Paint highlightShapePaint;
     private Paint defaultBorderPaint;
-
+    private Paint invisibleTextPaint;
 
     private String scriptString;
     public String getScriptString() {
@@ -51,7 +51,6 @@ public class BShape {
     public void setScriptString(String scriptString) {
         this.scriptString = scriptString;
     }
-
 
 
 
@@ -120,6 +119,13 @@ public class BShape {
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
+        invisibleTextPaint = new Paint();
+        invisibleTextPaint.setStyle(Paint.Style.STROKE);
+        invisibleTextPaint.setTextSize(40.0f);
+        invisibleTextPaint.setTextAlign(Paint.Align.CENTER);
+        invisibleTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        invisibleTextPaint.setAlpha(50);
+
         highlightShapePaint = new Paint();
         highlightShapePaint.setColor(Color.GREEN);
         highlightShapePaint.setStyle(Paint.Style.STROKE);
@@ -186,11 +192,21 @@ public class BShape {
         Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
         // first check visible, if visible do not draw and returns
         if (!getVisible()) {
-            if(isSelected == true){
-                canvas.drawRect(left, top, right, bottom, defaultBorderPaint);
-                canvas.drawRect(newshape,highlightShapePaint);
-            }else {
-                canvas.drawRect(left, top, right, bottom, defaultBorderPaint);
+            if(isEditorSelected){
+                Paint invisiblePaint = new Paint();
+                invisiblePaint.setAlpha(50);
+                if (text.length() != 0) {
+                    canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, invisibleTextPaint);
+                } else if (imageName.length() != 0) {
+                    if(isSelected == true){
+                        canvas.drawBitmap(scaledImg, null, newshape, invisiblePaint);
+                        canvas.drawRect(newshape,highlightShapePaint);
+                    }else {
+                        canvas.drawBitmap(scaledImg, null, newshape, invisiblePaint);
+                    }
+                } else {
+                    canvas.drawRect(left, top, right, bottom, rectPaint);
+                }
             }
             return;
         }
@@ -313,6 +329,9 @@ public class BShape {
 
     public void setShapeSize(RectF shapeSize) { this.shapeSize = shapeSize; }
 
+    public boolean isEditorSelected() { return isEditorSelected; }
+
+    public void setEditorSelected(boolean editorSelected) { isEditorSelected = editorSelected; }
     @Override
     public String toString(){
         return "Text: " + text +" Image Name: "+ imageName + " Movable: " + movable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;

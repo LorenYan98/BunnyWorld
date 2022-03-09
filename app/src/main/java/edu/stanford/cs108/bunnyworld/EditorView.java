@@ -252,7 +252,7 @@ public class EditorView extends View {
             curShapeName.setText("");
             currentName.setText("");
         }
-        currentText.setText("");
+        currentText.setText(currentText.getText());
     }
 
     public void updateSelectShape(BShape curShape){
