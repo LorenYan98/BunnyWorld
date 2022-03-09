@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -238,6 +239,8 @@ public class EditorActivity extends AppCompatActivity {
         String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
         System.out.println("userGameName: " + userGameName);
         db.execSQL(query);
+        gameName.setText("");
+        Toast.makeText(getApplicationContext(),"Game Saved Successfully",Toast.LENGTH_SHORT).show();
 
     }
 
