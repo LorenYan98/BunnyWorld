@@ -11,13 +11,16 @@
         android:theme="@style/Theme.BunnyWorld">
         <activity
             android:name=".SelectGameToPlay"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Select Game to Play"/>
         <activity
             android:name=".SelectGameToEdit"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Create New Game or Select Game to Edit"/>
         <activity
             android:name=".ChooseGameOrEditor"
-            android:exported="true" >
+            android:exported="true"
+            android:label="Choose Game Player or Game Editor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +31,16 @@
         </activity>
         <activity
             android:name=".EditorActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Game Editor"/>
         <activity
             android:name=".GameActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Game Player"/>
         <activity
             android:name=".ScriptActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Edit/Add Script"/>
         <activity
             android:name=".MainActivity"
             android:exported="false">
