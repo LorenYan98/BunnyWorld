@@ -137,7 +137,6 @@ public class EditorView extends View {
     }
 
     public void setCurrentPage(BPage curPage) {
-        System.out.println("set new " + curPage.toString());
         currentPage = pageMap.get(curPage.getPageName());
     }
 
@@ -254,6 +253,10 @@ public class EditorView extends View {
             currentName.setText("");
         }
         currentText.setText("");
+    }
+
+    public void updateSelectShape(BShape curShape){
+        selectedShape = pageMap.get(currentPage.getPageName()).getShapeMap().get(curShape.getShapeName());
     }
 
     public void displayShapeInfo(){

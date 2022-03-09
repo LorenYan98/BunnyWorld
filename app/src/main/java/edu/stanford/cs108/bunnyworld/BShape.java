@@ -59,9 +59,7 @@ public class BShape {
         init();
     }
 
-    public void setScript(String newScriptString) {
-        this.script = new Script(newScriptString);
-    }
+
 
     // constructor taking care of text only
     public BShape(String text, boolean movable,
@@ -78,6 +76,23 @@ public class BShape {
         init();
 
     }
+    //able to make a copy of an existing shape
+    public BShape(BShape copyShape){
+        this.left = copyShape.getLeft();
+        this.right = copyShape.getRight();
+        this.top = copyShape.getTop();
+        this.bottom = copyShape.getBottom();
+        this.movable = copyShape.getMovable();
+        this.visible = copyShape.getVisible();
+        this.script = copyShape.getScript();
+        this.text = copyShape.getText();
+        this.shapeName = copyShape.getShapeName().split("_")[0] + "_copy" + shapeCount;
+        shapeCount++;
+        this.imageName = copyShape.getImageName();
+        this.shapeSize = copyShape.getShapeSize();
+        init();
+    }
+
 
     /**
      * init function to initiate the paint, and BitMap
@@ -224,6 +239,10 @@ public class BShape {
         this.text = text;
     }
 
+    public void setScript(String newScriptString) {
+        this.script = new Script(newScriptString);
+    }
+
     public void setTextSize(int textSize) {
         this.textSize = textSize;
     }
@@ -266,6 +285,9 @@ public class BShape {
     public Script getScript() { return script; }
 
     public void setScript(Script script) { this.script = script; }
+    public RectF getShapeSize() { return shapeSize; }
+
+    public void setShapeSize(RectF shapeSize) { this.shapeSize = shapeSize; }
 
     @Override
     public String toString(){

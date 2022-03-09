@@ -131,9 +131,31 @@ public class EditorActivity extends AppCompatActivity {
             }
             editorView.addShapeToview(newShape);
             editorView.update();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should switch to 'Add' Mode",Toast.LENGTH_SHORT).show();
         }
 
     }
+
+    public void copyCurShape(View view){
+        editorView = (EditorView) findViewById(R.id.editor_view);
+        if(editorView.selectedShape != null){
+            BShape copyShape = new BShape(editorView.selectedShape);
+            copyShape.move(40,40);
+            System.out.println(copyShape.toString());
+            editorView.selectedShape.setSelected(false);
+            copyShape.setSelected(true);
+            editorView.addShapeToview(copyShape);
+            editorView.updateSelectShape(copyShape);
+            editorView.updateSelectShapeName(copyShape);
+            editorView.updateSelectShapeLocation(copyShape);
+            editorView.update();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should select a shape first",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     public void renameCurShape(View view){
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
@@ -146,6 +168,8 @@ public class EditorActivity extends AppCompatActivity {
             editorView.currentPage.addShape(tempShape);
             editorView.updateSelectShapeName(tempShape);
             Toast.makeText(getApplicationContext(), "Shape Renamed Successfully", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should switch to 'Edit' Mode",Toast.LENGTH_SHORT).show();
         }
     }
 
