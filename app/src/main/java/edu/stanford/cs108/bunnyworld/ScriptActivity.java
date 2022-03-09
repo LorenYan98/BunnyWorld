@@ -100,6 +100,7 @@ public class ScriptActivity extends AppCompatActivity {
         onEnterString = "";
         updateSpinner();
 //        updateSpinner2();
+        onDropRearPart = "";
     }
 
     public void updateSpinner() {
@@ -559,33 +560,43 @@ public class ScriptActivity extends AppCompatActivity {
         }
     }
 
+    private String onDropRearPart;
+
     public void concatenate_on_drop() {
         // fi shape exists, ignore currentPageSound
             if (onDropString.equals("")) {
                 if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart += currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart += currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString = ON_DROP + " " + currentShape_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 } else {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart += currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart += currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString = ON_DROP + " " + currentPageSound_on_drop_1 + " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 }
             } else {
                 if (currentShape_on_drop_1 != null && !currentShape_on_drop_1.equals("DESELECT SHAPE")) {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart += currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart += currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 } else {
                     if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
+                        onDropRearPart += currentAction_on_drop + " " + currentShape_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentShape_on_drop_2;
                     } else {
+                        onDropRearPart += currentAction_on_drop + " " + currentPageSound_on_drop_2;
                         onDropString += " " + currentAction_on_drop + " " + currentPageSound_on_drop_2;
                     }
                 }
@@ -639,7 +650,21 @@ public class ScriptActivity extends AppCompatActivity {
 //        TextView imageName = findViewById(R.id.scriptTextView);
 //        imageName.setText("success");
 
-        EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).setScript(finalString);
+        if (!onClickString.equals("")) {
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnClickActions().add(onClickString);
+        }
+        if (!onEnterString.equals("")) {
+            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnEnterActions().add(onEnterString);
+        }
+        if (!onDropString.equals("")) {
+            if (EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().containsKey(currentShape_on_drop_1)) {
+                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
+            } else {
+                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().put(currentShape_on_drop_1,new ArrayList<String>());
+                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
+            }
+        }
+
 //        intent.putExtra("curScript",finalString);
         // This is the next step to figure out.
 //        shape.setScript(finalString);
