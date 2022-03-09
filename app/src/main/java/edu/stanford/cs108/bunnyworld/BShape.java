@@ -68,6 +68,7 @@ public class BShape {
         this.bottom = bottom;
         this.shapeSize = new RectF(left, top, right, bottom);
         this.script = new Script("");
+        scriptString = "";
         init();
     }
 
@@ -87,6 +88,8 @@ public class BShape {
         this.top = top;
         this.bottom = bottom;
         this.shapeSize = new RectF(left, top, right, bottom);
+        scriptString = "";
+
         init();
 
     }
