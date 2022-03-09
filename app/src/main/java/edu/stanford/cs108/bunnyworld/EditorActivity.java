@@ -221,6 +221,8 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void saveGame(View view) throws JSONException {
+        EditText gameName = (EditText) findViewById(R.id.userGameName);
+        userGameName = gameName.getText().toString();
         System.out.println("Executing public void saveGame(View view)");
         db = SingletonDB.getInstance(this);
         String currGame = gameToJson();
