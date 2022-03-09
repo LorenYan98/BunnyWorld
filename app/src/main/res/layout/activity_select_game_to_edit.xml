@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectGameToEdit"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/createNewGameButton"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:onClick="goToNewEditor"
+        android:text="Create New Game"></Button>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectGameSpinner"></Spinner>
+
+        <Button
+            android:id="@+id/editSelectedGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Selected Game"></Button>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/deleteGameButton"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:onClick="goToNewEditor"
+        android:text="Delete All Games Except Bunny World"></Button>
+
+</LinearLayout>
