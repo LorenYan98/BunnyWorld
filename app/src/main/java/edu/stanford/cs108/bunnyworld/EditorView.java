@@ -324,7 +324,7 @@ public class EditorView extends View {
                     curX = event.getX();
                     curY = event.getY();
 
-                    if (selectedShape != null && selectedShape.getMovable()) {
+                    if (selectedShape != null ) {
                         selectedShape.move(curX - preX, curY - preY);
                         System.out.println("shape move to " + selectedShape.toString());
                         updatePageMap();

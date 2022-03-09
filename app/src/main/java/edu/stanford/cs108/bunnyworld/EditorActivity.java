@@ -174,9 +174,13 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void deleteCurShape(View view){
-        BShape tempShape = editorView.selectedShape;
-        editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
-        editorView.update();
+        if(editorView.selectedShape != null){
+            BShape tempShape = editorView.selectedShape;
+            editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
+            editorView.update();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should select a shape first",Toast.LENGTH_SHORT).show();
+        }
     }
 
 

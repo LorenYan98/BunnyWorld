@@ -183,9 +183,18 @@ public class BShape {
      * @param canvas: need to pass in the canvas
      */
     public void draw(Canvas canvas) {
-        // first check visible, if visible do not draw and returns
-        if (!getVisible()) { return; }
         Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
+        // first check visible, if visible do not draw and returns
+        if (!getVisible()) {
+            if(isSelected == true){
+                canvas.drawRect(left, top, right, bottom, defaultBorderPaint);
+                canvas.drawRect(newshape,highlightShapePaint);
+            }else {
+                canvas.drawRect(left, top, right, bottom, defaultBorderPaint);
+            }
+            return;
+        }
+
         if (text.length() != 0) {
                 canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, textPaint);
         } else if (imageName.length() != 0) {
