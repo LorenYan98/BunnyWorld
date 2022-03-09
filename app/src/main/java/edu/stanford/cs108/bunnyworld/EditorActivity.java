@@ -236,7 +236,9 @@ public class EditorActivity extends AppCompatActivity {
 
         // need to handle inset userGameName already exists
         String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
+        System.out.println("userGameName: " + userGameName);
         db.execSQL(query);
+
     }
 
     public String gameToJson()throws JSONException {

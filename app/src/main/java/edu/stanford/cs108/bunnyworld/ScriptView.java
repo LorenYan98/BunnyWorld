@@ -7,10 +7,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class ScriptView extends View {
-
-
     public ScriptView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
     }
 }
