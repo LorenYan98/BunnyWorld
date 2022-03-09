@@ -664,7 +664,7 @@ public class ScriptActivity extends AppCompatActivity {
 
         BShape curShape = EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName);
 
-        curShape.setScript(curShape.getScript().getScriptString() + finalString);
+        curShape.setScriptString(curShape.getScriptString() + finalString);
 
 
 //        if (!onClickString.equals("")) {

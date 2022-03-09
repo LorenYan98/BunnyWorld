@@ -370,7 +370,7 @@ public class EditorView extends View {
         if (EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString().equals("")) {
             imageName.setText("No script now");
         } else {
-            imageName.setText(EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString());
+            imageName.setText(EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
         }
     }
 

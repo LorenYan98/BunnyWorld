@@ -18,17 +18,17 @@ public class Script {
     List<String> onClickActions, onEnterActions;
     Map<String, List<String>> onDropActions;
 
-    public String getScriptString() {
-        return scriptString;
-    }
+//    public String getScriptString() {
+//        return scriptString;
+//    }
 
-    private String scriptString;
+//    private String scriptString;
 
     public Script(String scriptString) {
         onClickActions = new ArrayList<>();
         onEnterActions = new ArrayList<>();
         onDropActions = new HashMap<>();
-        this.scriptString = scriptString;
+//        this.scriptString = scriptString;
         parseScriptString(scriptString);
     }
 
