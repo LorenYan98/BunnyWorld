@@ -27,6 +27,7 @@ public class GameActivity extends AppCompatActivity {
         gameView = findViewById(R.id.game_view);
         db = SingletonDB.getInstance(this);
         loadGameNames();
+        System.out.println(gameNames);
     }
 
     private void loadGameNames() {
