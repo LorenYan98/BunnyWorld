@@ -34,14 +34,14 @@ public class BShape {
 
     // add script ivar by Shuangshan LI / Mabel Jiang
     private Script script;
-
+    private boolean isEditorSelected;
     private boolean isSelected;
     private boolean isWithinPage;
     private boolean isWithinInventory;
 
     private Paint highlightShapePaint;
     private Paint defaultBorderPaint;
-
+    private Paint invisibleTextPaint;
 
     private String scriptString;
     public String getScriptString() {
@@ -51,7 +51,6 @@ public class BShape {
     public void setScriptString(String scriptString) {
         this.scriptString = scriptString;
     }
-
 
 
 
@@ -72,9 +71,7 @@ public class BShape {
         init();
     }
 
-    public void setScript(String newScriptString) {
-        this.script = new Script(newScriptString);
-    }
+
 
     // constructor taking care of text only
     public BShape(String text, boolean movable,
@@ -93,6 +90,23 @@ public class BShape {
         init();
 
     }
+    //able to make a copy of an existing shape
+    public BShape(BShape copyShape){
+        this.left = copyShape.getLeft();
+        this.right = copyShape.getRight();
+        this.top = copyShape.getTop();
+        this.bottom = copyShape.getBottom();
+        this.movable = copyShape.getMovable();
+        this.visible = copyShape.getVisible();
+        this.script = copyShape.getScript();
+        this.text = copyShape.getText();
+        this.shapeName = copyShape.getShapeName().split("_")[0] + "_copy" + shapeCount;
+        shapeCount++;
+        this.imageName = copyShape.getImageName();
+        this.shapeSize = copyShape.getShapeSize();
+        init();
+    }
+
 
     /**
      * init function to initiate the paint, and BitMap
@@ -104,6 +118,13 @@ public class BShape {
         textPaint.setTextSize(40.0f);
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+        invisibleTextPaint = new Paint();
+        invisibleTextPaint.setStyle(Paint.Style.STROKE);
+        invisibleTextPaint.setTextSize(40.0f);
+        invisibleTextPaint.setTextAlign(Paint.Align.CENTER);
+        invisibleTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        invisibleTextPaint.setAlpha(50);
 
         highlightShapePaint = new Paint();
         highlightShapePaint.setColor(Color.GREEN);
@@ -168,9 +189,28 @@ public class BShape {
      * @param canvas: need to pass in the canvas
      */
     public void draw(Canvas canvas) {
-        // first check visible, if visible do not draw and returns
-        if (!getVisible()) { return; }
         Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
+        // first check visible, if visible do not draw and returns
+        if (!getVisible()) {
+            if(isEditorSelected){
+                Paint invisiblePaint = new Paint();
+                invisiblePaint.setAlpha(50);
+                if (text.length() != 0) {
+                    canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, invisibleTextPaint);
+                } else if (imageName.length() != 0) {
+                    if(isSelected == true){
+                        canvas.drawBitmap(scaledImg, null, newshape, invisiblePaint);
+                        canvas.drawRect(newshape,highlightShapePaint);
+                    }else {
+                        canvas.drawBitmap(scaledImg, null, newshape, invisiblePaint);
+                    }
+                } else {
+                    canvas.drawRect(left, top, right, bottom, rectPaint);
+                }
+            }
+            return;
+        }
+
         if (text.length() != 0) {
                 canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, textPaint);
         } else if (imageName.length() != 0) {
@@ -239,6 +279,10 @@ public class BShape {
         this.text = text;
     }
 
+    public void setScript(String newScriptString) {
+        this.script = new Script(newScriptString);
+    }
+
     public void setTextSize(int textSize) {
         this.textSize = textSize;
     }
@@ -281,7 +325,13 @@ public class BShape {
     public Script getScript() { return script; }
 
     public void setScript(Script script) { this.script = script; }
+    public RectF getShapeSize() { return shapeSize; }
 
+    public void setShapeSize(RectF shapeSize) { this.shapeSize = shapeSize; }
+
+    public boolean isEditorSelected() { return isEditorSelected; }
+
+    public void setEditorSelected(boolean editorSelected) { isEditorSelected = editorSelected; }
     @Override
     public String toString(){
         return "Text: " + text +" Image Name: "+ imageName + " Movable: " + movable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;

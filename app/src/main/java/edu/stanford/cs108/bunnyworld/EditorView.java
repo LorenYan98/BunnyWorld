@@ -137,7 +137,6 @@ public class EditorView extends View {
     }
 
     public void setCurrentPage(BPage curPage) {
-        System.out.println("set new " + curPage.toString());
         currentPage = pageMap.get(curPage.getPageName());
     }
 
@@ -253,7 +252,11 @@ public class EditorView extends View {
             curShapeName.setText("");
             currentName.setText("");
         }
-        currentText.setText("");
+        currentText.setText(currentText.getText());
+    }
+
+    public void updateSelectShape(BShape curShape){
+        selectedShape = pageMap.get(currentPage.getPageName()).getShapeMap().get(curShape.getShapeName());
     }
 
     public void displayShapeInfo(){
@@ -321,7 +324,7 @@ public class EditorView extends View {
                     curX = event.getX();
                     curY = event.getY();
 
-                    if (selectedShape != null && selectedShape.getMovable()) {
+                    if (selectedShape != null ) {
                         selectedShape.move(curX - preX, curY - preY);
                         System.out.println("shape move to " + selectedShape.toString());
                         updatePageMap();

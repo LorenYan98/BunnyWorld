@@ -334,12 +334,26 @@
                 android:max="200"
                 android:progress="100" />
         </LinearLayout>
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TO BE Defined"
+            android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dp"
+            android:text="Copy Shape"
+            android:onClick="copyCurShape"
             android:textSize="16dp"/>
-
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="Undo shape"
+            android:textSize="16dp"/>
+    </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -117,6 +117,7 @@ public class EditorActivity extends AppCompatActivity {
         String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
         CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
         CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
+        EditText currentText = (EditText) findViewById(R.id.shapeTextInput);
 
         String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
@@ -129,11 +130,35 @@ public class EditorActivity extends AppCompatActivity {
             }else{
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
             }
+            currentText.setText("");
+            newShape.setEditorSelected(true);
             editorView.addShapeToview(newShape);
             editorView.update();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should switch to 'Add' Mode",Toast.LENGTH_SHORT).show();
         }
 
     }
+
+    public void copyCurShape(View view){
+        editorView = (EditorView) findViewById(R.id.editor_view);
+        if(editorView.selectedShape != null){
+            BShape copyShape = new BShape(editorView.selectedShape);
+            copyShape.move(40,40);
+            System.out.println(copyShape.toString());
+            editorView.selectedShape.setSelected(false);
+            copyShape.setSelected(true);
+            editorView.addShapeToview(copyShape);
+            editorView.updateSelectShape(copyShape);
+            editorView.updateSelectShapeName(copyShape);
+            editorView.updateSelectShapeLocation(copyShape);
+            editorView.update();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should select a shape first",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     public void renameCurShape(View view){
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
@@ -146,13 +171,19 @@ public class EditorActivity extends AppCompatActivity {
             editorView.currentPage.addShape(tempShape);
             editorView.updateSelectShapeName(tempShape);
             Toast.makeText(getApplicationContext(), "Shape Renamed Successfully", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should switch to 'Edit' Mode",Toast.LENGTH_SHORT).show();
         }
     }
 
     public void deleteCurShape(View view){
-        BShape tempShape = editorView.selectedShape;
-        editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
-        editorView.update();
+        if(editorView.selectedShape != null){
+            BShape tempShape = editorView.selectedShape;
+            editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
+            editorView.update();
+        }else{
+            Toast.makeText(getApplicationContext(),"You should select a shape first",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
