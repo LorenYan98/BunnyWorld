@@ -225,6 +225,13 @@ public class EditorActivity extends AppCompatActivity {
         String currGame = gameToJson();
         // need to handle inset userGameName already exists
         String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ");";
+
+        // print for debug
+        JSONObject obj = new JSONObject(currGame);
+        JSONArray arr = obj.getJSONArray("pages");
+        for (int i = 0; i < arr.length(); i++) {
+            System.out.println(arr.getJSONObject(i).toString());
+        }
         db.execSQL(query);
     }
 
@@ -237,7 +244,8 @@ public class EditorActivity extends AppCompatActivity {
             BPage currPage = pageMap.get(pageName);
             currPageObj.put("size",currPage.getLeft()+" "+currPage.getTop()+" "+currPage.getRight()+" "+currPage.getBottom());
             currPageObj.put(currPage.getPageName(),shapesToJson(currPage.getShapeMap()));
-            pagesArray.put(currPage);
+            pagesArray.put(currPageObj);
+
         }
         pages.put("pages",pagesArray);
         return pages.toString();
