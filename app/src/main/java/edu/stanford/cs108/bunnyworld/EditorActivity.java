@@ -105,6 +105,7 @@ public class EditorActivity extends AppCompatActivity {
          editorView.update();
          updateSpinner();
          updateCurrentPageText();
+        Toast.makeText(getApplicationContext(),"Page Renamed Successfully",Toast.LENGTH_SHORT).show();
     }
 
     public void addOrEditShape(View view){
@@ -140,6 +141,7 @@ public class EditorActivity extends AppCompatActivity {
         tempShape.setShapeName(curName);
         editorView.currentPage.addShape(tempShape);
         editorView.updateSelectShapeName(tempShape);
+        Toast.makeText(getApplicationContext(),"Shape Renamed Successfully",Toast.LENGTH_SHORT).show();
     }
 
     public void deleteCurShape(View view){

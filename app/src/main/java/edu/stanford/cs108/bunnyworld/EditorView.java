@@ -155,7 +155,7 @@ public class EditorView extends View {
         pageMap.remove(currentPage.getPageName());
         currentPage.setPageName(pageNewName);
         pageMap.put(currentPage.getPageName(),currentPage);
-
+        renamePageNameEditText.setText("");
     }
 
     /**
