@@ -349,7 +349,7 @@ public class EditorView extends View {
                     curX = event.getX();
                     curY = event.getY();
                     updateSelectShapeName(selectedShape);
-                    updateScript();
+                    if(selectedShape != null)updateScript();
                     invalidate();
             }
         }
