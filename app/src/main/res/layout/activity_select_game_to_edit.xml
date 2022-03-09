@@ -12,11 +12,11 @@
     android:gravity="center">
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create New Game"
         android:id="@+id/createNewGameButton"
-        android:onClick="goToNewEditor"></Button>
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:onClick="goToNewEditor"
+        android:text="Create New Game"></Button>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -29,11 +29,18 @@
             android:id="@+id/selectGameSpinner"></Spinner>
 
         <Button
+            android:id="@+id/editSelectedGameButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Selected Game"
-            android:id="@+id/editSelectedGameButton"></Button>
+            android:text="Edit Selected Game"></Button>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/deleteGameButton"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:onClick="goToNewEditor"
+        android:text="Delete All Games Except Bunny World"></Button>
 
 </LinearLayout>
