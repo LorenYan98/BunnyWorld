@@ -122,7 +122,7 @@ public class EditorView extends View {
 
     public void addPage() {
         BPage newPage = new BPage(0.0f, 0.0f, viewWidth, viewHeight);
-        currentPage = newPage;
+//        this.currentPage = newPage;
         pageMap.put(newPage.getPageName(), newPage);
     }
 

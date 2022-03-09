@@ -78,9 +78,10 @@ public class EditorActivity extends AppCompatActivity {
     public void addPage(View view) {
         editorView = (EditorView) findViewById(R.id.editor_view);
         editorView.addPage();
-        editorView.update();
+
         updateSpinner();
         updateCurrentPageText();
+        editorView.update();
     }
 
     public void deletePage(View view) {
@@ -127,21 +128,24 @@ public class EditorActivity extends AppCompatActivity {
             }else{
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
             }
-
             editorView.addShapeToview(newShape);
             editorView.update();
         }
 
     }
     public void renameCurShape(View view){
-        EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
-        String curName = currentNameBox.getText().toString();
-        BShape tempShape = editorView.selectedShape;
-        editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
-        tempShape.setShapeName(curName);
-        editorView.currentPage.addShape(tempShape);
-        editorView.updateSelectShapeName(tempShape);
-        Toast.makeText(getApplicationContext(),"Shape Renamed Successfully",Toast.LENGTH_SHORT).show();
+        shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
+        int radioId = shapeRadioGroup.getCheckedRadioButtonId();
+        if(radioId == R.id.editShapeRadioButton) {
+            EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
+            String curName = currentNameBox.getText().toString();
+            BShape tempShape = editorView.selectedShape;
+            editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
+            tempShape.setShapeName(curName);
+            editorView.currentPage.addShape(tempShape);
+            editorView.updateSelectShapeName(tempShape);
+            Toast.makeText(getApplicationContext(), "Shape Renamed Successfully", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void deleteCurShape(View view){
@@ -161,14 +165,14 @@ public class EditorActivity extends AppCompatActivity {
         List<String> imgNameList = new ArrayList<>(imgMap.keySet());
 
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
-        Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
-        Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
+        final Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
+        final Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<BPage> pageAdapter = new ArrayAdapter<BPage>(this,
+        final ArrayAdapter<BPage> pageAdapter = new ArrayAdapter<BPage>(this,
                 android.R.layout.simple_spinner_item,
                 pageList);
-        ArrayAdapter<String> imgAdapter = new ArrayAdapter<String>(this,
+        final ArrayAdapter<String> imgAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 imgNameList);
 
@@ -183,9 +187,9 @@ public class EditorActivity extends AppCompatActivity {
         pageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                BPage curPage = (BPage) adapterView.getSelectedItem();
+                String curPage = pageSpinner.getSelectedItem().toString();
                 editorView = (EditorView) findViewById(R.id.editor_view);
-                editorView.setCurrentPage(curPage);
+                editorView.setCurrentPage((BPage) pageMap.get(curPage));
                 updateCurrentPageText();
                 editorView.update();
             }
