@@ -221,21 +221,24 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void saveGame(View view) throws JSONException {
+        System.out.println("Executing public void saveGame(View view)");
         db = SingletonDB.getInstance(this);
         String currGame = gameToJson();
-        // need to handle inset userGameName already exists
-        String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ");";
 
-        // print for debug
+        System.out.println("Print String currGame as JSONObject: ");
         JSONObject obj = new JSONObject(currGame);
         JSONArray arr = obj.getJSONArray("pages");
         for (int i = 0; i < arr.length(); i++) {
             System.out.println(arr.getJSONObject(i).toString());
         }
+
+        // need to handle inset userGameName already exists
+        String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
         db.execSQL(query);
     }
 
     public String gameToJson()throws JSONException {
+        System.out.println("Executing public String gameToJson()");
         Map<String,BPage> pageMap = EditorView.getPageMap();
         JSONObject pages = new JSONObject();
         JSONArray pagesArray = new JSONArray();
