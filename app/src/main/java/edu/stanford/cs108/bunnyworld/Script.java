@@ -26,6 +26,7 @@ public class Script {
     }
 
     private void parseScriptString(String scriptString) {
+        boolean isOnClichandled = false;
         if (scriptString == "") return;
         scriptString = scriptString.toLowerCase();
         for (String clause : scriptString.split(";")) {
@@ -35,8 +36,11 @@ public class Script {
             String[] actions = Arrays.copyOfRange(temp, 1, temp.length);
             switch (trigger) {
                 case ON_CLICK:
-                    isOnClick = true;
-                    onClickActions.addAll(Arrays.asList(actions));
+                    if (isOnClichandled == false) {
+                        isOnClick = true;
+                        onClickActions.addAll(Arrays.asList(actions));
+                        isOnClichandled = true;
+                    }
                     break;
                 case ON_ENTER:
                     isOnEnter = true;

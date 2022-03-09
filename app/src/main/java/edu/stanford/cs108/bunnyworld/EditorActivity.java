@@ -236,6 +236,7 @@ public class EditorActivity extends AppCompatActivity {
         String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
         System.out.println("userGameName: " + userGameName);
         db.execSQL(query);
+
     }
 
     public String gameToJson()throws JSONException {
