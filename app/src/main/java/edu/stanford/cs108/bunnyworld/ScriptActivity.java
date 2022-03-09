@@ -658,29 +658,32 @@ public class ScriptActivity extends AppCompatActivity {
      * return the final string, and return to editor
      */
     public void confirmScriptReturnToEditor(View view){
-//        String finalString = returnFinalStringByOrder();
+        String finalString = returnFinalStringByOrder();
         Intent intent = new Intent(this, EditorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//        TextView imageName = findViewById(R.id.scriptTextView);
-//        imageName.setText("success");
 
-        if (!onClickString.equals("")) {
-            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnClickActions().add(onClickRearPart);
-            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnClick(true);
-        }
-        if (!onEnterString.equals("")) {
-            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnEnterActions().add(onEnterRearPart);
-            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnEnter(true);
-        }
-        if (!onDropString.equals("")) {
-            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnDrop(true);
-            if (EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().containsKey(currentShape_on_drop_1)) {
-                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
-            } else {
-                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().put(currentShape_on_drop_1,new ArrayList<String>());
-                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
-            }
-        }
+        BShape curShape = EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName);
+
+        curShape.setScript(curShape.getScript().getScriptString() + finalString);
+
+
+//        if (!onClickString.equals("")) {
+//            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnClickActions().add(onClickRearPart);
+//            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnClick(true);
+//        }
+//        if (!onEnterString.equals("")) {
+//            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnEnterActions().add(onEnterRearPart);
+//            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnEnter(true);
+//        }
+//        if (!onDropString.equals("")) {
+//            EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().setOnDrop(true);
+//            if (EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().containsKey(currentShape_on_drop_1)) {
+//                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
+//            } else {
+//                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().put(currentShape_on_drop_1,new ArrayList<String>());
+//                EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName).getScript().getOnDropActions().get(currentShape_on_drop_1).add(onDropRearPart);
+//            }
+//        }
 
 //        intent.putExtra("curScript",finalString);
         // This is the next step to figure out.
