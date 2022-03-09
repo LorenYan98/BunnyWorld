@@ -43,6 +43,18 @@ public class BShape {
     private Paint defaultBorderPaint;
 
 
+    private String scriptString;
+    public String getScriptString() {
+        return scriptString;
+    }
+
+    public void setScriptString(String scriptString) {
+        this.scriptString = scriptString;
+    }
+
+
+
+
     public BShape(String text, String imageName, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
@@ -56,6 +68,7 @@ public class BShape {
         this.bottom = bottom;
         this.shapeSize = new RectF(left, top, right, bottom);
         this.script = new Script("");
+        scriptString = "";
         init();
     }
 
@@ -73,6 +86,8 @@ public class BShape {
         this.top = top;
         this.bottom = bottom;
         this.shapeSize = new RectF(left, top, right, bottom);
+        scriptString = "";
+
         init();
 
     }

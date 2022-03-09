@@ -57,7 +57,7 @@ public class EditorActivity extends AppCompatActivity {
         if (EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()) == null) {
             System.out.println("this is null");
         } else {
-            imageName.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString());
+            imageName.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
         }
     }
 
