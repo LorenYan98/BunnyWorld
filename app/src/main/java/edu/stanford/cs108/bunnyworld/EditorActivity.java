@@ -315,9 +315,9 @@ public class EditorActivity extends AppCompatActivity {
             JSONObject currPageObj = new JSONObject();
             BPage currPage = pageMap.get(pageName);
             currPageObj.put("size",currPage.getLeft()+" "+currPage.getTop()+" "+currPage.getRight()+" "+currPage.getBottom());
-            currPageObj.put(currPage.getPageName(),shapesToJson(currPage.getShapeMap()));
+            currPageObj.put("shapes",shapesToJson(currPage.getShapeMap()));
+            currPageObj.put("pageName", currPage.getPageName());
             pagesArray.put(currPageObj);
-
         }
         pages.put("pages",pagesArray);
         return pages.toString();
@@ -338,7 +338,7 @@ public class EditorActivity extends AppCompatActivity {
             currShapeObj.put("right",currShape.getRight());
             currShapeObj.put("bottom",currShape.getBottom());
             currShapeObj.put("shapeName",currShape.getShapeName());
-            currShapeObj.put("script",currShape.getScript());
+            currShapeObj.put("script",currShape.getScriptString());
             shapesArray.put(currShapeObj);
         }
         shapes.put("shapes",shapesArray);

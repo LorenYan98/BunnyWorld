@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:text="Play Bunny World"
         android:id="@+id/playBunnyWorldButton"
-
         android:onClick="startBunnyWorld"></Button>
 
     <LinearLayout
@@ -27,13 +26,15 @@
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/selectPlayGameSpinner"></Spinner>
+            android:id="@+id/selectPlayGameSpinner"
+            style="@android:style/Widget.Holo.Light.Spinner"></Spinner>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Play Selected Game"
-            android:id="@+id/playSelectedGameButton"></Button>
+            android:id="@+id/playSelectedGameButton"
+            android:onClick="startSelectedGame"></Button>
 
     </LinearLayout>
 
