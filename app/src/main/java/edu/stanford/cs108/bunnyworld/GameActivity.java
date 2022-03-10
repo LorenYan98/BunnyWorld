@@ -113,6 +113,7 @@ public class GameActivity extends AppCompatActivity {
                                     Float.parseFloat(left) / 0.7f, Float.parseFloat(top) / 0.7f, Float.parseFloat(right) / 0.7f,
                                     Float.parseFloat(bottom) / 0.7f);
         shape.setScript(script);
+        shape.setScriptString(shapeObj.getString("script"));
         shape.setShapeName(shapeName);
         return shape;
     }

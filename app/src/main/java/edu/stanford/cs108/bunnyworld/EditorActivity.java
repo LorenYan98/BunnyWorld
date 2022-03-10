@@ -444,6 +444,7 @@ public class EditorActivity extends AppCompatActivity {
                 Float.parseFloat(left), Float.parseFloat(top), Float.parseFloat(right),
                 Float.parseFloat(bottom));
         shape.setScript(script);
+        shape.setScriptString(shapeObj.getString("script"));
         shape.setShapeName(shapeName);
         return shape;
     }

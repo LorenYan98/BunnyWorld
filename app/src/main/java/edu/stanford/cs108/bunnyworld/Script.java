@@ -37,7 +37,7 @@ public class Script {
         if (scriptString == "") return;
         scriptString = scriptString.toLowerCase();
         for (String clause : scriptString.split(";")) {
-            if (clause.length() == 0) return;
+            if (clause.length() == 0) continue;
             String[] temp = clause.split(" ");
             String trigger = temp[0];
             String[] actions = Arrays.copyOfRange(temp, 1, temp.length);
