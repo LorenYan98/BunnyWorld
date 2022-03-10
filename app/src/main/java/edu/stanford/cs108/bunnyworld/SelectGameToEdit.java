@@ -25,6 +25,18 @@ public class SelectGameToEdit extends AppCompatActivity {
     String gameToLoad;
 
     @Override
+    protected void onResume() {
+
+        super.onResume();
+        gameNames = GameActivity.loadGameNames(SingletonDB.getInstance(this));
+        ArrayAdapter<String> gameNamesAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                gameNames);
+        Spinner gameNamesSpinner = (Spinner) findViewById(R.id.selectGameSpinner);
+        gameNamesSpinner.setAdapter(gameNamesAdapter);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_game_to_edit);
@@ -62,9 +74,20 @@ public class SelectGameToEdit extends AppCompatActivity {
     public void resetDB(View view) {
         SingletonDB.getInstance(this).resetDB();
         Toast.makeText(getApplicationContext(), "DB reset", Toast.LENGTH_SHORT).show();
+        gameNames = GameActivity.loadGameNames(SingletonDB.getInstance(this));
+        ArrayAdapter<String> gameNamesAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                gameNames);
+        Spinner gameNamesSpinner = (Spinner) findViewById(R.id.selectGameSpinner);
+        gameNamesSpinner.setAdapter(gameNamesAdapter);
     }
 
     public void handleEditSelectedGame(View view) {
+        if (gameToLoad == null || gameToLoad.isEmpty()) {
+            // if no game selected
+            Toast.makeText(getApplicationContext(),"No game selected. \nUnable to start editor.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(this, EditorActivity.class);
         intent.putExtra("gameName", gameToLoad);
         startActivity(intent);
