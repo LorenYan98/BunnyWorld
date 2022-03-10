@@ -110,7 +110,23 @@ public class EditorActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),"Page Renamed Successfully",Toast.LENGTH_SHORT).show();
     }
 
+    public void undoToPreviousState(View view){
+        BPage prePageState;
+        editorView = (EditorView) findViewById(R.id.editor_view);
+        if(!editorView.saveCurrentState.isEmpty()){
+            prePageState = editorView.saveCurrentState.pop();
+            System.out.println("real page pop:" + prePageState);
+            editorView.addcopyPage(prePageState);
+            editorView.update();
+            updateSpinner();
+            updateCurrentPageText();
+        }else{
+            Toast.makeText(getApplicationContext(),"No previous state saved",Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void addOrEditShape(View view){
+
         editorView = (EditorView) findViewById(R.id.editor_view);
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
@@ -141,9 +157,11 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     public void copyCurShape(View view){
+
         editorView = (EditorView) findViewById(R.id.editor_view);
         if(editorView.selectedShape != null){
-            BShape copyShape = new BShape(editorView.selectedShape);
+
+            BShape copyShape = new BShape(editorView.selectedShape, true);
             copyShape.move(40,40);
             System.out.println(copyShape.toString());
             editorView.selectedShape.setSelected(false);
@@ -163,6 +181,7 @@ public class EditorActivity extends AppCompatActivity {
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
         if(radioId == R.id.editShapeRadioButton) {
+            editorView.saveCurrentState.push(new BPage(editorView.currentPage));
             EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
             String curName = currentNameBox.getText().toString();
             BShape tempShape = editorView.selectedShape;
@@ -192,7 +211,7 @@ public class EditorActivity extends AppCompatActivity {
         Map imgMap = EditorView.getbitmapMap();
 
         // List<String> pageList = new ArrayList<String>(pageMap.keySet());
-        List<BPage> pageList = new ArrayList<>(pageMap.values());
+        List<String> pageList = new ArrayList<>(pageMap.keySet());
         Collections.reverse(pageList);
         List<Bitmap> imgList = new ArrayList<>(imgMap.values());
         List<String> imgNameList = new ArrayList<>(imgMap.keySet());
@@ -202,7 +221,7 @@ public class EditorActivity extends AppCompatActivity {
         final Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        final ArrayAdapter<BPage> pageAdapter = new ArrayAdapter<BPage>(this,
+        final ArrayAdapter<String> pageAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 pageList);
         final ArrayAdapter<String> imgAdapter = new ArrayAdapter<String>(this,
@@ -221,9 +240,9 @@ public class EditorActivity extends AppCompatActivity {
         pageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                BPage curPage = (BPage) adapterView.getSelectedItem();
+                String curPage = (String) adapterView.getSelectedItem();
                 editorView = (EditorView) findViewById(R.id.editor_view);
-                editorView.setCurrentPage(curPage);
+                editorView.setCurrentPage(editorView.pageMap.get(curPage));
                 updateCurrentPageText();
                 editorView.update();
             }

@@ -32,6 +32,19 @@ public class BPage {
         this.shapeMap = new LinkedHashMap<>();
         System.out.println(this.pageName);
     }
+    // Enable make a copy of a page
+    public BPage(BPage copyPage) {
+        this.left = copyPage.getLeft();
+        this.top = copyPage.getTop();
+        this.right = copyPage.getRight();
+        this.bottom = copyPage.getBottom();
+        this.pageName = copyPage.getPageName();
+        this.shapeMap = new LinkedHashMap<>();
+        for(String shapeName : copyPage.getShapeMap().keySet()){
+            this.shapeMap.put(shapeName, new BShape(copyPage.getShapeMap().get(shapeName), false));
+        }
+        System.out.println(this.pageName);
+    }
 
     private String generateNextPageName() {
         String curPageName = "page" + pageCount;
@@ -163,6 +176,6 @@ public class BPage {
 
     @Override
     public String toString(){
-        return this.pageName;
+        return this.pageName + " and Shape map :" + this.getShapeMap();
     }
 }

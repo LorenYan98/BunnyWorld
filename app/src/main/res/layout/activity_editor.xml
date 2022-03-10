@@ -352,6 +352,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
             android:text="Undo shape"
+            android:onClick="undoToPreviousState"
             android:textSize="16dp"/>
     </LinearLayout>
         <TextView

@@ -24,13 +24,18 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class EditorView extends View {
     public EditorView(Context context, @Nullable AttributeSet attrs) {
@@ -52,6 +57,8 @@ public class EditorView extends View {
     BPage currentPage;
     static Map<String, MediaPlayer> soundMap;
     static Map<String, Bitmap> bitmapMap;
+
+    static Stack<BPage> saveCurrentState;
 
     public static Map<String, BPage> getPageMap() {
         return pageMap;
@@ -78,6 +85,7 @@ public class EditorView extends View {
         pageMap = new LinkedHashMap<>();
         bitmapMap = new HashMap<>();
         soundMap = new HashMap<>();
+        saveCurrentState = new Stack<>();
         loadSound();
         loadBitmap();
         loadPages();
@@ -127,6 +135,13 @@ public class EditorView extends View {
         setCurrentPage(newPage);
     }
 
+    public void addcopyPage(BPage newPage) {
+//        System.out.println("Before pageMap :" + pageMap );
+        pageMap.put(newPage.getPageName(), newPage);
+//        System.out.println("After pageMap :" + pageMap );
+        setCurrentPage(newPage);
+    }
+
     public void deletePage() {
         if (firstPage.getPageName() == currentPage.getPageName()) {
             // add a toast later
@@ -165,8 +180,10 @@ public class EditorView extends View {
      * update to redraw
      */
     public void addShapeToview(BShape item) {
+        saveCurrentState.push(new BPage(currentPage));
         BPage tempPage = currentPage;
         tempPage.addShape(item);
+        System.out.println("After page :" + tempPage );
         pageMap.put(currentPage.getPageName(), tempPage);
     }
 
@@ -209,7 +226,7 @@ public class EditorView extends View {
                     System.out.println(curWidth + " and height " + curWidth);
                     BShape tempShape = selectedShape;
                     tempShape.scale(curWidth*scaleRatio,curHeight*scaleRatio);
-                    addShapeToview(tempShape);
+//                    addShapeToview(tempShape);
                     update();
                 }
             }
@@ -335,6 +352,7 @@ public class EditorView extends View {
                     updateSelectShapeLocation(selectedShape);
                     break;
                 case MotionEvent.ACTION_DOWN:
+                    saveCurrentState.push(new BPage(currentPage));
                     curX = event.getX();
                     curY = event.getY();
                     preX = curX;
@@ -370,10 +388,14 @@ public class EditorView extends View {
         TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
         System.out.println("page name: " + EditorView.getPageMap().get(getCurrentPage().getPageName()));
         System.out.println("shape name: "+ curShapeName.getText());
-        if (EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString().equals("")) {
-            imageName.setText("No script now");
-        } else {
-            imageName.setText(EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+        try{
+            if (EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScript().toString().equals("")) {
+                imageName.setText("No script now");
+            } else {
+                imageName.setText(EditorView.getPageMap().get(getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+            }
+        }catch (Exception e){
+            System.out.println("No Script");
         }
     }
 
