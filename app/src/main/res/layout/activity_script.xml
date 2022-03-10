@@ -70,6 +70,11 @@
 <!--            android:text="on drop"-->
 <!--            android:id="@+id/onDropCheckBox"></CheckBox>-->
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="onDrop"></TextView>
+
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
