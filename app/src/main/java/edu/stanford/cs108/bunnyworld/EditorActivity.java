@@ -118,7 +118,7 @@ public class EditorActivity extends AppCompatActivity {
             System.out.println("real page pop:" + prePageState);
             editorView.addcopyPage(prePageState);
             editorView.update();
-            updateSpinner();
+//            updateSpinner();
             updateCurrentPageText();
         }else{
             Toast.makeText(getApplicationContext(),"No previous state saved",Toast.LENGTH_SHORT).show();
