@@ -33,6 +33,7 @@ public class EditorActivity extends AppCompatActivity {
     private EditorView editorView;
     private RadioGroup shapeRadioGroup;
     private String userGameName;
+    private String gameToLoad;
     SingletonDB db;
 
 
@@ -40,6 +41,21 @@ public class EditorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+        editorView = findViewById(R.id.editor_view);
+        Intent intent = getIntent();
+        if (intent.getStringExtra("gameName") == null) {
+            editorView.loadPages();
+        } else {
+            gameToLoad = intent.getStringExtra("gameName");
+            try {
+                loadGame();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
         updateSpinner();
         // by default, set Moveable checkbox to disable, only enable it after visible is checked
         ((CheckBox) findViewById(R.id.moveable)).setEnabled(true);
@@ -58,6 +74,16 @@ public class EditorActivity extends AppCompatActivity {
             System.out.println("this is null");
         } else {
             imageName.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+        }
+    }
+
+
+    private void loadGame() throws JSONException {
+        String query = "SELECT pages FROM games WHERE game_name = '" + gameToLoad + "'";
+        Cursor cursor = SingletonDB.getInstance(this).rawQuery(query,null);
+        while (cursor.moveToNext()) {
+            List<BPage> pages = parseToPageList(cursor.getString(0));
+            editorView.loadPages(pages);
         }
     }
 
@@ -362,5 +388,50 @@ public class EditorActivity extends AppCompatActivity {
         }
         shapes.put("shapes",shapesArray);
         return shapes.toString();
+    }
+
+    public List<BPage> parseToPageList(String content) throws JSONException {
+        List<BPage> result = new ArrayList<>();
+        JSONObject contentObj = new JSONObject(content);
+        JSONArray array = contentObj.getJSONArray("pages");
+        for(int i=0;i<array.length();i++){
+            result.add(parseToBPage(array.getJSONObject(i)));
+        }
+        return result;
+    }
+
+    private BPage parseToBPage(JSONObject pageObj) throws JSONException {
+        String pageName = pageObj.getString("pageName");
+        String shapes = pageObj.getString("shapes");
+        String[] size = pageObj.getString("size").split(" ");
+        // use 0.7f to resize
+        BPage page = new BPage(Float.parseFloat(size[0]), Float.parseFloat(size[1]), Float.parseFloat(size[2]), Float.parseFloat(size[3]));
+        page.setPageName(pageName);
+        JSONObject shapesObj = new JSONObject(shapes);
+        JSONArray array = shapesObj.getJSONArray("shapes");
+        for (int i = 0; i < array.length(); i++) {
+            page.addShape(parseToBShape(array.getJSONObject(i)));
+        }
+        return page;
+    }
+
+    private BShape parseToBShape(JSONObject shapeObj) throws JSONException {
+        String shapeName = shapeObj.getString("shapeName");
+        String text = shapeObj.getString("text");
+        String imageName = shapeObj.getString("imageName");
+        String movable = shapeObj.getString("movable");
+        String visible = shapeObj.getString("visible");
+        String left = shapeObj.getString("left");
+        String top = shapeObj.getString("top");
+        String right = shapeObj.getString("right");
+        String bottom = shapeObj.getString("bottom");
+        Script script = new Script(shapeObj.getString("script"));
+        // use 0.7f to resize
+        BShape shape = new BShape(text, imageName, Boolean.parseBoolean(movable), Boolean.parseBoolean(visible),
+                Float.parseFloat(left), Float.parseFloat(top), Float.parseFloat(right),
+                Float.parseFloat(bottom));
+        shape.setScript(script);
+        shape.setShapeName(shapeName);
+        return shape;
     }
 }

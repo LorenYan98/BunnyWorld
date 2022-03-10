@@ -88,7 +88,7 @@ public class EditorView extends View {
         saveCurrentState = new Stack<>();
         loadSound();
         loadBitmap();
-        loadPages();
+//        loadPages();
         boundaryLine = new Paint();
         boundaryLine.setColor(Color.BLACK);
         boundaryLine.setStyle(Paint.Style.STROKE);
@@ -99,14 +99,24 @@ public class EditorView extends View {
         return currentPage;
     }
 
-    private void loadPages() {
+    public void loadPages() {
         BPage.pageCount = 1;
         firstPage = new BPage(0.0f, 0.0f, 1785.0f, 784.0f);
         pageMap.put(firstPage.getPageName(), firstPage);
         currentPage = firstPage;
     }
 
-    private void loadPages(List<BPage> pages) {
+    public void loadPages(List<BPage> pages) {
+        for (BPage p : pages) {
+            pageMap.put(p.getPageName(), p);
+            if (p.getPageName().equals("page1")) {
+                currentPage = p;
+            }
+            for (String s : p.getShapeMap().keySet()) {
+                shapeNameRef.put(s, p.getShapeMap().get(s));
+                System.out.println("Check Script: " + p.getShapeMap().get(s).getScript());
+            }
+        }
     }
 
     private void loadBitmap() {

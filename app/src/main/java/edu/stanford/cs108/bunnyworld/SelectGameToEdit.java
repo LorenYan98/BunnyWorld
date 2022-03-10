@@ -59,4 +59,10 @@ public class SelectGameToEdit extends AppCompatActivity {
         SingletonDB.getInstance(this).resetDB();
         Toast.makeText(getApplicationContext(), "DB reset", Toast.LENGTH_SHORT).show();
     }
+
+    public void handleEditSelectedGame(View view) {
+        Intent intent = new Intent(this, EditorActivity.class);
+        intent.putExtra("gameName", gameToLoad);
+        startActivity(intent);
+    }
 }
