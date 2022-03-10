@@ -57,7 +57,13 @@ public class Script {
                     isOnDrop = true;
                     String targetShape = actions[0];
                     String[] tempDropActions = Arrays.copyOfRange(actions, 1, actions.length);
-                    onDropActions.put(targetShape, Arrays.asList(tempDropActions));
+                    if(onDropActions.containsKey(targetShape)){
+                        List<String> newList = new ArrayList<>(onDropActions.get(targetShape));
+                        newList.addAll(Arrays.asList(tempDropActions));
+                        onDropActions.put(targetShape,newList);
+                    }else{
+                        onDropActions.put(targetShape, Arrays.asList(tempDropActions));
+                    }
             }
         };
 

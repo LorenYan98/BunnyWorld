@@ -381,6 +381,9 @@ public class GameView extends View {
                 shapeNameRef.put(s, p.getShapeMap().get(s));
             }
         }
+        for(String s:shapeNameRef.keySet()){
+            System.out.println(s+" "+shapeNameRef.get(s).getScriptString()+" "+shapeNameRef.get(s).getScript());
+        }
         handleOnEnterScript();
     }
 }
