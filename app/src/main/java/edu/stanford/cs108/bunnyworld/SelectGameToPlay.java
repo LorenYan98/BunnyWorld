@@ -39,6 +39,10 @@ public class SelectGameToPlay extends AppCompatActivity {
             }
         });
 
+        if (gameNames.size() == 0) {
+            gameNamesSpinner.setEnabled(false);
+        }
+
 
     }
 

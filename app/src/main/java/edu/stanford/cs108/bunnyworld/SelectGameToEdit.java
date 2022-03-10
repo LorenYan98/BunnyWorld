@@ -48,6 +48,10 @@ public class SelectGameToEdit extends AppCompatActivity {
 
             }
         });
+
+        if (gameNames.size() == 0) {
+            gameNamesSpinner.setEnabled(false);
+        }
     }
 
     public void goToNewEditor(View view) {

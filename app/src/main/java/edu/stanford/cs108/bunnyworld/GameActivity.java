@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public List<BPage> parseToPageList(String content) throws JSONException {
+    private List<BPage> parseToPageList(String content) throws JSONException {
         List<BPage> result = new ArrayList<>();
         JSONObject contentObj = new JSONObject(content);
         JSONArray array = contentObj.getJSONArray("pages");
