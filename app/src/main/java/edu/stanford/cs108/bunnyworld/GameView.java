@@ -50,107 +50,7 @@ public class GameView extends View {
         inventory = new Inventory(0.0f, 0.7f * viewHeight, viewWidth, viewHeight);
         loadSound();
         loadBitmap();
-        loadPages();
-        handleOnEnterScript();
     }
-
-    private void loadPages() {
-        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage secondPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage thirdPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage fourthPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage fifthPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        pageMap.put("page1",firstPage);
-        pageMap.put("page2",secondPage);
-        pageMap.put("page3",thirdPage);
-        pageMap.put("page4",fourthPage);
-        pageMap.put("page5",fifthPage);
-        currentPage = firstPage;
-        //first page
-        BShape door1 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
-        BShape door2 = new BShape("","mystic",false,false,viewWidth*0.4f,30.0f,viewWidth*0.6f,500.0f);
-        BShape door3 = new BShape("","mystic",false,true,viewWidth*0.7f,30.0f,viewWidth*0.9f,500.0f);
-         BShape hello  = new BShape("Bunny World!",true,true,0.0f,30.0f,300.0f,500.0f);
-         BShape intro = new BShape("You are in a maze of twisty little passages, all alike.",true,true,0.0f,30.0f,300.0f,500.0f);
-        door1.setScript(new Script("onclick goto page2"));
-        door2.setScript(new Script("onclick goto page3"));
-        door3.setScript(new Script("onclick goto page4"));
-        door1.setShapeName("door1");
-        door2.setShapeName("door2");
-        door3.setShapeName("door3");
-        firstPage.addShape(door1);
-        firstPage.addShape(door2);
-        firstPage.addShape(door3);
-        shapeNameRef.put("door1", door1);
-        shapeNameRef.put("door2", door2);
-        shapeNameRef.put("door3", door3);
-        firstPage.addShape(hello);
-        firstPage.addShape(intro);
-//        //second page
-        BShape door4 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
-        BShape mystic = new BShape( "", "mystic",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);
-//        BShape rubTummy  = new BShape("Mystic Bunny-Rub my tummy for a big surprise!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
-        door4.setShapeName("door4");
-        mystic.setShapeName("mystic");
-        secondPage.addShape(door4);
-        secondPage.addShape(mystic);
-        shapeNameRef.put("door4", door4);
-        shapeNameRef.put("mystic", mystic);
-//        secondPage.addShape(rubTummy);
-        door4.setScript(new Script("onClick goto page1") );
-        //to be implemented: show/hide shape in different page
-        mystic.setScript(new Script("onclick hide carrot play munching;onEnter show door2"));
-        //third page
-        BShape fire = new BShape( "", "fire", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
-        BShape carrot = new BShape( "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);
-        BShape door5 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
-//        BShape fireRoom = new BShape("Eek! Fire-Room. Run away!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
-        fire.setScript(new Script("onEnter play fire"));
-        door5.setScript(new Script("onclick goto page2"));
-        fire.setShapeName("fire");
-        carrot.setShapeName("carrot");
-        door5.setShapeName("door5");
-        shapeNameRef.put("door5", door5);
-        shapeNameRef.put("carrot", carrot);
-        shapeNameRef.put("fire", fire);
-        thirdPage.addShape(fire);
-        thirdPage.addShape(carrot);
-        thirdPage.addShape(door5);
-//        thirdPage.addShape(fireRoom);
-        //fourth page
-        BShape duck = new BShape("","duck",true,true,viewWidth*0.8f,0f,viewWidth*0.9f,100f);
-        BShape death = new BShape( "", "death", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
-        BShape door6 = new BShape("","mystic",false,false,viewWidth*0.9f,300.0f,viewWidth,700.0f);
-//        BShape bunnyDeath = new BShape("You must appease the Bunny of Death!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
-        death.setScript(new Script("onenter play evillaugh;ondrop carrot hide carrot play munching hide death show door6;onclick play evillaugh"));
-        door6.setScript(new Script("onClick goto page5") );
-        duck.setScript(new Script("onDrop carrot play munching"));
-        death.setShapeName("death");
-        door6.setShapeName("door6");
-        duck.setShapeName("duck");
-        shapeNameRef.put("door6", door6);
-        shapeNameRef.put("death", death);
-        shapeNameRef.put("duck",duck);
-        fourthPage.addShape(duck);
-        fourthPage.addShape(death);
-        fourthPage.addShape(door6);
-//        fourthPage.addShape(bunnyDeath);
-        //fifth page
-        BShape carrot1 = new BShape( "", "carrot",  true, true, 0.1f*viewWidth, 30.0f, 0.2f*viewWidth, 500.0f);
-        BShape carrot2 = new BShape( "", "carrot",  true, true, 0.3f*viewWidth, 30.0f, 0.4f*viewWidth, 500.0f);
-        BShape carrot3 = new BShape( "", "carrot",  true, true, 0.5f*viewWidth, 30.0f, 0.6f*viewWidth, 500.0f);
-//        BShape win = new BShape("You win! Yay!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
-//        win.setScript(new Script("onenter play victory"));
-        fifthPage.addShape(carrot1);
-        fifthPage.addShape(carrot2);
-        fifthPage.addShape(carrot3);
-        shapeNameRef.put("carrot1", carrot1);
-        shapeNameRef.put("carrot2", carrot2);
-        shapeNameRef.put("carrot3", carrot3);
-//        fifthPage.addShape(win);
-    }
-
-    void loadPages(List<BPage> pages) {}
 
     private void loadBitmap() {
         bitmapMap.put("carrot", ((BitmapDrawable) getResources().getDrawable(R.drawable.carrot)).getBitmap());
@@ -175,7 +75,9 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        currentPage.drawPage(canvas);
+        if (currentPage != null) {
+            currentPage.drawPage(canvas);
+        }
         Inventory.drawInventory(canvas);
         if (selectedShape != null) selectedShape.draw(canvas);
     }
@@ -227,7 +129,10 @@ public class GameView extends View {
                 }
                 // save original location of selectedShape
                 if (selectedShape != null) {
+                    System.out.println("selectedShape: " + selectedShape.getShapeName());
                     originalMetrics = new Float[] {selectedShape.getLeft(), selectedShape.getTop(), selectedShape.getRight(), selectedShape.getBottom()};
+                } else {
+                    System.out.println("Nothing selected");
                 }
                 preX = curX;
                 preY = curY;
@@ -280,15 +185,28 @@ public class GameView extends View {
                         } else {
                             // handle onDrop script
                             BShape onDropShape = currentPage.selectShape(curX, curY);
-                            currentPage.addShape(selectedShape);
                             if (onDropShape != null) {
                                 Script script = onDropShape.getScript();
                                 if (script != null && script.isOnDrop && script.getOnDropActions().containsKey(selectedShape.getShapeName())) {
+                                    currentPage.addShape(selectedShape);
                                     performActions(script.getOnDropActions().get(selectedShape.getShapeName()));
                                 } else {
                                     // no action to be done, snap selectedShape back to original metrics
-                                    System.out.println("To be implemented!");
+                                    selectedShape.setLeft(originalMetrics[0]);
+                                    selectedShape.setTop(originalMetrics[1]);
+                                    selectedShape.setRight(originalMetrics[2]);
+                                    selectedShape.setBottom(originalMetrics[3]);
+                                    // snap shape back to initial position
+                                    if (originalMetrics[1] < inventory.getTop()) {
+                                        currentPage.addShape(selectedShape);
+                                    } else {
+                                        inventory.addShape(selectedShape);
+                                    }
+
                                 }
+                            } else {
+                                // dropped on blank area
+                                currentPage.addShape(selectedShape);
                             }
 
                         }
@@ -354,5 +272,116 @@ public class GameView extends View {
             }
         }
 
+    }
+
+    public void loadPages() {
+        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        BPage secondPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        BPage thirdPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        BPage fourthPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        BPage fifthPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        pageMap.put("page1",firstPage);
+        pageMap.put("page2",secondPage);
+        pageMap.put("page3",thirdPage);
+        pageMap.put("page4",fourthPage);
+        pageMap.put("page5",fifthPage);
+        currentPage = firstPage;
+        //first page
+        BShape door1 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
+        BShape door2 = new BShape("","mystic",false,false,viewWidth*0.4f,30.0f,viewWidth*0.6f,500.0f);
+        BShape door3 = new BShape("","mystic",false,true,viewWidth*0.7f,30.0f,viewWidth*0.9f,500.0f);
+        BShape hello  = new BShape("Bunny World!",true,true,0.0f,30.0f,300.0f,500.0f);
+        BShape intro = new BShape("You are in a maze of twisty little passages, all alike.",true,true,0.0f,30.0f,300.0f,500.0f);
+        door1.setScript(new Script("onclick goto page2"));
+        door2.setScript(new Script("onclick goto page3"));
+        door3.setScript(new Script("onclick goto page4"));
+        door1.setShapeName("door1");
+        door2.setShapeName("door2");
+        door3.setShapeName("door3");
+        firstPage.addShape(door1);
+        firstPage.addShape(door2);
+        firstPage.addShape(door3);
+        shapeNameRef.put("door1", door1);
+        shapeNameRef.put("door2", door2);
+        shapeNameRef.put("door3", door3);
+        firstPage.addShape(hello);
+        firstPage.addShape(intro);
+//        //second page
+        BShape door4 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
+        BShape mystic = new BShape( "", "mystic",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);
+//        BShape rubTummy  = new BShape("Mystic Bunny-Rub my tummy for a big surprise!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
+        door4.setShapeName("door4");
+        mystic.setShapeName("mystic");
+        secondPage.addShape(door4);
+        secondPage.addShape(mystic);
+        shapeNameRef.put("door4", door4);
+        shapeNameRef.put("mystic", mystic);
+//        secondPage.addShape(rubTummy);
+        door4.setScript(new Script("onClick goto page1") );
+        //to be implemented: show/hide shape in different page
+        mystic.setScript(new Script("onclick hide carrot play munching;onEnter show door2"));
+        //third page
+        BShape fire = new BShape( "", "fire", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
+        BShape carrot = new BShape( "", "carrot",  true, true, 0.0f, 30.0f, 300.0f, 500.0f);
+        BShape door5 = new BShape("","mystic",false,true,viewWidth*0.1f,30.0f,viewWidth*0.3f,500.0f);
+//        BShape fireRoom = new BShape("Eek! Fire-Room. Run away!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
+        fire.setScript(new Script("onEnter play fire"));
+        door5.setScript(new Script("onclick goto page2"));
+        fire.setShapeName("fire");
+        carrot.setShapeName("carrot");
+        door5.setShapeName("door5");
+        shapeNameRef.put("door5", door5);
+        shapeNameRef.put("carrot", carrot);
+        shapeNameRef.put("fire", fire);
+        thirdPage.addShape(fire);
+        thirdPage.addShape(carrot);
+        thirdPage.addShape(door5);
+//        thirdPage.addShape(fireRoom);
+        //fourth page
+        BShape duck = new BShape("","duck",true,true,viewWidth*0.8f,0f,viewWidth*0.9f,100f);
+        BShape death = new BShape( "", "death", true, true, 300.0f, 100.0f, 500.0f, 500.0f);
+        BShape door6 = new BShape("","mystic",false,false,viewWidth*0.9f,300.0f,viewWidth,700.0f);
+//        BShape bunnyDeath = new BShape("You must appease the Bunny of Death!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
+        death.setScript(new Script("onenter play evillaugh;ondrop carrot hide carrot play munching hide death show door6;onclick play evillaugh"));
+        door6.setScript(new Script("onClick goto page5") );
+        death.setShapeName("death");
+        door6.setShapeName("door6");
+        duck.setShapeName("duck");
+        shapeNameRef.put("door6", door6);
+        shapeNameRef.put("death", death);
+        shapeNameRef.put("duck",duck);
+        fourthPage.addShape(duck);
+        fourthPage.addShape(death);
+        fourthPage.addShape(door6);
+//        fourthPage.addShape(bunnyDeath);
+        //fifth page
+        BShape carrot1 = new BShape( "", "carrot",  true, true, 0.1f*viewWidth, 30.0f, 0.2f*viewWidth, 500.0f);
+        BShape carrot2 = new BShape( "", "carrot",  true, true, 0.3f*viewWidth, 30.0f, 0.4f*viewWidth, 500.0f);
+        BShape carrot3 = new BShape( "", "carrot",  true, true, 0.5f*viewWidth, 30.0f, 0.6f*viewWidth, 500.0f);
+//        BShape win = new BShape("You win! Yay!",false,true,0.0f,0.8f*viewHeight,300.0f,0.9f*viewHeight);
+//        win.setScript(new Script("onenter play victory"));
+        fifthPage.addShape(carrot1);
+        fifthPage.addShape(carrot2);
+        fifthPage.addShape(carrot3);
+        shapeNameRef.put("carrot1", carrot1);
+        shapeNameRef.put("carrot2", carrot2);
+        shapeNameRef.put("carrot3", carrot3);
+
+        handleOnEnterScript();
+
+    }
+
+    void loadPages(List<BPage> pages) {
+        for (BPage p : pages) {
+            pageMap.put(p.getPageName(), p);
+            if (p.getPageName().equals("page1")) {
+                currentPage = p;
+            }
+            for (String s : p.getShapeMap().keySet()) {
+                shapeNameRef.put(s, p.getShapeMap().get(s));
+                System.out.println("Check Script: " + p.getShapeMap().get(s).getScript());
+            }
+        }
+        handleOnEnterScript();
     }
 }
