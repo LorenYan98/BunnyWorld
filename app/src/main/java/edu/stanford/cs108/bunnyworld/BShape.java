@@ -107,6 +107,8 @@ public class BShape {
         }else{
             this.shapeName = copyShape.getShapeName();
         }
+
+        this.scriptString = copyShape.scriptString;
         this.isSelected = copyShape.isSelected;
         this.imageName = copyShape.getImageName();
         this.shapeSize = copyShape.getShapeSize();
