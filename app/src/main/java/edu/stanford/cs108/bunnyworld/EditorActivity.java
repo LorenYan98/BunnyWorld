@@ -347,13 +347,20 @@ public class EditorActivity extends AppCompatActivity {
         for (int i = 0; i < arr.length(); i++) {
             System.out.println(arr.getJSONObject(i).toString());
         }
-
-        // need to handle inset userGameName already exists
-        String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
-        System.out.println("userGameName: " + userGameName);
-        db.execSQL(query);
-        gameName.setText("");
-        Toast.makeText(getApplicationContext(),"Game Saved Successfully",Toast.LENGTH_SHORT).show();
+        String queStr = "SELECT * FROM games WHERE game_name= '" + userGameName + "'";
+        Cursor cursorName = db.rawQuery(queStr,null);
+        if(cursorName.getCount()==0){
+            String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
+            System.out.println("userGameName: " + userGameName);
+            db.execSQL(query);
+            gameName.setText("");
+            Toast.makeText(getApplicationContext(),"Game Saved Successfully",Toast.LENGTH_SHORT).show();
+        }else{
+            String deleteQuery = "DELETE * FROM games WHERE game_name= '" + userGameName + "'";
+            db.execSQL(deleteQuery);
+            String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
+            db.execSQL(query);
+        }
 
     }
 
