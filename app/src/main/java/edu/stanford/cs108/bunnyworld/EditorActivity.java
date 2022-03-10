@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,7 +66,8 @@ public class EditorActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        TextView imageName = findViewById(R.id.scriptTextView);
+        TextView scriptTextView = findViewById(R.id.scriptTextView);
+
 
         TextView curShapeName =  findViewById(R.id.currentShapeName);
         System.out.println("page name: " + EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()));
@@ -73,7 +75,8 @@ public class EditorActivity extends AppCompatActivity {
         if (EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()) == null) {
             System.out.println("this is null");
         } else {
-            imageName.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+            scriptTextView.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+            scriptTextView.setMovementMethod(new ScrollingMovementMethod());
         }
     }
 
