@@ -117,6 +117,12 @@ public class EditorActivity extends AppCompatActivity {
             prePageState = editorView.saveCurrentState.pop();
             System.out.println("real page pop:" + prePageState);
             editorView.addcopyPage(prePageState);
+//            for(BShape bshape: prePageState.getShapeMap().values()){
+//                if(bshape.isSelected()){
+//                    editorView.selectedShape = bshape;
+//                    System.out.println("Hi I am selected");
+//                }
+//            }
             editorView.update();
 //            updateSpinner();
             updateCurrentPageText();

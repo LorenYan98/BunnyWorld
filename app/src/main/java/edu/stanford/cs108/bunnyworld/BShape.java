@@ -35,7 +35,7 @@ public class BShape {
     // add script ivar by Shuangshan LI / Mabel Jiang
     private Script script;
     private boolean isEditorSelected;
-    private boolean isSelected;
+    private boolean isSelected = false;
     private boolean isWithinPage;
     private boolean isWithinInventory;
 
@@ -107,6 +107,7 @@ public class BShape {
         }else{
             this.shapeName = copyShape.getShapeName();
         }
+        this.isSelected = copyShape.isSelected;
         this.imageName = copyShape.getImageName();
         this.shapeSize = copyShape.getShapeSize();
         init();
