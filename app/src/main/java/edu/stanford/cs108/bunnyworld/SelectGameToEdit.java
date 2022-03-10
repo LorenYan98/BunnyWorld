@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -26,16 +29,25 @@ public class SelectGameToEdit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_game_to_edit);
 
-        System.out.println("Running onCreate for SelectGameToEdit");
 
-        db = SingletonDB.getInstance(this);
-        gameNames = new ArrayList<>();
-        String queryStr = "SELECT game_name FROM games";
-        Cursor cursor = db.rawQuery(queryStr, null);
-        while (cursor.moveToNext()) {
-            gameNames.add(cursor.getString(0));
-        }
-        Log.d("gameNames List", gameNames.toString());
+        gameNames = GameActivity.loadGameNames(SingletonDB.getInstance(this));
+        ArrayAdapter<String> gameNamesAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                gameNames);
+        Spinner gameNamesSpinner = (Spinner) findViewById(R.id.selectGameSpinner);
+        gameNamesSpinner.setAdapter(gameNamesAdapter);
+        gameNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String currItem = (String) adapterView.getSelectedItem();
+                gameToLoad = currItem;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public void goToNewEditor(View view) {
