@@ -362,6 +362,9 @@ public class EditorActivity extends AppCompatActivity {
             db.execSQL(query);
         }
 
+        Intent intent = new Intent(this, SelectGameToPlay.class);
+        startActivity(intent);
+
     }
 
     public String gameToJson()throws JSONException {
