@@ -91,17 +91,22 @@ public class BShape {
 
     }
     //able to make a copy of an existing shape
-    public BShape(BShape copyShape){
+    public BShape(BShape copyShape, boolean isCopyed){
+
         this.left = copyShape.getLeft();
         this.right = copyShape.getRight();
         this.top = copyShape.getTop();
         this.bottom = copyShape.getBottom();
         this.movable = copyShape.getMovable();
         this.visible = copyShape.getVisible();
-        this.script = copyShape.getScript();
+        if(copyShape.script != null) this.script = copyShape.getScript();
         this.text = copyShape.getText();
-        this.shapeName = copyShape.getShapeName().split("_")[0] + "_copy" + shapeCount;
-        shapeCount++;
+        if(isCopyed == true) {
+            this.shapeName = copyShape.getShapeName().split("_")[0] + "_copy" + shapeCount;
+            shapeCount++;
+        }else{
+            this.shapeName = copyShape.getShapeName();
+        }
         this.imageName = copyShape.getImageName();
         this.shapeSize = copyShape.getShapeSize();
         init();
