@@ -80,7 +80,6 @@ public class GameView extends View {
         }
         Inventory.drawInventory(canvas);
         if (selectedShape != null) selectedShape.draw(canvas);
-        
     }
 
     @Override

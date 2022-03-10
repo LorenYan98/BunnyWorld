@@ -54,6 +54,7 @@ public class BShape {
 
 
 
+
     public BShape(String text, String imageName, boolean movable,
                   boolean visible, float left, float top, float right, float bottom) {
         setShapeNameToDefault();
