@@ -18,7 +18,7 @@ public class BShape {
     private boolean visible = false;
     private boolean selected = false;
 
-    private int textSize = 40;
+    private int textSize = 0;
 
 
 
