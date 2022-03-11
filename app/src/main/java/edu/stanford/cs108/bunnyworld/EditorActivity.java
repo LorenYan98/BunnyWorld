@@ -166,6 +166,7 @@ public class EditorActivity extends AppCompatActivity {
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
         String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
+        if(curImgName.equals("Null")) curImgName = "";
         CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
         CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
         EditText currentText = (EditText) findViewById(R.id.shapeTextInput);
@@ -289,7 +290,9 @@ public class EditorActivity extends AppCompatActivity {
         Collections.reverse(pageList);
         List<Bitmap> imgList = new ArrayList<>(imgMap.values());
         List<String> imgNameList = new ArrayList<>(imgMap.keySet());
-
+        String temp = imgNameList.get(0);
+        imgNameList.set(0,"Null");
+        imgNameList.add(temp);
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
         final Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
         final Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
