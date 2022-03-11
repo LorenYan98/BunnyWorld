@@ -36,11 +36,12 @@ public class ScriptView extends View {
         bitmapMap.put("death", ((BitmapDrawable) getResources().getDrawable(R.drawable.death)).getBitmap());
         bitmapMap.put("fire", ((BitmapDrawable) getResources().getDrawable(R.drawable.fire)).getBitmap());
         bitmapMap.put("mystic", ((BitmapDrawable) getResources().getDrawable(R.drawable.mystic)).getBitmap());
+        bitmapMap.put("nothing", ((BitmapDrawable) getResources().getDrawable(R.drawable.nothing)).getBitmap());
 
         partialOpaquePaint = new Paint();
         partialOpaquePaint.setAlpha(64);
 
-        curBitmapDrawable = bitmapMap.get("carrot");
+        curBitmapDrawable = bitmapMap.get("nothing");
 
     }
 

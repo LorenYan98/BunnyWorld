@@ -245,6 +245,8 @@ public class ScriptActivity extends AppCompatActivity {
                             scriptView.updateInC(EditorView.getPageMap().get(currentPageSound).getShapeMap().get(currentShape).getImageName());
                         } else {
                             imageName.setText("No shape is currently selected");
+                            ScriptView scriptView = (ScriptView) findViewById(R.id.script_view);
+                            scriptView.updateInC("nothing");
                         }
                     }
 
