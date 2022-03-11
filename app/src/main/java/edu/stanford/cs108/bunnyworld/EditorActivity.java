@@ -376,11 +376,12 @@ public class EditorActivity extends AppCompatActivity {
             // show a toast and do not allow saving
             Toast.makeText(getApplicationContext(),"Game Name cannot be empty. \nUnable to save.",Toast.LENGTH_SHORT).show();
             return;
-        } else if (gameNames.contains(userGameName)) {
-            // the same game name already exists in db
-            Toast.makeText(getApplicationContext(),"Duplicate game name. \nUnable to save.",Toast.LENGTH_SHORT).show();
-            return;
         }
+//        else if (gameNames.contains(userGameName)) {
+//            // the same game name already exists in db
+//            Toast.makeText(getApplicationContext(),"Duplicate game name. \nUnable to save.",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         
         System.out.println("Executing public void saveGame(View view)");
         db = SingletonDB.getInstance(this);
