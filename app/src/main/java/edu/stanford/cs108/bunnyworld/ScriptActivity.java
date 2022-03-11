@@ -41,8 +41,6 @@ public class ScriptActivity extends AppCompatActivity {
     private String currentPageSound;
     private String currentShape;
 
-    ScriptView scriptView = (ScriptView) findViewById(R.id.script_view);
-    scriptView.updateInC();
 
     public void setCurrentTrigger(String currentTrigger) {
         this.currentTrigger = currentTrigger;
@@ -243,6 +241,8 @@ public class ScriptActivity extends AppCompatActivity {
                         if (currentShape != null && !currentShape.equals("DESELECT SHAPE")) {
                             Map pageMap = EditorView.getPageMap();
                             imageName.setText(EditorView.getPageMap().get(currentPageSound).getShapeMap().get(currentShape).getImageName());
+                            ScriptView scriptView = (ScriptView) findViewById(R.id.script_view);
+                            scriptView.updateInC(EditorView.getPageMap().get(currentPageSound).getShapeMap().get(currentShape).getImageName());
                         } else {
                             imageName.setText("No shape is currently selected");
                         }

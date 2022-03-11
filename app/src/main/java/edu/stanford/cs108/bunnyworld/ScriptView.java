@@ -21,9 +21,12 @@ public class ScriptView extends View {
         init();
     }
 
-    BitmapDrawable carrotDrawable, bunnyDrawable;
+//    BitmapDrawable carrotDrawable, bunnyDrawable;
     Paint partialOpaquePaint;
     static Map<String, Bitmap> bitmapMap;
+
+    Bitmap curBitmapDrawable;
+
 
     private void init() {
         bitmapMap = new HashMap<>();
@@ -38,7 +41,8 @@ public class ScriptView extends View {
         partialOpaquePaint.setAlpha(64);
     }
 
-    public void updateInC(){
+    public void updateInC(String currentShapeImageName){
+        curBitmapDrawable = bitmapMap.get(currentShapeImageName);
         invalidate();
     }
 
@@ -49,7 +53,7 @@ public class ScriptView extends View {
 //        canvas.drawBitmap(carrotDrawable.getBitmap(),0.0f,0.0f,null);
 //        canvas.drawBitmap(carrotDrawable.getBitmap(),100.0f,0.0f,partialOpaquePaint);
 
-        Bitmap bunnyBitmap = bunnyDrawable.getBitmap();
+//        Bitmap bunnyBitmap = bunnyDrawable.getBitmap();
 
         // I'm creating Rects here for simplicity, but you really shouldn't
         // be creating objects in onDraw, as it can trigger the garbage collector
@@ -57,16 +61,16 @@ public class ScriptView extends View {
         // And in fact, calculations such as the bunnyH and bunnyW above can
         // also be moved somewhere else to keep onDraw as fast as possible.
 
-        canvas.drawBitmap(bunnyBitmap,
+        canvas.drawBitmap(curBitmapDrawable,
                 null,
                 new RectF(0,0,150,75),
                 null);
 
-        canvas.drawBitmap(bunnyBitmap,
+        canvas.drawBitmap(curBitmapDrawable,
                 new Rect(120,250,326,418),
                 new RectF(150,0,355,148),
                 null);
 
-        canvas.drawBitmap(bunnyBitmap,0,200,null);
+        canvas.drawBitmap(curBitmapDrawable,0,200,null);
     }
 }
