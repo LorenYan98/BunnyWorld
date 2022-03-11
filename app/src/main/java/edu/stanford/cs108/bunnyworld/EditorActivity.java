@@ -179,14 +179,14 @@ public class EditorActivity extends AppCompatActivity {
         BShape newShape;
         if(radioId == R.id.addShapeRadioButton){
             if(text.length() != 0){
-                newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,100.0f);
+                newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,350.0f,100.0f);
                 if (textSizeEditText.getText() != null &&
                         !(textSizeEditText.getText().toString().isEmpty())) {
                     newShape.setTextSize(Integer.parseInt(textSizeEditText.getText().toString()));
                 }
 
             }else{
-                newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
+                newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,400.0f,220.0f);
             }
             currentText.setText("");
             newShape.setEditorSelected(true);

@@ -328,7 +328,7 @@ public class EditorView extends View {
         System.out.println(widthSize + " Screen height" + heightSize);
 
         int width = widthSize * 70 / 100;
-        int height = 1120 * 70 / 100;
+        int height = 650;
 
         setMeasuredDimension(width, height);
     }
