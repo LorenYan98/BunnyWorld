@@ -113,6 +113,7 @@ public class EditorView extends View {
             pageMap.put(p.getPageName(), p);
             if (p.getPageName().equals("page1")) {
                 currentPage = p;
+                firstPage = p;
             }
             for (String s : p.getShapeMap().keySet()) {
                 shapeNameRef.put(s, p.getShapeMap().get(s));
