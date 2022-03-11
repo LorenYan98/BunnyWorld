@@ -61,6 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Page"
+                    android:layout_gravity="center_vertical"
                     android:onClick="addPage"
                     />
 
@@ -69,12 +70,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Delete Page"
+                    android:layout_gravity="center_vertical"
                     android:onClick="deletePage"
                     />
                 <TextView
                     android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                 android:text="Go To Page:"
                 android:textSize="16dp"/>
                 <Spinner
@@ -82,6 +85,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"></Spinner>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:scrollbars="vertical"
+                    android:id="@+id/scriptTextView"
+                    android:hint="Current shape script will be shown here. \nClick button on the right to edit/add script"
+
+                    ></TextView>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -268,6 +280,13 @@
             android:hint="Shape Text Input"
             android:textSize="16dp" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Text Size. Default 40.0"
+            android:textSize="16dp"
+            android:inputType="number"
+            android:id="@+id/textSizeEditText"></EditText>
 
 
         <LinearLayout
@@ -355,11 +374,7 @@
             android:onClick="undoToPreviousState"
             android:textSize="16dp"/>
     </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scriptTextView"
-            android:hint="Script will be shown here. \nClick button below to edit/add script"></TextView>
+
 
         <Button
             android:id="@+id/addShapeEffect"

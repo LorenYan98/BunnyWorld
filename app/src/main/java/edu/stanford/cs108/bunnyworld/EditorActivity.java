@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -65,7 +66,8 @@ public class EditorActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        TextView imageName = findViewById(R.id.scriptTextView);
+        TextView scriptTextView = findViewById(R.id.scriptTextView);
+
 
         TextView curShapeName =  findViewById(R.id.currentShapeName);
         System.out.println("page name: " + EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()));
@@ -73,7 +75,8 @@ public class EditorActivity extends AppCompatActivity {
         if (EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()) == null) {
             System.out.println("this is null");
         } else {
-            imageName.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+            scriptTextView.setText(EditorView.getPageMap().get(editorView.getCurrentPage().getPageName()).getShapeMap().get(curShapeName.getText()).getScriptString());
+            scriptTextView.setMovementMethod(new ScrollingMovementMethod());
         }
     }
 
@@ -163,9 +166,11 @@ public class EditorActivity extends AppCompatActivity {
         shapeRadioGroup = (RadioGroup) findViewById(R.id.shapeRadioGroup);
         Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
         String curImgName = imgSpinner.getItemAtPosition(imgSpinner.getSelectedItemPosition()).toString();
+        if(curImgName.equals("Null")) curImgName = "";
         CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
         CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
         EditText currentText = (EditText) findViewById(R.id.shapeTextInput);
+        EditText textSizeEditText = (EditText) findViewById(R.id.textSizeEditText);
 
         String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
@@ -175,6 +180,11 @@ public class EditorActivity extends AppCompatActivity {
         if(radioId == R.id.addShapeRadioButton){
             if(text.length() != 0){
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,100.0f);
+                if (textSizeEditText.getText() != null &&
+                        !(textSizeEditText.getText().toString().isEmpty())) {
+                    newShape.setTextSize(Integer.parseInt(textSizeEditText.getText().toString()));
+                }
+
             }else{
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
             }
@@ -183,7 +193,14 @@ public class EditorActivity extends AppCompatActivity {
             editorView.addShapeToview(newShape);
             editorView.update();
         }else{
-            Toast.makeText(getApplicationContext(),"You should switch to 'Add' Mode",Toast.LENGTH_SHORT).show();
+            if(editorView.selectedShape != null){
+                editorView.selectedShape.setMovable(moveable);
+                editorView.selectedShape.setVisible(visible);
+                if(currentText.getText().toString().length() != 0) editorView.selectedShape.setText(currentText.getText().toString());
+            }else{
+                Toast.makeText(getApplicationContext(),"You should selected a shape to edit",Toast.LENGTH_SHORT).show();
+            }
+
         }
 
     }
@@ -216,7 +233,33 @@ public class EditorActivity extends AppCompatActivity {
             editorView.saveCurrentState.push(new BPage(editorView.currentPage));
             EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
             String curName = currentNameBox.getText().toString();
+
             BShape tempShape = editorView.selectedShape;
+            if (tempShape == null) {
+                // no shape is selected
+                Toast.makeText(getApplicationContext(), "Please select a shape before renaming. " +
+                        "Unable to rename.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // check the new name already exists, do not allow duplicated names
+            Map pageMap = EditorView.getPageMap();
+            // iterate through all the pageMap's map shapes
+            List shapeNames = new ArrayList<String>();
+            for (Object bPage : pageMap.values()) {
+                for (BShape bshape : ((BPage)bPage).getShapeMap().values()) {
+                    shapeNames.add(bshape.getShapeName());
+                }
+            }
+            // all the names of existing shapes are in shapeNames, if new name exists, do not allow rename
+            if (shapeNames.contains(curName)) {
+                Toast.makeText(getApplicationContext(), "Duplicate names are not allowed. " +
+                        "Unable to rename.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+
             editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
             tempShape.setShapeName(curName);
             editorView.currentPage.addShape(tempShape);
@@ -247,7 +290,9 @@ public class EditorActivity extends AppCompatActivity {
         Collections.reverse(pageList);
         List<Bitmap> imgList = new ArrayList<>(imgMap.values());
         List<String> imgNameList = new ArrayList<>(imgMap.keySet());
-
+        String temp = imgNameList.get(0);
+        imgNameList.set(0,"Null");
+        imgNameList.add(temp);
         // List<Sampler.Value> list = new ArrayList<Sampler.Value>(pageMap.values());
         final Spinner pageSpinner = (Spinner) findViewById(R.id.pageSpinner);
         final Spinner imgSpinner = (Spinner) findViewById(R.id.shapeImageSpinner);
