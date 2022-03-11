@@ -726,5 +726,7 @@ public class ScriptActivity extends AppCompatActivity {
         } else {
             curShape.setScriptString(finalString);
         }
+        startActivity(intent);
+
     }
 }
