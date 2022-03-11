@@ -1,6 +1,7 @@
 package edu.stanford.cs108.bunnyworld;
 
 import android.graphics.Canvas;
+import android.graphics.RectF;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ public class Inventory {
     private float right;
     private float bottom;
     public static Map<String, BShape> shapeMap;
+    private RectF inventoryBoundary;
 
     public Inventory(float left, float top, float right, float bottom) {
 //        this.boundary = boundary;
@@ -19,6 +21,7 @@ public class Inventory {
         this.right = right;
         this.bottom = bottom;
         this.shapeMap = new HashMap<>();
+        inventoryBoundary = new RectF(left, top, right, bottom);
 
     }
 
@@ -113,6 +116,7 @@ public class Inventory {
     public static void drawInventory(Canvas canvas) {
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
+            curShape.setWithinInventory(true);
             curShape.draw(canvas);
             System.out.println("Invent " + curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
         }

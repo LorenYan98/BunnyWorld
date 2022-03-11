@@ -161,8 +161,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\n\n\n\n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+            android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
             ></TextView>
+
+        <edu.stanford.cs108.bunnyworld.ScriptView
+            android:id="@+id/script_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -176,7 +181,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit script \nReturn to editor"
+            android:text="Reset script \nReturn to editor"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:padding="20sp"

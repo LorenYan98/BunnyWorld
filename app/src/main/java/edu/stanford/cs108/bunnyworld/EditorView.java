@@ -77,6 +77,7 @@ public class EditorView extends View {
     private BPage firstPage;
 
     Paint boundaryLine;
+    RectF pageBoundary;
 
     // Initialization
     private void init() {
@@ -93,6 +94,7 @@ public class EditorView extends View {
         boundaryLine.setColor(Color.BLACK);
         boundaryLine.setStyle(Paint.Style.STROKE);
         boundaryLine.setStrokeWidth(5.0f);
+        pageBoundary = new RectF(0.0f, 0.0f, 1785.0f, 650.0f);
     }
 
     public BPage getCurrentPage() {
@@ -111,6 +113,7 @@ public class EditorView extends View {
             pageMap.put(p.getPageName(), p);
             if (p.getPageName().equals("page1")) {
                 currentPage = p;
+                firstPage = p;
             }
             for (String s : p.getShapeMap().keySet()) {
                 shapeNameRef.put(s, p.getShapeMap().get(s));
@@ -126,6 +129,7 @@ public class EditorView extends View {
         bitmapMap.put("death", ((BitmapDrawable) getResources().getDrawable(R.drawable.death)).getBitmap());
         bitmapMap.put("fire", ((BitmapDrawable) getResources().getDrawable(R.drawable.fire)).getBitmap());
         bitmapMap.put("mystic", ((BitmapDrawable) getResources().getDrawable(R.drawable.mystic)).getBitmap());
+        bitmapMap.put("nothing", ((BitmapDrawable) getResources().getDrawable(R.drawable.nothing)).getBitmap());
 
     }
 
@@ -163,6 +167,32 @@ public class EditorView extends View {
 
     public void setCurrentPage(BPage curPage) {
         currentPage = pageMap.get(curPage.getPageName());
+    }
+
+    private boolean shapeIsSelectedWithinInventory(BShape curShape) {
+        if(curShape == null) return false;
+        return pageBoundary.contains(curShape.getLeft(),curShape.getTop(), curShape.getRight(),curShape.getBottom());
+    }
+
+    public void relocate(BShape shape) {
+        if(shape == null) return;
+        // DOES NOT CONSIDER THE CASE WHEN THE SHAPE IS LARGE ENOUGH TO FILL THE WHOLE PAGE/INVENTORY, ADD LATER
+        if (shape.getBottom() > viewHeight) {
+            // the movement should be negative in this case
+            shape.move(0, viewHeight - shape.getBottom());
+        }
+        if (shape.getTop() < 0) {
+            // the movement should be positive in this case
+            shape.move(0, 0 - shape.getTop());
+        }
+        if (shape.getLeft() < 0) {
+            // the movement should be positive in this case
+            shape.move(0 - shape.getLeft(), 0);
+        }
+        if (shape.getRight() > viewWidth) {
+            // the movement should be negative in this case
+            shape.move(viewWidth - shape.getRight(), 0);
+        }
     }
 
     /**
@@ -273,11 +303,24 @@ public class EditorView extends View {
         TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
         EditText currentName = ((Activity) getContext()).findViewById(R.id.renameShapeName);
         EditText currentText = ((Activity) getContext()).findViewById(R.id.shapeTextInput);
+        EditText fontEditor = ((Activity) getContext()).findViewById(R.id.textSizeEditText);
         if(selectedShape != null) {
+            if(selectedShape.getText().length() != 0) {
+                Integer temp = selectedShape.getTextSize();
+                if(temp == 0){
+                    fontEditor.setText("40");
+                }else{
+                    fontEditor.setText(Integer.toString(temp));
+                }
+            }else{
+                fontEditor.setText("");
+            }
             curShapeName.setText(selectedShape.getShapeName());
         }else{
+            fontEditor.setText("");
             curShapeName.setText("");
             currentName.setText("");
+
         }
         currentText.setText(currentText.getText());
     }
@@ -384,7 +427,11 @@ public class EditorView extends View {
                 case MotionEvent.ACTION_UP:
                     curX = event.getX();
                     curY = event.getY();
+
                     updateSelectShapeName(selectedShape);
+                    if(!shapeIsSelectedWithinInventory(selectedShape)){
+                        relocate(selectedShape);
+                    };
                     if(selectedShape != null)updateScript();
                     invalidate();
             }
