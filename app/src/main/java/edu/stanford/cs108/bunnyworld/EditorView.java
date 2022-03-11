@@ -77,6 +77,7 @@ public class EditorView extends View {
     private BPage firstPage;
 
     Paint boundaryLine;
+    RectF pageBoundary;
 
     // Initialization
     private void init() {
@@ -93,6 +94,7 @@ public class EditorView extends View {
         boundaryLine.setColor(Color.BLACK);
         boundaryLine.setStyle(Paint.Style.STROKE);
         boundaryLine.setStrokeWidth(5.0f);
+        pageBoundary = new RectF(0.0f, 0.0f, 1785.0f, 650.0f);
     }
 
     public BPage getCurrentPage() {
@@ -163,6 +165,32 @@ public class EditorView extends View {
 
     public void setCurrentPage(BPage curPage) {
         currentPage = pageMap.get(curPage.getPageName());
+    }
+
+    private boolean shapeIsSelectedWithinInventory(BShape curShape) {
+        if(curShape == null) return false;
+        return pageBoundary.contains(curShape.getLeft(),curShape.getTop(), curShape.getRight(),curShape.getBottom());
+    }
+
+    public void relocate(BShape shape) {
+        if(shape == null) return;
+        // DOES NOT CONSIDER THE CASE WHEN THE SHAPE IS LARGE ENOUGH TO FILL THE WHOLE PAGE/INVENTORY, ADD LATER
+        if (shape.getBottom() > viewHeight) {
+            // the movement should be negative in this case
+            shape.move(0, viewHeight - shape.getBottom());
+        }
+        if (shape.getTop() < 0) {
+            // the movement should be positive in this case
+            shape.move(0, 0 - shape.getTop());
+        }
+        if (shape.getLeft() < 0) {
+            // the movement should be positive in this case
+            shape.move(0 - shape.getLeft(), 0);
+        }
+        if (shape.getRight() > viewWidth) {
+            // the movement should be negative in this case
+            shape.move(viewWidth - shape.getRight(), 0);
+        }
     }
 
     /**
@@ -273,7 +301,9 @@ public class EditorView extends View {
         TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
         EditText currentName = ((Activity) getContext()).findViewById(R.id.renameShapeName);
         EditText currentText = ((Activity) getContext()).findViewById(R.id.shapeTextInput);
+        EditText fontEditor = ((Activity) getContext()).findViewById(R.id.textSizeEditText);
         if(selectedShape != null) {
+            fontEditor.setText(Integer.toString(selectedShape.getTextSize()));
             curShapeName.setText(selectedShape.getShapeName());
         }else{
             curShapeName.setText("");
@@ -384,7 +414,11 @@ public class EditorView extends View {
                 case MotionEvent.ACTION_UP:
                     curX = event.getX();
                     curY = event.getY();
+
                     updateSelectShapeName(selectedShape);
+                    if(!shapeIsSelectedWithinInventory(selectedShape)){
+                        relocate(selectedShape);
+                    };
                     if(selectedShape != null)updateScript();
                     invalidate();
             }

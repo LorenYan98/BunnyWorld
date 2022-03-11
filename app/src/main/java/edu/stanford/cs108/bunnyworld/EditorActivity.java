@@ -189,7 +189,7 @@ public class EditorActivity extends AppCompatActivity {
             }else{
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,400.0f,220.0f);
             }
-            currentText.setText("");
+
             newShape.setEditorSelected(true);
             editorView.addShapeToview(newShape);
             editorView.update();
@@ -202,7 +202,7 @@ public class EditorActivity extends AppCompatActivity {
                 if (textSizeEditText.getText() != null &&
                         !(textSizeEditText.getText().toString().isEmpty())) {
                     editorView.selectedShape.setTextSize(Integer.parseInt(textSizeEditText.getText().toString()));
-                    textSizeEditText.setText("");
+
                 }
 
                 if(currentText.getText().toString().length() != 0) editorView.selectedShape.setText(currentText.getText().toString());
@@ -211,6 +211,9 @@ public class EditorActivity extends AppCompatActivity {
             }
 
         }
+        currentText.setText("");
+        textSizeEditText.setText("");
+        editorView.update();
 
     }
 
