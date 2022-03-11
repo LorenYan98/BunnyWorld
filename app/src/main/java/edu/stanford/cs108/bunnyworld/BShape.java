@@ -18,7 +18,7 @@ public class BShape {
     private boolean visible = false;
     private boolean selected = false;
 
-    private int textSize = 40;
+    private int textSize = 0;
 
 
 
@@ -153,6 +153,7 @@ public class BShape {
         defaultBorderPaint.setColor(Color.GRAY);
         defaultBorderPaint.setStyle(Paint.Style.STROKE);
         defaultBorderPaint.setStrokeWidth(1.0f);
+
         try {
             if (textSize != 0) {
                 textPaint.setTextSize(textSize);
