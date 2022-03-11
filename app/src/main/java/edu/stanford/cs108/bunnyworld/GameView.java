@@ -159,6 +159,12 @@ public class GameView extends View {
                     }
                     selectedShape.move(curX-preX,curY-preY);
                     invalidate();
+                } else {
+                    if (selectedShape != null) currentPage.addShape(selectedShape);
+                    selectedShape = null;
+                    shapeIsDragging = false;
+                    shapeIsSelected = false;
+
                 }
                 preX = curX;
                 preX = curX;
@@ -277,11 +283,11 @@ public class GameView extends View {
     }
 
     public void loadPages() {
-        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage secondPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage thirdPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage fourthPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
-        BPage fifthPage = new BPage(0.0f, 0.0f, viewWidth, 0.7f * viewHeight);
+        BPage firstPage = new BPage(0.0f, 0.0f, viewWidth, 650/0.7f);
+        BPage secondPage = new BPage(0.0f, 0.0f, viewWidth, 650/0.7f);
+        BPage thirdPage = new BPage(0.0f, 0.0f, viewWidth, 650/0.7f);
+        BPage fourthPage = new BPage(0.0f, 0.0f, viewWidth, 650/0.7f);
+        BPage fifthPage = new BPage(0.0f, 0.0f, viewWidth, 650/0.7f);
         pageMap.put("page1",firstPage);
         pageMap.put("page2",secondPage);
         pageMap.put("page3",thirdPage);
