@@ -28,7 +28,7 @@ public class BShape {
 
     // paint for text with explicitly set textSize
     private Paint textPaint;
-    private Paint rectPaint = new Paint(Color.GRAY);
+    private Paint rectPaint;
 
     private Bitmap scaledImg;
 
@@ -127,6 +127,10 @@ public class BShape {
         textPaint.setTextSize(40.0f);
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
+
+        rectPaint = new Paint();
+        rectPaint.setStyle(Paint.Style.FILL);
+        rectPaint.setColor(Color.LTGRAY);
 
         invisibleTextPaint = new Paint();
         invisibleTextPaint.setStyle(Paint.Style.STROKE);
