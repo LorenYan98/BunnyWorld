@@ -175,6 +175,7 @@ public class BShape {
     public void scale(float width, float height){
         this.right = this.left + width;
         this.bottom = this.top + height;
+        this.shapeSize = new RectF(this.left, this.top, this.right, this.bottom);
     }
     /**
      * will set ShapeName to default shape1, shape2, ... if the name is empty, and increment shapeCount
