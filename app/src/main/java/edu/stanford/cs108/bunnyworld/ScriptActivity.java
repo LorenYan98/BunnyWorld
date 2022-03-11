@@ -702,4 +702,24 @@ public class ScriptActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void confirmEditScriptReturnToEditor(View view) {
+        String finalString = returnFinalStringByOrder();
+        Intent intent = new Intent(this, EditorActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+        BShape curShape = EditorView.getPageMap().get(currentPageTextView).getShapeMap().get(curShapeName);
+
+        if (curShape == null) {
+            // no shape selected
+            Toast.makeText(getApplicationContext(),"No shape selected. Please select a shape.\nFailed to edit/add script.",Toast.LENGTH_LONG).show();
+            startActivity(intent);
+            return;
+        }
+
+        if (curShape.getScriptString().equals("")) {
+            curShape.setScriptString(curShape.getScriptString() + finalString);
+        } else {
+            curShape.setScriptString(finalString);
+        }
+    }
 }
