@@ -39,9 +39,13 @@ public class ScriptView extends View {
 
         partialOpaquePaint = new Paint();
         partialOpaquePaint.setAlpha(64);
+
+        curBitmapDrawable = bitmapMap.get("carrot");
+
     }
 
     public void updateInC(String currentShapeImageName){
+        System.out.println("current shape name !!! " + currentShapeImageName);
         curBitmapDrawable = bitmapMap.get(currentShapeImageName);
         invalidate();
     }
@@ -61,15 +65,15 @@ public class ScriptView extends View {
         // And in fact, calculations such as the bunnyH and bunnyW above can
         // also be moved somewhere else to keep onDraw as fast as possible.
 
-        canvas.drawBitmap(curBitmapDrawable,
-                null,
-                new RectF(0,0,150,75),
-                null);
-
-        canvas.drawBitmap(curBitmapDrawable,
-                new Rect(120,250,326,418),
-                new RectF(150,0,355,148),
-                null);
+//        canvas.drawBitmap(curBitmapDrawable,
+//                null,
+//                new RectF(0,0,150,75),
+//                null);
+//
+//        canvas.drawBitmap(curBitmapDrawable,
+//                new Rect(120,250,326,418),
+//                new RectF(150,0,355,148),
+//                null);
 
         canvas.drawBitmap(curBitmapDrawable,0,200,null);
     }
