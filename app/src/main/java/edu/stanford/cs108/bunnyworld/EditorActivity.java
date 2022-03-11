@@ -461,6 +461,7 @@ public class EditorActivity extends AppCompatActivity {
             currShapeObj.put("shapeName",currShape.getShapeName());
             currShapeObj.put("script",currShape.getScriptString());
             currShapeObj.put("isEditorSelected", currShape.isEditorSelected());
+            currShapeObj.put("textSize",currShape.getTextSize());
             shapesArray.put(currShapeObj);
         }
         shapes.put("shapes",shapesArray);
@@ -504,12 +505,20 @@ public class EditorActivity extends AppCompatActivity {
         String bottom = shapeObj.getString("bottom");
         Script script = new Script(shapeObj.getString("script"));
         Boolean isEditorSelected = Boolean.parseBoolean(shapeObj.getString("isEditorSelected"));
+
         // use 0.7f to resize
         BShape shape = new BShape(text, imageName, Boolean.parseBoolean(movable), Boolean.parseBoolean(visible),
                 Float.parseFloat(left), Float.parseFloat(top), Float.parseFloat(right),
                 Float.parseFloat(bottom));
         shape.setScript(script);
         shape.setEditorSelected(isEditorSelected);
+        try{
+            if(shapeObj.getString("textSize") != null ) {
+                String textSize = shapeObj.getString("textSize");
+                shape.setTextSize(Integer.parseInt(textSize));
+            }
+        }catch (Exception err){}
+
 
         shape.setScriptString(shapeObj.getString("script"));
         shape.setShapeName(shapeName);

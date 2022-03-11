@@ -544,8 +544,12 @@ public class ScriptActivity extends AppCompatActivity {
                         if (currentShape_on_drop_2 != null && !currentShape_on_drop_2.equals("DESELECT SHAPE")) {
                             Map pageMap = EditorView.getPageMap();
                             imageName.setText(EditorView.getPageMap().get(currentPageSound_on_drop_2).getShapeMap().get(currentShape_on_drop_2).getImageName());
+                            ScriptView scriptView = (ScriptView) findViewById(R.id.script_view);
+                            scriptView.updateInC(EditorView.getPageMap().get(currentPageSound_on_drop_2).getShapeMap().get(currentShape_on_drop_2).getImageName());
                         } else {
                             imageName.setText("No shape is currently selected");
+                            ScriptView scriptView = (ScriptView) findViewById(R.id.script_view);
+                            scriptView.updateInC("nothing");
                         }
                     }
 
