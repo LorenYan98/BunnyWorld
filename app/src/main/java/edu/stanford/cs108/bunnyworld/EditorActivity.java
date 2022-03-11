@@ -192,7 +192,14 @@ public class EditorActivity extends AppCompatActivity {
             editorView.addShapeToview(newShape);
             editorView.update();
         }else{
-            Toast.makeText(getApplicationContext(),"You should switch to 'Add' Mode",Toast.LENGTH_SHORT).show();
+            if(editorView.selectedShape != null){
+                editorView.selectedShape.setMovable(moveable);
+                editorView.selectedShape.setVisible(visible);
+                if(currentText.getText().toString().length() != 0) editorView.selectedShape.setText(currentText.getText().toString());
+            }else{
+                Toast.makeText(getApplicationContext(),"You should selected a shape to edit",Toast.LENGTH_SHORT).show();
+            }
+
         }
 
     }
