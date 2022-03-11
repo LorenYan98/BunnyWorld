@@ -153,6 +153,7 @@ public class BShape {
         defaultBorderPaint.setColor(Color.GRAY);
         defaultBorderPaint.setStyle(Paint.Style.STROKE);
         defaultBorderPaint.setStrokeWidth(1.0f);
+
         try {
             if (textSize != 0) {
                 textPaint.setTextSize(textSize);

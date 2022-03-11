@@ -47,7 +47,7 @@ public class GameView extends View {
         pageMap = new HashMap<>();
         bitmapMap = new HashMap<>();
         soundMap = new HashMap<>();
-        inventory = new Inventory(0.0f, 928.0f, viewWidth, viewHeight);
+        inventory = new Inventory(0.0f, 928.0f, viewWidth, 1300);
         loadSound();
         loadBitmap();
         System.out.println("viewHeight:"+viewHeight);
