@@ -38,6 +38,10 @@ public class ScriptView extends View {
         partialOpaquePaint.setAlpha(64);
     }
 
+    public void updateInC(){
+        invalidate();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

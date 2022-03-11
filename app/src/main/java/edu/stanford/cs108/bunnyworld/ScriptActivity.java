@@ -41,6 +41,9 @@ public class ScriptActivity extends AppCompatActivity {
     private String currentPageSound;
     private String currentShape;
 
+    ScriptView scriptView = (ScriptView) findViewById(R.id.script_view);
+    scriptView.updateInC();
+
     public void setCurrentTrigger(String currentTrigger) {
         this.currentTrigger = currentTrigger;
     }
