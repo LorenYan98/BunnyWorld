@@ -19,6 +19,9 @@ public class BShape {
     private boolean selected = false;
 
     private int textSize = 0;
+
+
+
     private static int shapeCount = 1;
 
     private float left;
@@ -113,6 +116,7 @@ public class BShape {
         this.isSelected = copyShape.isSelected;
         this.imageName = copyShape.getImageName();
         this.shapeSize = copyShape.getShapeSize();
+        this.isEditorSelected = copyShape.isEditorSelected;
         init();
     }
 
@@ -350,6 +354,7 @@ public class BShape {
     public boolean isEditorSelected() { return isEditorSelected; }
 
     public void setEditorSelected(boolean editorSelected) { isEditorSelected = editorSelected; }
+    public int getTextSize() { return textSize; }
     @Override
     public String toString(){
         return "Text: " + text +" Image Name: "+ imageName + " Movable: " + movable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;
