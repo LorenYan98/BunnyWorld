@@ -113,6 +113,7 @@ public class Inventory {
     public static void drawInventory(Canvas canvas) {
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
+            curShape.setWithinInventory(true);
             curShape.draw(canvas);
             System.out.println("Invent " + curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
         }
