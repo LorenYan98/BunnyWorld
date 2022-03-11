@@ -160,6 +160,12 @@ public class GameView extends View {
                     }
                     selectedShape.move(curX-preX,curY-preY);
                     invalidate();
+                } else {
+                    if (selectedShape != null) currentPage.addShape(selectedShape);
+                    selectedShape = null;
+                    shapeIsDragging = false;
+                    shapeIsSelected = false;
+
                 }
                 preX = curX;
                 preX = curX;
