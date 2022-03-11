@@ -88,6 +88,8 @@ public class GameActivity extends AppCompatActivity {
         String[] size = pageObj.getString("size").split(" ");
         // use 0.7f to resize
         BPage page = new BPage(Float.parseFloat(size[0]) / 0.7f, Float.parseFloat(size[1]) / 0.7f, Float.parseFloat(size[2]) / 0.7f, Float.parseFloat(size[3]) / 0.7f);
+        System.out.println("top:"+Float.parseFloat(size[1]) / 0.7f);
+        System.out.println("bottom:"+Float.parseFloat(size[3]) / 0.7f);
         page.setPageName(pageName);
         JSONObject shapesObj = new JSONObject(shapes);
         JSONArray array = shapesObj.getJSONArray("shapes");

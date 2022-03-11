@@ -22,7 +22,7 @@ public class GameView extends View {
     float preX, preY, curX, curY;
     // screen size, hardcoded for the time being
     int viewWidth = 2560;
-    int viewHeight = 1512;
+    int viewHeight = 1600;
     boolean shapeIsSelected;
     boolean shapeIsDragging;
     BShape selectedShape;
@@ -47,9 +47,11 @@ public class GameView extends View {
         pageMap = new HashMap<>();
         bitmapMap = new HashMap<>();
         soundMap = new HashMap<>();
-        inventory = new Inventory(0.0f, 0.7f * viewHeight, viewWidth, viewHeight);
+        inventory = new Inventory(0.0f, 1120.0f, viewWidth, viewHeight);
         loadSound();
         loadBitmap();
+        System.out.println("viewHeight:"+viewHeight);
+        System.out.println("viewWidth:"+viewWidth);
     }
 
     private void loadBitmap() {

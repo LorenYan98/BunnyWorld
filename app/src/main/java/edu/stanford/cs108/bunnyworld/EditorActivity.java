@@ -396,13 +396,15 @@ public class EditorActivity extends AppCompatActivity {
         String queStr = "SELECT * FROM games WHERE game_name= '" + userGameName + "'";
         Cursor cursorName = db.rawQuery(queStr,null);
         if(cursorName.getCount()==0){
+            System.out.println("hit 399");
             String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
             System.out.println("userGameName: " + userGameName);
             db.execSQL(query);
             gameName.setText("");
             Toast.makeText(getApplicationContext(),"Game Saved Successfully",Toast.LENGTH_SHORT).show();
         }else{
-            String deleteQuery = "DELETE * FROM games WHERE game_name= '" + userGameName + "'";
+            System.out.println("hit 406");
+            String deleteQuery = "DELETE FROM games WHERE game_name= '" + userGameName + "'";
             db.execSQL(deleteQuery);
             String query = "INSERT INTO games VALUES " + "('" + userGameName + "', '" + currGame + "'" + ", NULL" + ")";
             db.execSQL(query);
