@@ -268,6 +268,13 @@
             android:hint="Shape Text Input"
             android:textSize="16dp" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Text Size. Default 40.0"
+            android:textSize="16dp"
+            android:inputType="number"
+            android:id="@+id/textSizeEditText"></EditText>
 
 
         <LinearLayout
