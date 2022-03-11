@@ -76,6 +76,7 @@ public class ScriptView extends View {
 //                new RectF(150,0,355,148),
 //                null);
 
-        canvas.drawBitmap(curBitmapDrawable,0,200,null);
+            canvas.drawBitmap(curBitmapDrawable,0,200,null);
+
     }
 }
