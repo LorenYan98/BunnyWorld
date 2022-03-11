@@ -73,7 +73,7 @@ public class SelectGameToEdit extends AppCompatActivity {
 
     public void resetDB(View view) {
         SingletonDB.getInstance(this).resetDB();
-        Toast.makeText(getApplicationContext(), "DB reset", Toast.LENGTH_SHORT).show();
+
         gameNames = GameActivity.loadGameNames(SingletonDB.getInstance(this));
         ArrayAdapter<String> gameNamesAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,

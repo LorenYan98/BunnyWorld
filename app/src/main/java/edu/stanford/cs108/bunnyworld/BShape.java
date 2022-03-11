@@ -198,6 +198,10 @@ public class BShape {
      * @param canvas: need to pass in the canvas
      */
     public void draw(Canvas canvas) {
+        if (textSize != 0) {
+            textPaint.setTextSize(textSize);
+        }
+
         Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
         // first check visible, if visible do not draw and returns
         if (!getVisible()) {

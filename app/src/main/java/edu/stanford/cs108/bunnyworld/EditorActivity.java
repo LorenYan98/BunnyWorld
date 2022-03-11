@@ -169,6 +169,7 @@ public class EditorActivity extends AppCompatActivity {
         CheckBox shapeMoveable = (CheckBox) findViewById(R.id.moveable);
         CheckBox shapeVisible = (CheckBox) findViewById(R.id.visible);
         EditText currentText = (EditText) findViewById(R.id.shapeTextInput);
+        EditText textSizeEditText = (EditText) findViewById(R.id.textSizeEditText);
 
         String text = ((EditText) findViewById(R.id.shapeTextInput)).getText().toString();
         int radioId = shapeRadioGroup.getCheckedRadioButtonId();
@@ -178,6 +179,11 @@ public class EditorActivity extends AppCompatActivity {
         if(radioId == R.id.addShapeRadioButton){
             if(text.length() != 0){
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,100.0f);
+                if (textSizeEditText.getText() != null &&
+                        !(textSizeEditText.getText().toString().isEmpty())) {
+                    newShape.setTextSize(Integer.parseInt(textSizeEditText.getText().toString()));
+                }
+
             }else{
                 newShape = new BShape(text,curImgName,moveable,visible,200.0f,30.0f,500.0f,350.0f);
             }
@@ -219,7 +225,33 @@ public class EditorActivity extends AppCompatActivity {
             editorView.saveCurrentState.push(new BPage(editorView.currentPage));
             EditText currentNameBox = (EditText) findViewById(R.id.renameShapeName);
             String curName = currentNameBox.getText().toString();
+
             BShape tempShape = editorView.selectedShape;
+            if (tempShape == null) {
+                // no shape is selected
+                Toast.makeText(getApplicationContext(), "Please select a shape before renaming. " +
+                        "Unable to rename.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // check the new name already exists, do not allow duplicated names
+            Map pageMap = EditorView.getPageMap();
+            // iterate through all the pageMap's map shapes
+            List shapeNames = new ArrayList<String>();
+            for (Object bPage : pageMap.values()) {
+                for (BShape bshape : ((BPage)bPage).getShapeMap().values()) {
+                    shapeNames.add(bshape.getShapeName());
+                }
+            }
+            // all the names of existing shapes are in shapeNames, if new name exists, do not allow rename
+            if (shapeNames.contains(curName)) {
+                Toast.makeText(getApplicationContext(), "Duplicate names are not allowed. " +
+                        "Unable to rename.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+
             editorView.currentPage.getShapeMap().remove(tempShape.getShapeName());
             tempShape.setShapeName(curName);
             editorView.currentPage.addShape(tempShape);

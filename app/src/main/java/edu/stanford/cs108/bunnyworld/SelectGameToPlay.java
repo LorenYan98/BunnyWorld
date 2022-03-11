@@ -52,6 +52,13 @@ public class SelectGameToPlay extends AppCompatActivity {
     }
 
     public void startSelectedGame(View view) {
+        Spinner gameNamesSpinner = (Spinner) findViewById(R.id.selectPlayGameSpinner);
+        if (gameNamesSpinner.getSelectedItem() == null) {
+            Toast.makeText(getApplicationContext(), "No game selected. Unable to start Game Player.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra("gameName", selectedGameName);
         startActivity(intent);
