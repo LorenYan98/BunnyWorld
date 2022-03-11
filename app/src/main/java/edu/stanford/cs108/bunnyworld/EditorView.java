@@ -101,7 +101,7 @@ public class EditorView extends View {
 
     public void loadPages() {
         BPage.pageCount = 1;
-        firstPage = new BPage(0.0f, 0.0f, 1785.0f, 784.0f);
+        firstPage = new BPage(0.0f, 0.0f, 1785.0f, 650.0f);
         pageMap.put(firstPage.getPageName(), firstPage);
         currentPage = firstPage;
     }
