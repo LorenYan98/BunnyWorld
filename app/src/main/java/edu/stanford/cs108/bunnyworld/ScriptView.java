@@ -70,7 +70,7 @@ public class ScriptView extends View {
 //                null,
 //                new RectF(0,0,150,75),
 //                null);
-//
+
 //        canvas.drawBitmap(curBitmapDrawable,
 //                new Rect(120,250,326,418),
 //                new RectF(150,0,355,148),
