@@ -18,7 +18,10 @@ public class BShape {
     private boolean visible = false;
     private boolean selected = false;
 
-    private int textSize = 0;
+    private int textSize = 40;
+
+
+
     private static int shapeCount = 1;
 
     private float left;
@@ -31,6 +34,7 @@ public class BShape {
     private Paint rectPaint;
 
     private Bitmap scaledImg;
+    private Bitmap tImg;
 
     // add script ivar by Shuangshan LI / Mabel Jiang
     private Script script;
@@ -113,6 +117,7 @@ public class BShape {
         this.isSelected = copyShape.isSelected;
         this.imageName = copyShape.getImageName();
         this.shapeSize = copyShape.getShapeSize();
+        this.isEditorSelected = copyShape.isEditorSelected;
         init();
     }
 
@@ -154,6 +159,7 @@ public class BShape {
             } else if (imageName.length() != 0 &&
                     EditorView.bitmapMap.containsKey(imageName)) {
                 Bitmap curImg = EditorView.bitmapMap.get(imageName);
+                tImg = curImg;
                 scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(), (int) getHeight(), true);
             }
         } catch (Exception err) {
@@ -165,6 +171,7 @@ public class BShape {
             } else if (imageName.length() != 0 &&
                     GameView.bitmapMap.containsKey(imageName)) {
                 Bitmap curImg = GameView.bitmapMap.get(imageName);
+                tImg = curImg;
                 scaledImg = Bitmap.createScaledBitmap(curImg, (int) getWidth(), (int) getHeight(), true);
             }
         } catch (Exception err) {
@@ -208,6 +215,7 @@ public class BShape {
         }
 
         Rect newshape = new Rect((int)left, (int)top, (int)right, (int)bottom);
+        Rect smallNewShape = new Rect((int)left, (int)top, (int)(left + getWidth() * 0.7), (int)(top + getHeight() * 0.7));
         // first check visible, if visible do not draw and returns
         if (!getVisible()) {
             if(isEditorSelected){
@@ -232,12 +240,23 @@ public class BShape {
         if (text.length() != 0) {
                 canvas.drawText(text, left + this.getWidth()/2, top + this.getHeight()/2, textPaint);
         } else if (imageName.length() != 0) {
+            if (isWithinInventory) {
+                if(isSelected == true){
+                    canvas.drawBitmap(tImg, null, smallNewShape, null);
+                    canvas.drawRect(smallNewShape,highlightShapePaint);
+                }else {
+                    canvas.drawBitmap(tImg, null, smallNewShape, null);
+                }
+
+            } else {
                 if(isSelected == true){
                     canvas.drawBitmap(scaledImg, null, newshape, null);
                     canvas.drawRect(newshape,highlightShapePaint);
                 }else {
                     canvas.drawBitmap(scaledImg, null, newshape, null);
                 }
+            }
+
         } else {
             canvas.drawRect(left, top, right, bottom, rectPaint);
         }
@@ -350,6 +369,7 @@ public class BShape {
     public boolean isEditorSelected() { return isEditorSelected; }
 
     public void setEditorSelected(boolean editorSelected) { isEditorSelected = editorSelected; }
+    public int getTextSize() { return textSize; }
     @Override
     public String toString(){
         return "Text: " + text +" Image Name: "+ imageName + " Movable: " + movable +" Visible: "+ visible + "Left: " + left + " Top: " + top +" Right: " + right + " Bottom:" + bottom;

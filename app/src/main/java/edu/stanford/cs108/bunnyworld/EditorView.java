@@ -301,11 +301,19 @@ public class EditorView extends View {
         TextView curShapeName =  ((Activity) getContext()).findViewById(R.id.currentShapeName);
         EditText currentName = ((Activity) getContext()).findViewById(R.id.renameShapeName);
         EditText currentText = ((Activity) getContext()).findViewById(R.id.shapeTextInput);
+        EditText fontEditor = ((Activity) getContext()).findViewById(R.id.textSizeEditText);
         if(selectedShape != null) {
+            if(selectedShape.getText().length() != 0) {
+                fontEditor.setText(Integer.toString(selectedShape.getTextSize()));
+            }else{
+                fontEditor.setText("");
+            }
             curShapeName.setText(selectedShape.getShapeName());
         }else{
+            fontEditor.setText("");
             curShapeName.setText("");
             currentName.setText("");
+
         }
         currentText.setText(currentText.getText());
     }

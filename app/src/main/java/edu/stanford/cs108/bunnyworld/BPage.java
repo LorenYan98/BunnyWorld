@@ -157,6 +157,7 @@ public class BPage {
         drawBoundary(canvas);
         for (BShape curShape : shapeMap.values()) {
             // Instead of relocate when drawing, already relocated when adding the shapes
+            curShape.setWithinInventory(false);
             curShape.draw(canvas);
 //            System.out.println("Page" + curShape.getShapeName() + " location "+ curShape.getLeft() + " " + curShape.getTop() + " " + curShape.getRight() + " " + curShape.getBottom());
         }
