@@ -37,6 +37,7 @@ public class ScriptView extends View {
         bitmapMap.put("fire", ((BitmapDrawable) getResources().getDrawable(R.drawable.fire)).getBitmap());
         bitmapMap.put("mystic", ((BitmapDrawable) getResources().getDrawable(R.drawable.mystic)).getBitmap());
         bitmapMap.put("nothing", ((BitmapDrawable) getResources().getDrawable(R.drawable.nothing)).getBitmap());
+        bitmapMap.put("door", ((BitmapDrawable) getResources().getDrawable(R.drawable.door)).getBitmap());
 
         partialOpaquePaint = new Paint();
         partialOpaquePaint.setAlpha(64);
@@ -80,7 +81,7 @@ public class ScriptView extends View {
             canvas.drawBitmap(curBitmapDrawable,0,200,null);
 
 
-        if(curBitmapDrawable != null) canvas.drawBitmap(curBitmapDrawable,0,200,null);
+      canvas.drawBitmap(curBitmapDrawable,0,200,null);
 
     }
 }
