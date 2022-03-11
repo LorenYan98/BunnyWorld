@@ -183,6 +183,7 @@ public class EditorActivity extends AppCompatActivity {
                 if (textSizeEditText.getText() != null &&
                         !(textSizeEditText.getText().toString().isEmpty())) {
                     newShape.setTextSize(Integer.parseInt(textSizeEditText.getText().toString()));
+                    textSizeEditText.setText("");
                 }
 
             }else{
@@ -196,6 +197,14 @@ public class EditorActivity extends AppCompatActivity {
             if(editorView.selectedShape != null){
                 editorView.selectedShape.setMovable(moveable);
                 editorView.selectedShape.setVisible(visible);
+
+                // get the text size if in edit mode, there's text size in textSizeEditText
+                if (textSizeEditText.getText() != null &&
+                        !(textSizeEditText.getText().toString().isEmpty())) {
+                    editorView.selectedShape.setTextSize(Integer.parseInt(textSizeEditText.getText().toString()));
+                    textSizeEditText.setText("");
+                }
+
                 if(currentText.getText().toString().length() != 0) editorView.selectedShape.setText(currentText.getText().toString());
             }else{
                 Toast.makeText(getApplicationContext(),"You should selected a shape to edit",Toast.LENGTH_SHORT).show();
