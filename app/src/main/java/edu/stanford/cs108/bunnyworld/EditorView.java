@@ -304,7 +304,12 @@ public class EditorView extends View {
         EditText fontEditor = ((Activity) getContext()).findViewById(R.id.textSizeEditText);
         if(selectedShape != null) {
             if(selectedShape.getText().length() != 0) {
-                fontEditor.setText(Integer.toString(selectedShape.getTextSize()));
+                Integer temp = selectedShape.getTextSize();
+                if(temp == 0){
+                    fontEditor.setText("40");
+                }else{
+                    fontEditor.setText(Integer.toString(temp));
+                }
             }else{
                 fontEditor.setText("");
             }
