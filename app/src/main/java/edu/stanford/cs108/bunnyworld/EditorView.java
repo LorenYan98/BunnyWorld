@@ -459,15 +459,6 @@ public class EditorView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        RadioGroup radioGroup = ((Activity) getContext()).findViewById(R.id.shapeRadioGroup);
-
-        int radioId = radioGroup.getCheckedRadioButtonId();
-//        if(radioId == R.id.editShapeRadioButton && selectedShape != null) {
-////            highlightSelectShape(canvas);
-//        }else if(radioId == R.id.addShapeRadioButton) {
-//            RectF newShape = new RectF(shapeLeft, shapeTop, shapeRight, shapeBottom);
-//            canvas.drawRect(newShape,boundaryLine);
-//        }
 
         canvas.drawLine(0, viewHeight, viewWidth, viewHeight, boundaryLine);
         canvas.drawLine(0, 0, viewWidth, 0, boundaryLine);
